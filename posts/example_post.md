@@ -1,7 +1,7 @@
 ---
-title: My First Blog Post
+title: Example Post
 date: 2025-03-07
-slug: my-first-post
+slug: test
 tags: [python, blog]
 ---
 
