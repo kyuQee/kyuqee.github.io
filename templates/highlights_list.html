@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}All Highlights{% endblock %}
+{% block content %}
+<h1>All Highlights</h1>
+<ul>
+    {% for h in highlights %}
+    <li><a href="{{ url_for('highlight', slug=h.slug) }}">{{ h.metadata.title }}</a> - {{ h.metadata.date }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

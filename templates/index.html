@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section id="highlights">
+    <h2>Highlights</h2>
+    <div class="story-circles">
+        {% for h in highlights %}
+        <a href="{{ url_for('highlight', slug=h.slug) }}" class="story-circle">
+            <div class="circle-border">
+                <div class="circle-content">
+                    {% if h.metadata.image %}
+                    <img src="{{ h.metadata.image }}" alt="{{ h.metadata.title }}">
+                    {% else %}
+                    <span>{{ h.metadata.title[0] }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <span class="circle-label">{{ h.metadata.title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+<section id="latest-posts">
+    <h2>Latest Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li><a href="{{ url_for('post', slug=post.slug) }}">{{ post.metadata.title }}</a> - {{ post.metadata.date }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}All Posts{% endblock %}
+{% block content %}
+<h1>All Posts</h1>
+<ul>
+    {% for p in posts %}
+    <li><a href="{{ url_for('post', slug=p.slug) }}">{{ p.metadata.title }}</a> - {{ p.metadata.date }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

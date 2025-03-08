@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.metadata.title }}{% endblock %}
+{% block content %}
+<article>
+    <h1>{{ post.metadata.title }}</h1>
+    <p>{{ post.metadata.date }}</p>
+    <div>{{ post.content_html | safe }}</div>
+</article>
+{% endblock %}
