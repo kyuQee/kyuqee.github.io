@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="QMvy4LUd9kqEbkLgKUPNyuYlMu0E12nfHPE_xX4zg9I" />
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
-    <title>{% block title %}{% endblock %}</title>
+    <title>Comparing differences in depthwise separable and normal convs in pytorch</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lora&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pygments.css') }}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/pygments.css">
     <!-- MathJax Configuration -->
     <script>
         MathJax = {
@@ -22,7 +21,7 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script src="/static/js/main.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -30,15 +29,21 @@
             <div class="logo">MONOQ</div>
             <div class="hamburger">☰</div>
             <div class="nav-links">
-                <a href="{{ url_for('index') }}">Home</a>
-                <a href="{{ url_for('posts') }}">Posts</a>
-                <a href="{{ url_for('highlights') }}">Highlights</a>
+                <a href="/">Home</a>
+                <a href="/posts/">Posts</a>
+                <a href="/highlights/">Highlights</a>
                 <button id="theme-toggle">Toggle Theme</button>
             </div>
         </nav>
         
         <main>
-            {% block content %}{% endblock %}
+            
+<article>
+    <h1>Comparing differences in depthwise separable and normal convs in pytorch</h1>
+    <p>2025-03-09</p>
+    <div></div>
+</article>
+
         </main>
     </div>
 </body>
