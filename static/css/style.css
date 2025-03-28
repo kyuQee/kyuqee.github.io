@@ -112,7 +112,7 @@ body {
     letter-spacing: 1px;
     margin-bottom: 2rem;
     text-align: center;
-    color: var(--accent-color);
+    color: var(--text-color);
 }
 
 /* Hide hamburger by default */
