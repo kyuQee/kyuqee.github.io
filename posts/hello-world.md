@@ -1,6 +1,6 @@
 ---
 title: Hello World
-date: 2025-03-26
+date: 2025-04-01
 slug: hello-world
 tags: [python, blog]
 ---
@@ -12,7 +12,7 @@ I'm a 16-year-old aspiring to break into CS/AI and quantitative finance, but wha
 I'm simply someone who has grown to love graphs and data, and the idea of information and analysis.
 
 # Where I'm coming from:    
-I've been coding since I was 11, though I often struggled to see projects through to completion. It wasn't for a lack of ideas- it was a lack of **discipline**. 
+I've been coding (ashamed to call it programming) since I was 11, though I often struggled to see projects through to completion. It wasn't for a lack of ideas- it was a lack of **discipline**. 
 To illustrate the challenges I faced, here are some of my past projects:
 ## Project: NoSea   
 This was an overly ambitious one for sure-
@@ -24,7 +24,7 @@ My thoughts back then went something like:
 > If we could have a lightweight, open-source, multi-platform OS (For mobile and PCs), that was the exact same on both platforms (unlike Linux, and android which is based on linux but basically completely different), it would be **"THE NEXT BIG THING"**
 
 ### Resources:  
-Although my project itself wasn't useful at all the resources I used were not.  
+Although my project itself wasn't useful at all the resources I used, were.  
 So here are some of them for reference (I can't find all of them as I deleted the repo, and the files. I wasn't logging any of my activities so I can only rely on my memory for this-).    
 
 1. [Write Your Own Operating System (Youtube)](https://www.youtube.com/playlist?list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M): Teaches most of the fundamental and gives an idea about the true complexity of it all. But it's pretty old now, still mostly how systems work- but pretty old.
@@ -36,4 +36,8 @@ So here are some of them for reference (I can't find all of them as I deleted th
 ### The Plan:
 I didn't have a solid plan at first and ended up failing about 5 or 6 times. (An OS as my first big project was a REALLY BAD idea.) But after all those mess-ups and way too much pondering when I should've been studying, I came up with something. (I'm writing this now, so it's all from memory-I might've made it a bit better by accident, but I've tried to keep the original idea, flaws included.)
 
-<img src="/static/images/NoSea-architecture.png" style="width:100%; height:auto;">
+<img src="/static/images/NoSea-architecture.png" class="invertible">  
+
+[
+    If you're seeing this- it means I couldn't meet the deadline (01/04/2025), and am too busy/lazy to finish the whole thing. I may update it in the future, but right now my current projects take priority. I hope whatever is written atleast gave you a rough idea about me.
+]

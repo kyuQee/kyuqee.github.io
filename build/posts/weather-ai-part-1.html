@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="QMvy4LUd9kqEbkLgKUPNyuYlMu0E12nfHPE_xX4zg9I" />
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+    <title>Forecasting Weather (Part 1): Ideas &amp; Looking At The Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/pygments.css">
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="/static/js/main.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="/"></a><div class="logo">MONOQ</div>
+            <div class="hamburger">☰</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/posts/">Posts</a>
+                <a href="/highlights/">Highlights</a>
+                <button id="theme-toggle">Toggle Theme</button>
+            </div>
+        </nav>
+        
+        <main>
+            
+<article>
+    <h1>Forecasting Weather (Part 1): Ideas &amp; Looking At The Data</h1>
+    <p>2025-04-08</p>
+    <div><h1>Introduction:</h1>
+<p>Ever wonder why the weather app says there's heavy rain today, while you're sitting under the burning sun? Me too.  <br />
+Apparently it's not as easy as one might imagine, what we have today is borderline magic. <br />
+But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.    </p>
+<h1>But How Does Weather Even Work?</h1>
+<p>I remember the weather related chapters used to be some of the most interesting chapters in geography, back in school. Even more so than the science classes (I'm a science student). It was one of those chapters that just made pure logical sense, without overwhelming the students with math.<br />
+To better understand the numerical observations, we must first qualitatively understand what weather patterns on Earth actually look like. This part will try to cover as much as possible in a reasonable amount of time. (excuse the use of non-technical terms, it's meant to give an idea without getting into the jargon)  </p>
+<h2>The Basic Mechanics:</h2>
+<h3>Convection:</h3>
+<p>Okay so this is typically common-knowledge, but as a refresher, <strong>hot-air is typically lighter (less dense) than cold-air</strong>. This causes hot air to rise up into the atmosphere, causing a <strong>Vertical wind current</strong>.    </p>
+<h3>Drop In Temperature with height:</h3>
+<h1>The Old Way: Crunching Numbers</h1>
+<p>Way back, predicting weather meant solving big equations-like how fluids move (Navier-Stokes, if you're nerdy). Think of it as slicing the sky into a grid and calculating what happens next. That's numerical weather prediction (NWP). Supercomputers run this for days, tweaking it with real data so it doesn't go off the rails. ERA5, my file, comes from that-past weather re-simulated with today's tech. It's a cheat sheet of what happened in 2024, and I'm using it to jumpstart my own model.</p>
+<p>But here's the catch: those equations are slow, and tiny mistakes explode fast. Chaos, right? That's why I'm not stopping there.</p>
+<h1>The New Way: AI's Turn</h1>
+<p>Then there's AI. I ran into GenCast-Google's trick from late 2024. It's this crazy model that skips the physics and learns patterns from piles of ERA5 data, spitting out 15-day forecasts in minutes. Wild. Or nowcasting-quick 0-6 hour guesses from radar pics. I'm aiming simpler: a day ahead with a neural network (CNN). Maybe I can nudge it with sparse data later, GenCast-style. It's less "solve the universe" and more "spot the trends"-faster, scrappier.</p>
+<h1>Peeking at the Data:</h1>
+<p>So after a few hours of research I stumbled upon <a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview"><strong>ERA5</strong></a>, it's probably the best historical dataset available for free. I did consider trying to get IMD data specific to India, but I guess ERA5 is good enough for a prototype. 
+The dataset on its own is probably very huge (~ few Petabytes), so I decided to get only a few months and a few timestamps worth of data from <strong>2024</strong>, i.e, <strong>Sep, Oct, Nov, Dec</strong>. And roughly <strong>4 hour</strong> intervals.<br />
+The website conviniently provides it's api guide, as well as auto-generation of the api request. <br />
+here is the code:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cdsapi</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="s2">&quot;reanalysis-era5-single-levels&quot;</span>
+<span class="n">request</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;product_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;reanalysis&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;10m_u_component_of_wind&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;10m_v_component_of_wind&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2m_temperature&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mean_sea_level_pressure&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;2024&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;09&quot;</span><span class="p">,</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="s2">&quot;11&quot;</span><span class="p">,</span> <span class="s2">&quot;12&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="s2">&quot;02&quot;</span><span class="p">,</span> <span class="s2">&quot;03&quot;</span><span class="p">,</span> <span class="s2">&quot;04&quot;</span><span class="p">,</span> <span class="s2">&quot;05&quot;</span><span class="p">,</span> <span class="s2">&quot;06&quot;</span><span class="p">,</span> <span class="s2">&quot;07&quot;</span><span class="p">,</span> <span class="s2">&quot;08&quot;</span><span class="p">,</span> <span class="s2">&quot;09&quot;</span><span class="p">,</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;11&quot;</span><span class="p">,</span> <span class="s2">&quot;12&quot;</span><span class="p">,</span> <span class="s2">&quot;13&quot;</span><span class="p">,</span> <span class="s2">&quot;14&quot;</span><span class="p">,</span> <span class="s2">&quot;15&quot;</span><span class="p">,</span> <span class="s2">&quot;16&quot;</span><span class="p">,</span> <span class="s2">&quot;17&quot;</span><span class="p">,</span> <span class="s2">&quot;18&quot;</span><span class="p">,</span> <span class="s2">&quot;19&quot;</span><span class="p">,</span> <span class="s2">&quot;20&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;21&quot;</span><span class="p">,</span> <span class="s2">&quot;22&quot;</span><span class="p">,</span> <span class="s2">&quot;23&quot;</span><span class="p">,</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;25&quot;</span><span class="p">,</span> <span class="s2">&quot;26&quot;</span><span class="p">,</span> <span class="s2">&quot;27&quot;</span><span class="p">,</span> <span class="s2">&quot;28&quot;</span><span class="p">,</span> <span class="s2">&quot;29&quot;</span><span class="p">,</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="s2">&quot;31&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;01:00&quot;</span><span class="p">,</span> <span class="s2">&quot;04:00&quot;</span><span class="p">,</span> <span class="s2">&quot;08:00&quot;</span><span class="p">,</span> <span class="s2">&quot;12:00&quot;</span><span class="p">,</span> <span class="s2">&quot;16:00&quot;</span><span class="p">,</span> <span class="s2">&quot;20:00&quot;</span><span class="p">,</span> <span class="s2">&quot;23:00&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;data_format&quot;</span><span class="p">:</span> <span class="s2">&quot;netcdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;download_format&quot;</span><span class="p">:</span> <span class="s2">&quot;unarchived&quot;</span>
+<span class="p">}</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">cdsapi</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">client</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+</code></pre></div>
+
+<p>(NOTE: apparently you're supposed to have a <code>.cdsapirc</code>, for authentication. But it's also supposed to be in <code>$HOME</code>, which makes it worse, and I spent a few hours figuring out how to have everything contained in the project folder itself (didn't work in the end))</p>
+<p>If you didn't notice it yet, this was a really bad idea, here is why:   </p>
+<ul>
+<li>I talked about weather patterns and stuff before, so it's kind of ironic, having <strong>4 consecutive months of weather data</strong> instead of spaced out ones.</li>
+<li>For our use case, we wanted to <strong>Nowcast</strong> i.e predict hourly or even more fine-grained- having our original data itself be spaced by <strong>4 hours</strong>, makes it less than ideal. We might have to either <strong>Re-download</strong> with hourly data, or <strong>interpolate locally</strong> (which seems to be a lot of work) in the future.</li>
+</ul>
+<p>A few other problems exist, but those are the major problems that I might have to tackle in the future. Now, on to the fun part.    </p>
+<p>I did some searching and came across this library called <code>cartopy</code> (<a href="https://scitools.org.uk/cartopy/docs/latest/">link</a>, <a href="https://github.com/SciTools/cartopy">github</a>), that seems to integrate seemlessly with <code>matplotlib</code>, and displays maps.</p></div>
+</article>
+
+        </main>
+    </div>
+</body>
+</html>
