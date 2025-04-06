@@ -367,3 +367,63 @@ pre:hover {
         width: 100%;
     }
 }
+
+/* Image styling */
+img {
+    border-radius: 8px; /* Matches pre border-radius for consistency */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+img:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;                /* Soft corners for a clean look */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    transition: all 0.2s ease;         /* Smooth hover effect */
+}
+
+article img:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Lift on hover */
+}
+
+/* Invertible image class */
+img.invertible {
+    transition: filter 0.2s ease;
+}
+
+body.dark-mode img.invertible {
+    filter: invert(1);
+}
+
+/* Single-line code blocks */
+/* Styling for inline <code> elements only */
+code:not(pre code) {
+    background-color: rgba(0, 0, 0, 0.438); /* Light grey background for light mode */
+    padding: 2px 6px;           /* A little padding for breathing room */
+    border-radius: 4px;         /* Rounded corners for a polished look */
+    color: var(--bg-color);     /* Matches your background for contrast */
+}
+
+/* Dark mode tweak for inline <code> elements */
+body.dark-mode code:not(pre code) {
+    background-color: rgba(255, 255, 255, 0.855); /* Whitish grey for dark mode */
+}
+
+/* Adjust main content width */
+main > * {
+    width: 100%;
+    max-width: 620px; /* Reduced from 800px to make it thinner */
+}
+
+/* Article width adjustment to match */
+article {
+    width: 100%;
+    max-width: 620px; /* Match the new thinner width */
+}
