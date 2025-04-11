@@ -88,3 +88,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all images within article tags
+    const images = document.querySelectorAll('article img');
+    
+    images.forEach(img => {
+      // Only process images that have alt text
+      if (img.alt && img.alt.trim() !== '') {
+        // Create a wrapper div if the image isn't already in one
+        let wrapper = img.parentElement;
+        if (wrapper.tagName !== 'DIV' || !wrapper.classList.contains('figure-container')) {
+          // If the image is in an anchor, wrap the anchor
+          if (wrapper.tagName === 'A') {
+            const anchor = wrapper;
+            wrapper = document.createElement('div');
+            wrapper.className = 'figure-container';
+            anchor.parentNode.insertBefore(wrapper, anchor);
+            wrapper.appendChild(anchor);
+          } else {
+            // Otherwise wrap the image directly
+            wrapper = document.createElement('div');
+            wrapper.className = 'figure-container';
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+          }
+        }
+        
+        // Clean the alt text by decoding HTML entities and normalizing spaces
+        let cleanedAlt = img.alt
+          .replace(/â€"/g, '–')  // Fix em dash
+          .replace(/â€"/g, '—')  // Fix en dash
+          .replace(/Â°/g, '°')   // Fix degree symbol
+          .replace(/â€‰/g, ' ')  // Fix thin spaces
+          .replace(/Ã—/g, '×')   // Fix multiplication symbol
+          .replace(/–/g, '-')    // Normalize dashes
+          .replace(/\s+/g, ' '); // Normalize spaces
+        
+        // Create and add the caption paragraph if it doesn't exist
+        let caption = wrapper.querySelector('.figure-caption');
+        if (!caption) {
+          caption = document.createElement('p');
+          caption.className = 'figure-caption';
+          caption.textContent = cleanedAlt;
+          wrapper.appendChild(caption);
+        }
+      }
+    });
+  });
