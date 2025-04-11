@@ -90,15 +90,15 @@ Returning Monsoons is a more Indian sub-continent specific term. When the monsoo
 
 ### El Nino and La Nina:
 
-El Nino and La Nina are phases of the **El Nino-Southern Oscillation (ENSO)**, driven by shifts in sea surface temperatures and atmospheric pressure across the tropical Pacific. These phases influence global weather patterns, notably the Indian monsoon, by altering wind and moisture flows. The **Peruvian (Humboldt) Current**, a cold ocean current off South America’s coast, plays a key role in these dynamics.
+El Nino and La Nina are phases of the **El Nino-Southern Oscillation (ENSO)**, driven by shifts in sea surface temperatures and atmospheric pressure across the tropical Pacific. These phases influence global weather patterns, notably the Indian monsoon, by altering wind and moisture flows. The **Peruvian (Humboldt) Current**, a cold ocean current off South America's coast, plays a key role in these dynamics.
 
 #### El Nino Effects
 
-During El Nino, weakened trade winds reduce the westward push of warm water, allowing it to flow back toward South America. This warms the eastern Pacific and suppresses the Peruvian Current’s cold upwelling, disrupting nutrient-rich waters. For India, this often weakens the monsoon circulation, leading to below-average rainfall and potential droughts, as the usual low-pressure system over the subcontinent loses strength.
+During El Nino, weakened trade winds reduce the westward push of warm water, allowing it to flow back toward South America. This warms the eastern Pacific and suppresses the Peruvian Current's cold upwelling, disrupting nutrient-rich waters. For India, this often weakens the monsoon circulation, leading to below-average rainfall and potential droughts, as the usual low-pressure system over the subcontinent loses strength.
 
 #### La Nina Effects
 
-In La Nina, stronger trade winds drive warm water toward Asia, intensifying the Peruvian Current’s cold upwelling along South America. This cools the eastern Pacific, enhancing atmospheric stability there. For India, La Nina strengthens monsoon winds, increasing moisture inflow from the Indian Ocean, often resulting in above-average rainfall, though excessive rain can cause flooding in vulnerable areas.
+In La Nina, stronger trade winds drive warm water toward Asia, intensifying the Peruvian Current's cold upwelling along South America. This cools the eastern Pacific, enhancing atmospheric stability there. For India, La Nina strengthens monsoon winds, increasing moisture inflow from the Indian Ocean, often resulting in above-average rainfall, though excessive rain can cause flooding in vulnerable areas.
 
 ---
 
