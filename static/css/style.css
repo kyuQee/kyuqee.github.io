@@ -416,3 +416,15 @@ body.dark-mode code:not(pre code) {
     background-color: rgba(255, 255, 255, 0.855); /* Whitish grey for dark mode */
 }
 
+/* Figure caption styling */
+.figure-caption {
+    font-size: 0.9rem;
+    color: #757575;
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+body.dark-mode .figure-caption {
+    color: #9e9e9e;
+}
