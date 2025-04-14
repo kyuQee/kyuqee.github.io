@@ -1,6 +1,6 @@
 ---
 title: "Forecasting Weather (Part 1): Ideas & Looking At The Data"
-date: 2025-04-08
+date: 2025-04-10
 slug: weather-ai-part-1
 tags: [python, blog, weather]
 ---
@@ -8,7 +8,9 @@ tags: [python, blog, weather]
 # Introduction:
 Ever wonder why the weather app says there's heavy rain today, while you're sitting under the burning sun? Me too.    
 Apparently it's not as easy as one might imagine, what we have today is borderline magic.   
-But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.    
+But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.  
+<br>
+
 ---
 
 # But How Does Weather Even Work?
@@ -21,7 +23,7 @@ Okay so this is typically common-knowledge, but as a refresher, **hot-air is typ
 
 ### Drop In Temperature with Height:
 The temperature usually drops at the **Normal lapse rate** (i.e 6.5 °C every 1km).  
-One might deem this as common sense, however, the reason is more nuanced than you might think. The atmosphere actually **cannot absorb incoming energy from the sun**, the **heat supply actually comes from the earth** (as it is radiated back into the atmosphere). The main reason has to do with **long and short waves**, but it would require a lot more context to explain. With this highly simplified line of thinking, one can easily imagine the drop in temperature as we get farther away from the surface.
+One might deem this as common sense, however, the reason is more nuanced than you might think. The atmosphere actually **cannot absorb incoming energy from the sun**, the **heat supply actually comes from the earth** (as it is radiated back into the atmosphere). The main reason has to do with **long and short waves** (terrestrial & solar radiation), but it would require a lot more context to explain. With this highly simplified line of thinking, one can easily imagine the drop in temperature as we get farther away from the surface.
 
 ### Drop In Pressure with Height:
 Again this is due to the effects of gravity on air. (treating it as a collection of particles).
@@ -102,6 +104,14 @@ In La Nina, stronger trade winds drive warm water toward Asia, intensifying the 
 
 ---
 
+# The Old Way (NWP):
+
+We will be exploring this in later posts so it is better not to cover it here.
+And honestly, the wikipedia article  [Numerical Weather Prediction](https://en.wikipedia.org/wiki/Numerical_weather_prediction) does a better job explaining this than me.
+
+<br>    
+<hr>
+
 <!-- 
 # The Old Way: Crunching Numbers
 Way back, predicting weather meant solving big equations-like how fluids move (Navier-Stokes, if you're nerdy). Think of it as slicing the sky into a grid and calculating what happens next. That's numerical weather prediction (NWP). Supercomputers run this for days, tweaking it with real data so it doesn't go off the rails. ERA5, my file, comes from that-past weather re-simulated with today's tech. It's a cheat sheet of what happened in 2024, and I'm using it to jumpstart my own model.
@@ -156,3 +166,23 @@ If you didn't notice it yet, this was a really bad idea, here is why:
 A few other problems exist, but those are the major problems that I might have to tackle in the future. Now, on to the fun part.    
 
 I did some searching and came across this library called `cartopy` ([link](https://scitools.org.uk/cartopy/docs/latest/), [github](https://github.com/SciTools/cartopy)), that seems to integrate seemlessly with `matplotlib`, and displays maps.
+
+Here are some plots:
+
+<br>
+
+<img src="/static/images/Weatherai/temp_2024-09-30T00-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T01-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T04-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T12-00.png" class="invertible">
+
+<br>
+
+
+I got some initial output but It was simply a test and I've already ran into a lot of roadblocks. I am going to have to start from scratch, add total precipitation(tp), total cloud cover (tcc) and possibly switch to GRIB next time.
+
+
+**You can read the next part [here](#)**

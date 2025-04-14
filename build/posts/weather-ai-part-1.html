@@ -45,7 +45,8 @@
     <div><h1>Introduction:</h1>
 <p>Ever wonder why the weather app says there's heavy rain today, while you're sitting under the burning sun? Me too.  <br />
 Apparently it's not as easy as one might imagine, what we have today is borderline magic. <br />
-But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.    </p>
+But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.<br />
+<br></p>
 <hr />
 <h1>But How Does Weather Even Work?</h1>
 <p>I remember the weather related chapters used to be some of the most interesting chapters in geography, back in school. Even more so than the science classes (I'm a science student). It was one of those chapters that just made pure logical sense, without overwhelming the students with math.<br />
@@ -55,7 +56,7 @@ To better understand the numerical observations, we must first qualitatively und
 <p>Okay so this is typically common-knowledge, but as a refresher, <strong>hot-air is typically lighter (less dense) than cold-air</strong>. This causes hot air to rise up into the atmosphere, causing a <strong>Vertical wind current</strong>.    </p>
 <h3>Drop In Temperature with Height:</h3>
 <p>The temperature usually drops at the <strong>Normal lapse rate</strong> (i.e 6.5 Â°C every 1km).<br />
-One might deem this as common sense, however, the reason is more nuanced than you might think. The atmosphere actually <strong>cannot absorb incoming energy from the sun</strong>, the <strong>heat supply actually comes from the earth</strong> (as it is radiated back into the atmosphere). The main reason has to do with <strong>long and short waves</strong>, but it would require a lot more context to explain. With this highly simplified line of thinking, one can easily imagine the drop in temperature as we get farther away from the surface.</p>
+One might deem this as common sense, however, the reason is more nuanced than you might think. The atmosphere actually <strong>cannot absorb incoming energy from the sun</strong>, the <strong>heat supply actually comes from the earth</strong> (as it is radiated back into the atmosphere). The main reason has to do with <strong>long and short waves</strong> (terrestrial &amp; solar radiation), but it would require a lot more context to explain. With this highly simplified line of thinking, one can easily imagine the drop in temperature as we get farther away from the surface.</p>
 <h3>Drop In Pressure with Height:</h3>
 <p>Again this is due to the effects of gravity on air. (treating it as a collection of particles).</p>
 <h3>Pressure Differences Drive Wind:</h3>
@@ -95,12 +96,18 @@ Rain shadow looks something like this:  </p>
 <p><br></p>
 <p>Returning Monsoons is a more Indian sub-continent specific term. When the monsoon hit the <strong>himalayas</strong>, they are <strong>blocked</strong> and unable to pass (again excuse the use of non-technical and inaccurate language), and as the sun slowly moves downward the pressure belts start shifting, and the <strong>low pressure zone over the northern plains gets depleted</strong>. This causes the monsoon winds to <strong>blow backwards</strong> making it seem like they are "retreating".</p>
 <h3>El Nino and La Nina:</h3>
-<p>El Nino and La Nina are phases of the <strong>El Nino-Southern Oscillation (ENSO)</strong>, driven by shifts in sea surface temperatures and atmospheric pressure across the tropical Pacific. These phases influence global weather patterns, notably the Indian monsoon, by altering wind and moisture flows. The <strong>Peruvian (Humboldt) Current</strong>, a cold ocean current off South Americaâ€™s coast, plays a key role in these dynamics.</p>
+<p>El Nino and La Nina are phases of the <strong>El Nino-Southern Oscillation (ENSO)</strong>, driven by shifts in sea surface temperatures and atmospheric pressure across the tropical Pacific. These phases influence global weather patterns, notably the Indian monsoon, by altering wind and moisture flows. The <strong>Peruvian (Humboldt) Current</strong>, a cold ocean current off South America's coast, plays a key role in these dynamics.</p>
 <h4>El Nino Effects</h4>
-<p>During El Nino, weakened trade winds reduce the westward push of warm water, allowing it to flow back toward South America. This warms the eastern Pacific and suppresses the Peruvian Currentâ€™s cold upwelling, disrupting nutrient-rich waters. For India, this often weakens the monsoon circulation, leading to below-average rainfall and potential droughts, as the usual low-pressure system over the subcontinent loses strength.</p>
+<p>During El Nino, weakened trade winds reduce the westward push of warm water, allowing it to flow back toward South America. This warms the eastern Pacific and suppresses the Peruvian Current's cold upwelling, disrupting nutrient-rich waters. For India, this often weakens the monsoon circulation, leading to below-average rainfall and potential droughts, as the usual low-pressure system over the subcontinent loses strength.</p>
 <h4>La Nina Effects</h4>
-<p>In La Nina, stronger trade winds drive warm water toward Asia, intensifying the Peruvian Currentâ€™s cold upwelling along South America. This cools the eastern Pacific, enhancing atmospheric stability there. For India, La Nina strengthens monsoon winds, increasing moisture inflow from the Indian Ocean, often resulting in above-average rainfall, though excessive rain can cause flooding in vulnerable areas.</p>
+<p>In La Nina, stronger trade winds drive warm water toward Asia, intensifying the Peruvian Current's cold upwelling along South America. This cools the eastern Pacific, enhancing atmospheric stability there. For India, La Nina strengthens monsoon winds, increasing moisture inflow from the Indian Ocean, often resulting in above-average rainfall, though excessive rain can cause flooding in vulnerable areas.</p>
 <hr />
+<h1>The Old Way (NWP):</h1>
+<p>We will be exploring this in later posts so it is better not to cover it here.
+And honestly, the wikipedia article  <a href="https://en.wikipedia.org/wiki/Numerical_weather_prediction">Numerical Weather Prediction</a> does a better job explaining this than me.</p>
+<p><br>    </p>
+<hr>
+
 <!-- 
 # The Old Way: Crunching Numbers
 Way back, predicting weather meant solving big equations-like how fluids move (Navier-Stokes, if you're nerdy). Think of it as slicing the sky into a grid and calculating what happens next. That's numerical weather prediction (NWP). Supercomputers run this for days, tweaking it with real data so it doesn't go off the rails. ERA5, my file, comes from that-past weather re-simulated with today's tech. It's a cheat sheet of what happened in 2024, and I'm using it to jumpstart my own model.
@@ -147,7 +154,19 @@ here is the code:</p>
 <li>For our use case, we wanted to <strong>Nowcast</strong> i.e predict hourly or even more fine-grained- having our original data itself be spaced by <strong>4 hours</strong>, makes it less than ideal. We might have to either <strong>Re-download</strong> with hourly data, or <strong>interpolate locally</strong> (which seems to be a lot of work) in the future.</li>
 </ul>
 <p>A few other problems exist, but those are the major problems that I might have to tackle in the future. Now, on to the fun part.    </p>
-<p>I did some searching and came across this library called <code>cartopy</code> (<a href="https://scitools.org.uk/cartopy/docs/latest/">link</a>, <a href="https://github.com/SciTools/cartopy">github</a>), that seems to integrate seemlessly with <code>matplotlib</code>, and displays maps.</p></div>
+<p>I did some searching and came across this library called <code>cartopy</code> (<a href="https://scitools.org.uk/cartopy/docs/latest/">link</a>, <a href="https://github.com/SciTools/cartopy">github</a>), that seems to integrate seemlessly with <code>matplotlib</code>, and displays maps.</p>
+<p>Here are some plots:</p>
+<p><br></p>
+<p><img src="/static/images/Weatherai/temp_2024-09-30T00-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T01-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T04-00.png" class="invertible">
+<br>
+<img src="/static/images/Weatherai/temp_2024-09-30T12-00.png" class="invertible"></p>
+<p><br></p>
+<p>I got some initial output but It was simply a test and I've already ran into a lot of roadblocks. I am going to have to start from scratch, add total precipitation(tp), total cloud cover (tcc) and possibly switch to GRIB next time.</p>
+<p><strong>You can read the next part <a href="#">here</a></strong></p></div>
 </article>
 
         </main>
