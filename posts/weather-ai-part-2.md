@@ -70,7 +70,7 @@ I didn't know the structure of the data I was using, so it was quite the headach
 
 (NOTE: the next part is before I switched to GRIB)
 
-So excited to try out the new dataset I did:
+So excited to try out the new dataset, I did:
 
 ```python
 
@@ -219,7 +219,7 @@ File src\\netCDF4\\_netCDF4.pyx:2158, in netCDF4._netCDF4._ensure_nc_success()
 
 I should be crying (did) but I thought "maybe the download got corrupted". So I tried about thrice just to make sure... But that wasn't it. 
 
-So the thing is- **This did not happen with the original test dataset**. Which troubled me to no end. So I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Percipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
+So the thing is- **This did not happen with the original test dataset**. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Percipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
   
 Then I noticed that the ERA5 website says that the NetCDF version is "experimental". So I switched over to the **GRIB** format. 
 Quite conviniently a library called `cfgrib` is available, and also works with xarray.
@@ -238,7 +238,7 @@ grib_ds = xr.open_dataset("era5_july2024_global_hourly.grib", engine="cfgrib")
 grib_ds
 ```
 
-It did work, But more importantly it showed something really insightful:
+It didn't work, But more importantly it showed something really insightful:
 
 <div class="error-block">
 <details>
@@ -246,9 +246,9 @@ It did work, But more importantly it showed something really insightful:
 <pre>
 skipping variable: paramId==228 shortName='tp'
 Traceback (most recent call last):
-  File "c:\Users\bijay\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 725, in build_dataset_components
+  File "c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 725, in build_dataset_components
     dict_merge(variables, coord_vars)
-  File "c:\Users\bijay\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 641, in dict_merge
+  File "c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 641, in dict_merge
     raise DatasetBuildError(
 cfgrib.dataset.DatasetBuildError: key present and new value is different: key='time' value=Variable(dimensions=('time',), data=array([1719792000, 1719795600, 1719799200, 1719802800, 1719806400,
        1719810000, 1719813600, 1719817200, 1719820800, 1719824400,
