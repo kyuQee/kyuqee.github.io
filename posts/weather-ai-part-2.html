@@ -95,7 +95,7 @@ I also switched to <strong>GRIB</strong> instead of <strong>NetCDF</strong>, the
 <h1>Problem 1: Heterogenous Data</h1>
 <p>I didn't know the structure of the data I was using, so it was quite the headache to figure stuff out. I did come across this website: <a href="https://codes.ecmwf.int/grib/param-db/">ECMWF Parameter Database</a>. But It was already too late. </p>
 <p>(NOTE: the next part is before I switched to GRIB)</p>
-<p>So excited to try out the new dataset I did:</p>
+<p>So excited to try out the new dataset, I did:</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
 <span class="c1"># Load the NetCDF file</span>
@@ -238,7 +238,7 @@ File src\\netCDF4\\_netCDF4.pyx:2158, in netCDF4._netCDF4._ensure_nc_success()
 </div>
 
 <p>I should be crying (did) but I thought "maybe the download got corrupted". So I tried about thrice just to make sure... But that wasn't it. </p>
-<p>So the thing is- <strong>This did not happen with the original test dataset</strong>. Which troubled me to no end. So I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to <strong>Total Percipitation (tp)</strong>. (This did take a lot of time as the datasets weren't small ~19GB).</p>
+<p>So the thing is- <strong>This did not happen with the original test dataset</strong>. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to <strong>Total Percipitation (tp)</strong>. (This did take a lot of time as the datasets weren't small ~19GB).</p>
 <p>Then I noticed that the ERA5 website says that the NetCDF version is "experimental". So I switched over to the <strong>GRIB</strong> format. 
 Quite conviniently a library called <code>cfgrib</code> is available, and also works with xarray.</p>
 <p>So I tried again with the GRIB version:   </p>
@@ -253,16 +253,16 @@ Quite conviniently a library called <code>cfgrib</code> is available, and also w
 <span class="n">grib_ds</span>
 </code></pre></div>
 
-<p>It did work, But more importantly it showed something really insightful:</p>
+<p>It didn't work, But more importantly it showed something really insightful:</p>
 <div class="error-block">
 <details>
 <summary>Skipping variable: paramId==228 shortName='tp'</summary>
 <pre>
 skipping variable: paramId==228 shortName='tp'
 Traceback (most recent call last):
-  File "c:\Users\bijay\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 725, in build_dataset_components
+  File "c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 725, in build_dataset_components
     dict_merge(variables, coord_vars)
-  File "c:\Users\bijay\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 641, in dict_merge
+  File "c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py", line 641, in dict_merge
     raise DatasetBuildError(
 cfgrib.dataset.DatasetBuildError: key present and new value is different: key='time' value=Variable(dimensions=('time',), data=array([1719792000, 1719795600, 1719799200, 1719802800, 1719806400,
        1719810000, 1719813600, 1719817200, 1719820800, 1719824400,
