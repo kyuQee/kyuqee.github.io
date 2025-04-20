@@ -435,3 +435,45 @@ hr {
 body.dark-mode hr{
     border: #232323 solid 1px;
 }
+
+
+/* Error Block Container */
+.error-block {
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.error-block:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Collapsible Details Styling */
+details {
+    margin: 1rem 0;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--code-error); /* Uses your error color: #f44747 (light) or #f48771 (dark) */
+    padding: 0.5rem;
+}
+
+details[open] summary {
+    border-bottom: 1px solid var(--code-border);
+    margin-bottom: 0.5rem;
+}
+
+/* Error Message Content */
+.error-block pre {
+    margin: 0;
+    background-color: transparent; /* Avoid double background */
+    border: none; /* Remove border since .error-block handles it */
+    box-shadow: none; /* Remove shadow since .error-block handles it */
+    color: var(--code-text);
+}

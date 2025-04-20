@@ -185,4 +185,4 @@ Here are some plots:
 I got some initial output but It was simply a test and I've already ran into a lot of roadblocks. I am going to have to start from scratch, add total precipitation(tp), total cloud cover (tcc) and possibly switch to GRIB next time. Also have to look at the official docs, and make a project spec. See you next time.
 
 
-**You can read the next part [here (in progress)](#)**
+**You can read the next part [here](weather-ai-part-2.html)**
