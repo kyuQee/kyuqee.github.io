@@ -1,4 +1,8 @@
-/* CSS Variables for Theming */
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+/* Theme Variables */
 :root {
     --bg-color: #ffffff;
     --text-color: #333333;
@@ -8,8 +12,8 @@
     --font-family: 'Open Sans', sans-serif;
     --navbar-width: 180px;
     --highlight-border: #333333;
-    
-    /* Code block theming - Light Mode */
+
+    /* Code Block Theming - Light Mode */
     --code-bg: #f8f8f8;
     --code-border: #eaeaea;
     --code-text: #383a42;
@@ -43,8 +47,8 @@ body.dark-mode {
     --nav-bg: #000000;
     --accent-color: #e9e9e9;
     --highlight-border: #e0e0e0;
-    
-    /* Code block theming - Dark Mode */
+
+    /* Code Block Theming - Dark Mode */
     --code-bg: #1e1e1e;
     --code-border: #2d2d2d;
     --code-text: #d4d4d4;
@@ -71,7 +75,10 @@ body.dark-mode {
     --code-linenum-special-bg: #2d2d2d;
 }
 
-/* Base Styles */
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -87,77 +94,6 @@ body {
     position: relative;
 }
 
-/* Desktop Navbar (fixed left) */
-.navbar {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--nav-bg);
-    padding: 1rem;
-    width: var(--navbar-width);
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
-
-/* Logo at top of navbar */
-.navbar .logo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: var(--text-color);
-}
-
-/* Hide hamburger by default */
-.hamburger {
-    display: none;
-    cursor: pointer;
-}
-
-/* Navigation links container */
-.nav-links {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Standard link styling */
-.navbar a {
-    display: block;
-    margin-bottom: 1rem;
-    color: var(--link-color);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.navbar a:hover {
-    text-decoration: none;
-    color: var(--accent-color);
-}
-
-/* Theme toggle button */
-button#theme-toggle {
-    background-color: var(--accent-color);
-    color: var(--nav-bg);
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 1rem;
-    align-self: flex-start;
-}
-
-button#theme-toggle:hover {
-    opacity: 0.9;
-}
-
-/* Main content layout */
 main {
     flex: 1;
     padding: 2rem;
@@ -169,13 +105,11 @@ main {
     align-items: center;
 }
 
-/* Content wrapper to control width */
 main > * {
     width: 100%;
-    max-width: 620px; /* Reduced from 800px to make it thinner */
+    max-width: 620px;
 }
 
-/* Typography */
 h1, h2, h3 {
     font-family: 'Lora', serif;
     color: var(--text-color);
@@ -190,7 +124,115 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Posts Section */
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--nav-bg);
+    padding: 1rem;
+    width: var(--navbar-width);
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 300px; /* Increased for better mobile dropdown height */
+    padding: 1.5rem 1rem;
+}
+
+.main-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    margin-bottom: 0.75rem;
+}
+
+.main-nav a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--accent-color);
+}
+
+.social-links {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.social-links a {
+    display: inline-block;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.2s ease;
+}
+
+.social-icon:hover {
+    opacity: 0.8;
+}
+
+#theme-toggle {
+    background-color: var(--accent-color);
+    color: var(--nav-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 1rem;
+    align-self: center;
+    white-space: nowrap; /* Ensures single line */
+    min-width: 120px; /* Prevents double line */
+}
+
+#theme-toggle:hover {
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
 #latest-posts, #highlights {
     margin-bottom: 2rem;
     width: 100%;
@@ -211,7 +253,6 @@ a:hover {
     font-weight: bold;
 }
 
-/* Story Circles for Highlights */
 .story-circles {
     display: flex;
     overflow-x: auto;
@@ -275,7 +316,6 @@ a:hover {
     text-overflow: ellipsis;
 }
 
-/* Search input */
 .search input {
     width: 100%;
     padding: 0.5rem;
@@ -284,13 +324,11 @@ a:hover {
     margin-bottom: 1rem;
 }
 
-/* Article styling for post content */
 article {
     width: 100%;
-    max-width: 620px; /* Match the new thinner width */
+    max-width: 620px;
 }
 
-/* Enhanced Code blocks - overrides generic styles */
 pre {
     border-radius: 8px;
     background-color: var(--code-bg);
@@ -303,74 +341,8 @@ pre:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Mobile Responsive Design */
-@media (max-width: 768px) {
-    :root {
-        --navbar-width: 0px;
-    }
-    
-    /* Switch navbar to top-fixed */
-    .navbar {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: auto;
-        padding: 0.75rem 1rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translateY(0);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    /* When scrolling down, hide the navbar */
-    .navbar.hidden {
-        transform: translateY(-100%);
-    }
-    
-    /* Logo remains on the left */
-    .navbar .logo {
-        margin: 0;
-        font-size: 1.25rem;
-    }
-    
-    /* Show hamburger icon */
-    .hamburger {
-        display: block;
-        font-size: 1.5rem;
-    }
-    
-    /* Nav links: hidden by default */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--nav-bg);
-        padding: 1rem;
-        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
-        z-index: 1000;
-    }
-    
-    /* Show nav links when navbar has 'active' class */
-    .navbar.active .nav-links {
-        display: flex;
-    }
-    
-    /* Adjust main content */
-    main {
-        margin-left: 0;
-        padding-top: 70px; /* Space for the top navbar */
-        width: 100%;
-    }
-}
-
-/* Image styling */
 img {
-    border-radius: 8px; /* Matches pre border-radius for consistency */
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
@@ -384,16 +356,11 @@ article img {
     height: auto;
     display: block;
     margin: 0 auto;
-    border-radius: 8px;                /* Soft corners for a clean look */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-    transition: all 0.2s ease;         /* Smooth hover effect */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
 }
 
-article img:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Lift on hover */
-}
-
-/* Invertible image class */
 img.invertible {
     transition: filter 0.2s ease;
 }
@@ -402,21 +369,17 @@ body.dark-mode img.invertible {
     filter: invert(1);
 }
 
-/* Single-line code blocks */
-/* Styling for inline <code> elements only */
 code:not(pre code) {
-    background-color: rgba(0, 0, 0, 0.438); /* Light grey background for light mode */
-    padding: 2px 6px;           /* A little padding for breathing room */
-    border-radius: 4px;         /* Rounded corners for a polished look */
-    color: var(--bg-color);     /* Matches your background for contrast */
+    background-color: rgba(0, 0, 0, 0.438);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--bg-color);
 }
 
-/* Dark mode tweak for inline <code> elements */
 body.dark-mode code:not(pre code) {
-    background-color: rgba(255, 255, 255, 0.855); /* Whitish grey for dark mode */
+    background-color: rgba(255, 255, 255, 0.855);
 }
 
-/* Figure caption styling */
 .figure-caption {
     font-size: 0.9rem;
     color: #757575;
@@ -432,12 +395,11 @@ body.dark-mode .figure-caption {
 hr {
     border: #e8e8e8 solid 1px;
 }
-body.dark-mode hr{
+
+body.dark-mode hr {
     border: #232323 solid 1px;
 }
 
-
-/* Error Block Container */
 .error-block {
     background-color: var(--code-bg);
     border: 1px solid var(--code-border);
@@ -452,15 +414,21 @@ body.dark-mode hr{
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Collapsible Details Styling */
 details {
     margin: 1rem 0;
 }
 
-summary {
+.error-block summary {
     cursor: pointer;
     font-weight: bold;
-    color: var(--code-error); /* Uses your error color: #f44747 (light) or #f48771 (dark) */
+    color: var(--code-error);
+    padding: 0.5rem;
+}
+
+.output-block summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--code-text);
     padding: 0.5rem;
 }
 
@@ -469,11 +437,86 @@ details[open] summary {
     margin-bottom: 0.5rem;
 }
 
-/* Error Message Content */
 .error-block pre {
     margin: 0;
-    background-color: transparent; /* Avoid double background */
-    border: none; /* Remove border since .error-block handles it */
-    box-shadow: none; /* Remove shadow since .error-block handles it */
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
     color: var(--code-text);
+}
+
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    :root {
+        --navbar-width: 0;
+    }
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        padding: 0.75rem 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.hidden {
+        transform: translateY(-100%);
+    }
+
+    .logo {
+        margin: 0;
+        font-size: 1.25rem;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-content {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--nav-bg);
+        padding: 1.5rem;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .navbar.active .nav-content {
+        display: flex;
+    }
+
+    .main-nav {
+        margin-bottom: 1rem;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    #theme-toggle {
+        align-self: center;
+    }
+
+    main {
+        margin-left: 0;
+        padding-top: 70px;
+        width: 100%;
+    }
 }

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="QMvy4LUd9kqEbkLgKUPNyuYlMu0E12nfHPE_xX4zg9I" />
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
     <title>Hello World</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lora&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -12,13 +11,8 @@
     <!-- MathJax Configuration -->
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -27,16 +21,26 @@
 <body>
     <div class="container">
         <nav class="navbar">
-            <a href="/"></a><div class="logo">MONOQ</div>
+            <a href="/" class="logo">MONOQ</a>
             <div class="hamburger">☰</div>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/posts/">Posts</a>
-                <a href="/highlights/">Highlights</a>
+            <div class="nav-content">
+                <ul class="main-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/posts/">Posts</a></li>
+                    <li><a href="/highlights/">Highlights</a></li>
+                    <li><a href="/about/">About Me</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://github.com/kyuqee" target="_blank">
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="social-icon invertible">
+                    </a>
+                    <a href="mailto:kyuqeg@gmail.com">
+                        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" class="social-icon invertible">
+                    </a>
+                </div>
                 <button id="theme-toggle">Toggle Theme</button>
             </div>
         </nav>
-        
         <main>
             
 <article>
