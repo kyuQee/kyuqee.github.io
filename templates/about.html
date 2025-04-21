@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}{{ about.metadata.title }}{% endblock %}
+{% block content %}
+<article>
+    <h1>{{ about.metadata.title }}</h1>
+    <p>{{ about.metadata.date }}</p>
+    <div>{{ about.content_html | safe }}</div>
+</article>
+{% endblock %}

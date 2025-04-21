@@ -29,6 +29,7 @@ def load_posts(directory):
 
 POSTS = load_posts('posts')
 HIGHLIGHTS = load_posts('highlights')
+ABOUT = load_posts('about')
 
 # Route for the homepage
 @app.route('/', endpoint='index')
@@ -61,6 +62,12 @@ def highlight(slug):
     if highlight:
         return render_template('post.html', post=highlight)  # Reuse post.html
     return "Highlight not found", 404
+
+@app.route('/about/', endpoint='about')
+def about():
+    about_content = ABOUT[0] if ABOUT else None
+    if about_content:
+        return render_template('about.html', about=about_content)
 
 # Route for search.json
 @app.route('/search.json', endpoint='search_json')
