@@ -2618,6 +2618,25 @@ Also the next part was done over a lot of trial and error, and in retrospect has
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div>
 
+<p>And finally some plots:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helpers.plotter</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">plot_tp</span><span class="p">(</span><span class="n">ds2</span><span class="p">,</span> <span class="s2">&quot;2024-07-02T18:00:00&quot;</span><span class="p">,</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">step</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plot_tp</span><span class="p">(</span><span class="n">ds2</span><span class="p">,</span> <span class="s2">&quot;2024-07-02T18:00:00&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><br></p>
+<p><img src="/static/images/Weatherai/wai-2-tp-2024-07-02T18.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tp-2024-07-02T18-global.png" class="invertible"></p>
+<p><br></p>
+<p>Yeah the global one isn't the best.</p>
+<p>Anyways we can do the same for <strong>t2m</strong> and <strong>tcc</strong>, just removing the step functionality.</p>
+<p>Here are some plots I got:</p>
+<p><br>
+<img src="/static/images/Weatherai/wai-2-t2m-1.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-t2m-2.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tcc-1.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tcc-2.png" class="invertible"></p>
 <h1>Problem 2: Too Big GRIB No Work.</h1>
 <p>[I still haven't tackled this problem, but it's more of just chunking the dataset, and i'm gonna figure that out later while dataloading anyways]</p></div>
 </article>
