@@ -2642,6 +2642,35 @@ def plot_tp(
     plt.show()
     return fig
 ```
+And finally some plots:
+
+```python
+from helpers.plotter import *
+
+plot_tp(ds2, "2024-07-02T18:00:00", lat_range=(5.0, 40.0), lon_range=(60, 100), step=0)
+plot_tp(ds2, "2024-07-02T18:00:00")
+```
+
+<br>
+
+<img src="/static/images/Weatherai/wai-2-tp-2024-07-02T18.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tp-2024-07-02T18-global.png" class="invertible">
+
+
+<br>
+
+Yeah the global one isn't the best.
+
+Anyways we can do the same for **t2m** and **tcc**, just removing the step functionality.
+
+Here are some plots I got:
+
+<br>
+<img src="/static/images/Weatherai/wai-2-t2m-1.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-t2m-2.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tcc-1.png" class="invertible">
+<img src="/static/images/Weatherai/wai-2-tcc-2.png" class="invertible">
+
 
 
 # Problem 2: Too Big GRIB No Work.
