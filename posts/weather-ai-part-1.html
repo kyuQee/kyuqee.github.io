@@ -61,29 +61,69 @@
 <article>
     <h1>Forecasting Weather (Part 1): Ideas &amp; Looking At The Data</h1>
     <p>2025-04-10</p>
-    <div><h1>Introduction:</h1>
+    <br>
+
+    
+    <div class="toc-wrapper">
+        <h2>Table of Contents</h2>
+        <div class="toc">
+            <div class="toc">
+<ul>
+<li><a href="#introduction">Introduction:</a></li>
+<li><a href="#but-how-does-weather-even-work">But How Does Weather Even Work?</a><ul>
+<li><a href="#the-basic-mechanics">The Basic Mechanics:</a><ul>
+<li><a href="#convection">Convection:</a></li>
+<li><a href="#drop-in-temperature-with-height">Drop In Temperature with Height:</a></li>
+<li><a href="#drop-in-pressure-with-height">Drop In Pressure with Height:</a></li>
+<li><a href="#pressure-differences-drive-wind">Pressure Differences Drive Wind:</a></li>
+<li><a href="#water-heatscools-faster-than-land">Water Heats/Cools Faster than Land:</a></li>
+</ul>
+</li>
+<li><a href="#advanced-mechanics">Advanced Mechanics:</a><ul>
+<li><a href="#the-pressure-belts">The Pressure Belts:</a></li>
+<li><a href="#ocean-currents">Ocean Currents:</a></li>
+<li><a href="#rain-shadow-returning-monsoons">Rain Shadow &amp; Returning Monsoons:</a></li>
+<li><a href="#el-nino-and-la-nina">El Nino and La Nina:</a><ul>
+<li><a href="#el-nino-effects">El Nino Effects</a></li>
+<li><a href="#la-nina-effects">La Nina Effects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#the-old-way-nwp">The Old Way (NWP):</a></li>
+<li><a href="#peeking-at-the-data">Peeking at the Data:</a></li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    
+    <br>
+    <div><h1 id="introduction">Introduction:</h1>
 <p>Ever wonder why the weather app says there's heavy rain today, while you're sitting under the burning sun? Me too.  <br />
 Apparently it's not as easy as one might imagine, what we have today is borderline magic. <br />
 But still curiosity got the better of me, so I decided to start this project, to uncover what makes it so challenging and maybe learn something along the way.<br />
 <br></p>
 <hr />
-<h1>But How Does Weather Even Work?</h1>
+<h1 id="but-how-does-weather-even-work">But How Does Weather Even Work?</h1>
 <p>I remember the weather related chapters used to be some of the most interesting chapters in geography, back in school. Even more so than the science classes (I'm a science student). It was one of those chapters that just made pure logical sense, without overwhelming the students with math.<br />
 To better understand the numerical observations, we must first qualitatively understand what weather patterns on Earth actually look like. This part will try to cover as much as possible in a reasonable amount of time. (excuse the use of non-technical terms, it's meant to give an idea without getting into the jargon)  </p>
-<h2>The Basic Mechanics:</h2>
-<h3>Convection:</h3>
+<h2 id="the-basic-mechanics">The Basic Mechanics:</h2>
+<h3 id="convection">Convection:</h3>
 <p>Okay so this is typically common-knowledge, but as a refresher, <strong>hot-air is typically lighter (less dense) than cold-air</strong>. This causes hot air to rise up into the atmosphere, causing a <strong>Vertical wind current</strong>.    </p>
-<h3>Drop In Temperature with Height:</h3>
+<h3 id="drop-in-temperature-with-height">Drop In Temperature with Height:</h3>
 <p>The temperature usually drops at the <strong>Normal lapse rate</strong> (i.e 6.5 °C every 1km).<br />
 One might deem this as common sense, however, the reason is more nuanced than you might think. The atmosphere actually <strong>cannot absorb incoming energy from the sun</strong>, the <strong>heat supply actually comes from the earth</strong> (as it is radiated back into the atmosphere). The main reason has to do with <strong>long and short waves</strong> (terrestrial &amp; solar radiation), but it would require a lot more context to explain. With this highly simplified line of thinking, one can easily imagine the drop in temperature as we get farther away from the surface.</p>
-<h3>Drop In Pressure with Height:</h3>
+<h3 id="drop-in-pressure-with-height">Drop In Pressure with Height:</h3>
 <p>Again this is due to the effects of gravity on air. (treating it as a collection of particles).</p>
-<h3>Pressure Differences Drive Wind:</h3>
+<h3 id="pressure-differences-drive-wind">Pressure Differences Drive Wind:</h3>
 <p>Air always moves from <strong>high pressure to low pressure</strong>. Now this pressure difference may be caused in a number of ways, like, <strong>temperature differences</strong> causing hot air to rise, and leaving behind an area of low pressure, or <strong>high relative humidity</strong>, etc.</p>
-<h3>Water Heats/Cools Faster than Land:</h3>
+<h3 id="water-heatscools-faster-than-land">Water Heats/Cools Faster than Land:</h3>
 <p>This gives rise to daily effects like, <strong>land breeze &amp; sea breeze</strong> (due to temperature differences), as well as yearly effects as we will see ahead.</p>
-<h2>Advanced Mechanics:</h2>
-<h3>The Pressure Belts:</h3>
+<h2 id="advanced-mechanics">Advanced Mechanics:</h2>
+<h3 id="the-pressure-belts">The Pressure Belts:</h3>
 <p>There are four kinds of pressure belts on earth:    </p>
 <ol>
 <li>Equitorial <strong>LOW</strong> pressure belt (ITCZ).</li>
@@ -93,17 +133,17 @@ One might deem this as common sense, however, the reason is more nuanced than yo
 </ol>
 <p>This image explains it much better than words can:  </p>
 <p><br></p>
-<p><a href="https://www.researchgate.net/figure/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous_fig3_273949389"><img src="https://www.researchgate.net/profile/Mesut-Demircan/publication/273949389/figure/fig3/AS:669379721187338@1536603970467/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous.ppm" alt="An imaginary uniform Earth with idealized zonal (continuous) pressure belts."/></a></p>
+<p><a href="https://www.researchgate.net/figure/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous_fig3_273949389"><img src="https://www.researchgate.net/profile/Mesut-Demircan/publication/273949389/figure/fig3/AS:669379721187338@1536603970467/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous.ppm" alt="An imaginary uniform Earth with idealized zonal (continuous) pressure belts." class="invertible"/></a></p>
 <p><br></p>
 <p>In essence however, hot air rises at the equator, and cold air descends at the tropics. Same for subpolar and polar, however this time its more to do with the rotation of the earth driving it. (Explaining the whole mechanism will take too much time for a refresher).<br />
 I would also like to bring your attention to the names of these winds, and their direction, it will be important later.</p>
-<h3>Ocean Currents:</h3>
+<h3 id="ocean-currents">Ocean Currents:</h3>
 <p>There are many so look at this figure instead:</p>
 <p><br></p>
 <p><a href="https://www.researchgate.net/figure/The-major-ocean-currents-the-red-arrows-illustrate-warm-water-currents-and-the-blue-are_fig2_264880631"><img src="https://www.researchgate.net/profile/Karin-Thomas/publication/264880631/figure/fig2/AS:295907590459392@1447561275071/The-major-ocean-currents-the-red-arrows-illustrate-warm-water-currents-and-the-blue-are.png" alt="The major ocean currents, the red arrows illustrate warm water currents and the blue are cold water currents."/></a></p>
 <p><br></p>
 <p>Especially pay attention to the <strong>Peruvian current</strong>. It is infact not a permanent current, it's appearance marks El Nino which will be explored ahead.</p>
-<h3>Rain Shadow &amp; Returning Monsoons:</h3>
+<h3 id="rain-shadow-returning-monsoons">Rain Shadow &amp; Returning Monsoons:</h3>
 <p>Topological protrusions like mountains can cause significant changes to the local weather. It may block the incoming rain and cause heavy precipitation on the <strong>Windward side</strong>, leaving the other side in <strong>Rain shadow</strong>. 
 Rain shadow looks something like this:  </p>
 <p><br></p>
@@ -114,14 +154,14 @@ Rain shadow looks something like this:  </p>
 <p><a href="https://www.researchgate.net/figure/a-Topography-map-and-location-of-the-measurement-sites-in-the-rain-shadow-region-of-the_fig1_374810410"><img src="https://www.researchgate.net/publication/374810410/figure/fig1/AS:11431281292089982@1732416879462/a-Topography-map-and-location-of-the-measurement-sites-in-the-rain-shadow-region-of-the.png" alt="(a) Topography map and location of the measurement sites in the rain shadow region of the Western Ghats. (b) Hovmoller diagram of the precipitabe water. Hovmoller diagram is generated using hourly averaged data over the region (17° N to 20.5° N) and (70° E to 85° E) for the period 25 (00 UTC)-31 (23 UTC) May 2019 (0.5 × 0.625 degree resolution data from MERRA-2 Model M2T1NXLND v5.12.4 product)."/></a></p>
 <p><br></p>
 <p>Returning Monsoons is a more Indian sub-continent specific term. When the monsoon hit the <strong>himalayas</strong>, they are <strong>blocked</strong> and unable to pass (again excuse the use of non-technical and inaccurate language), and as the sun slowly moves downward the pressure belts start shifting, and the <strong>low pressure zone over the northern plains gets depleted</strong>. This causes the monsoon winds to <strong>blow backwards</strong> making it seem like they are "retreating".</p>
-<h3>El Nino and La Nina:</h3>
+<h3 id="el-nino-and-la-nina">El Nino and La Nina:</h3>
 <p>El Nino and La Nina are phases of the <strong>El Nino-Southern Oscillation (ENSO)</strong>, driven by shifts in sea surface temperatures and atmospheric pressure across the tropical Pacific. These phases influence global weather patterns, notably the Indian monsoon, by altering wind and moisture flows. The <strong>Peruvian (Humboldt) Current</strong>, a cold ocean current off South America's coast, plays a key role in these dynamics.</p>
-<h4>El Nino Effects</h4>
+<h4 id="el-nino-effects">El Nino Effects</h4>
 <p>During El Nino, weakened trade winds reduce the westward push of warm water, allowing it to flow back toward South America. This warms the eastern Pacific and suppresses the Peruvian Current's cold upwelling, disrupting nutrient-rich waters. For India, this often weakens the monsoon circulation, leading to below-average rainfall and potential droughts, as the usual low-pressure system over the subcontinent loses strength.</p>
-<h4>La Nina Effects</h4>
+<h4 id="la-nina-effects">La Nina Effects</h4>
 <p>In La Nina, stronger trade winds drive warm water toward Asia, intensifying the Peruvian Current's cold upwelling along South America. This cools the eastern Pacific, enhancing atmospheric stability there. For India, La Nina strengthens monsoon winds, increasing moisture inflow from the Indian Ocean, often resulting in above-average rainfall, though excessive rain can cause flooding in vulnerable areas.</p>
 <hr />
-<h1>The Old Way (NWP):</h1>
+<h1 id="the-old-way-nwp">The Old Way (NWP):</h1>
 <p>We will be exploring this in later posts so it is better not to cover it here.
 And honestly, the wikipedia article  <a href="https://en.wikipedia.org/wiki/Numerical_weather_prediction">Numerical Weather Prediction</a> does a better job explaining this than me.</p>
 <p><br>    </p>
@@ -136,7 +176,7 @@ But here's the catch: those equations are slow, and tiny mistakes explode fast. 
 # The New Way: AI's Turn
 Then there's AI. I ran into GenCast-Google's trick from late 2024. It's this crazy model that skips the physics and learns patterns from piles of ERA5 data, spitting out 15-day forecasts in minutes. Wild. Or nowcasting-quick 0-6 hour guesses from radar pics. I'm aiming simpler: a day ahead with a neural network (CNN). Maybe I can nudge it with sparse data later, GenCast-style. It's less "solve the universe" and more "spot the trends"-faster, scrappier. -->
 
-<h1>Peeking at the Data:</h1>
+<h1 id="peeking-at-the-data">Peeking at the Data:</h1>
 <p>So after a few hours of research I stumbled upon <a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview"><strong>ERA5</strong></a>, it's probably the best historical dataset available for free. I did consider trying to get IMD data specific to India, but I guess ERA5 is good enough for a prototype. 
 The dataset on its own is probably very huge (~ few Petabytes), so I decided to get only a few months and a few timestamps worth of data from <strong>2024</strong>, i.e, <strong>Sep, Oct, Nov, Dec</strong>. And roughly <strong>4 hour</strong> intervals.<br />
 The website conviniently provides it's api guide, as well as auto-generation of the api request. <br />

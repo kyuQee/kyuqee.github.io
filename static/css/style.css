@@ -38,6 +38,8 @@
     --code-linenum: #9d9d9d;
     --code-linenum-special: #3d3d3d;
     --code-linenum-special-bg: #f3f3f3;
+    --toc-bg: #f9f9f9;
+    --toc-border: #eaeaea;
 }
 
 body.dark-mode {
@@ -73,6 +75,8 @@ body.dark-mode {
     --code-linenum: #858585;
     --code-linenum-special: #c2c2c2;
     --code-linenum-special-bg: #2d2d2d;
+    --toc-bg: #1a1a1a;
+    --toc-border: #2a2a2a;
 }
 
 /* ==========================================================================
@@ -105,12 +109,14 @@ main {
     align-items: center;
 }
 
-main > * {
+main>* {
     width: 100%;
     max-width: 620px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: 'Lora', serif;
     color: var(--text-color);
 }
@@ -166,7 +172,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 300px; /* Increased for better mobile dropdown height */
+    min-height: 300px;
+    /* Increased for better mobile dropdown height */
     padding: 1.5rem 1rem;
 }
 
@@ -221,8 +228,10 @@ a:hover {
     border-radius: 4px;
     margin-top: 1rem;
     align-self: center;
-    white-space: nowrap; /* Ensures single line */
-    min-width: 120px; /* Prevents double line */
+    white-space: nowrap;
+    /* Ensures single line */
+    min-width: 120px;
+    /* Prevents double line */
 }
 
 #theme-toggle:hover {
@@ -233,22 +242,26 @@ a:hover {
    Components
    ========================================================================== */
 
-#latest-posts, #highlights {
+#latest-posts,
+#highlights {
     margin-bottom: 2rem;
     width: 100%;
     max-width: 800px;
 }
 
-#latest-posts ul, #highlights ul {
+#latest-posts ul,
+#highlights ul {
     list-style: none;
     padding: 0;
 }
 
-#latest-posts li, #highlights li {
+#latest-posts li,
+#highlights li {
     margin-bottom: 1rem;
 }
 
-#latest-posts a, #highlights a {
+#latest-posts a,
+#highlights a {
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -327,6 +340,32 @@ a:hover {
 article {
     width: 100%;
     max-width: 620px;
+}
+
+/* Table of Contents */
+.toc-wrapper {
+    background-color: var(--toc-bg);
+    border: 1px solid var(--toc-border);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.toc-wrapper h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.toc {
+    font-size: 0.9rem;
+}
+
+.toc ul {
+    padding-left: 1.5rem;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
 }
 
 pre {
@@ -444,7 +483,6 @@ details[open] summary {
     box-shadow: none;
     color: var(--code-text);
 }
-
 
 /* ==========================================================================
    Responsive Design
