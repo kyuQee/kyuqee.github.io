@@ -1,21 +1,21 @@
 ---
 title: "Forecasting Weather (Part 2): Fighting the data"
-date: 2025-04-23
+date: 2025-04-24
 slug: weather-ai-part-2
 tags: [python, blog, weather]
 ---
 
 **You can read the previous part [here](weather-ai-part-1.html).**
 
-# Overview:
-Last time was a disaster as I realised that I had naively thrown together code, without knowing much. We were also missing the most important variables, i.e, **total precipitation (tc)** and **total cloud cover (tcc)**. As I explored the data, I ran into numerous errors and weird quirks (which was made worse by being lazy and using AI, to fix the errors, so I stopped using it midway).  
+# Overview
+Last time was a disaster as I realized that I had naively thrown together code, without knowing much. We were also missing the most important variables, i.e, **total precipitation (tc)** and **total cloud cover (tcc)**. As I explored the data, I ran into numerous errors and weird quirks (which was made worse by being lazy and using AI, to fix the errors, so I stopped using it midway).  
 In this post I'd like to go through all the errors in chronological order (the order in which I ran into them), and finally get to writing helper functions for plotting/visualizing the data.
 
 <br>
 
-# The Right Data:
+# The Right Data
 Okay, so having data spaced at **4 hour intervals**, for a nowcasting project, was far from ideal. So instead I decided to take only 1 month of data but have complete hourly data.
-I also included **total precipitation (tp)**, **total cloud cover (tcc)**, and **geopotential (z)** (because we might need it to augment the model with topological data contraints, but we'll see).
+I also included **total precipitation (tp)**, **total cloud cover (tcc)**, and **geopotential (z)** (because we might need it to augment the model with topological data constraints, but we'll see).
 I also switched to **GRIB** instead of **NetCDF**, the reasons are as you will see ahead.
 
 Also we needed the best month to get the data from, with plenty of activity going on, so I picked **July 2024**.
@@ -218,10 +218,10 @@ File src\\netCDF4\\_netCDF4.pyx:2158, in netCDF4._netCDF4._ensure_nc_success()
 
 I should be crying (did) but I thought "maybe the download got corrupted". So I tried about thrice just to make sure... But that wasn't it. 
 
-So the thing is- **This did not happen with the original test dataset**. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Percipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
+So the thing is- **This did not happen with the original test dataset**. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Precipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
   
 Then I noticed that the ERA5 website says that the NetCDF version is "experimental". So I switched over to the **GRIB** format. 
-Quite conviniently a library called `cfgrib` is available, and also works with xarray.
+Quite conveniently a library called `cfgrib` is available, and also works with xarray.
 
 So I tried again with the GRIB version:   
 
@@ -415,7 +415,7 @@ cfgrib.dataset.DatasetBuildError: key present and new value is different: key='t
 </div>
 
 That was it! it was `tp`. Furthermore, it showed me exactly why the data was different. It is because the **timestamps are different**. `tp` was different from the other variables, which made the dataset heterogenous and xarray was unable to load it. (xarray always assumes homogenous data, tried to merge it, and failed).
-So what do we do? After some searching I realised that cfgrib has its own load function that can auto-detect the different datasets present in the file. Something like this:
+So what do we do? After some searching I realized that cfgrib has its own load function that can auto-detect the different datasets present in the file. Something like this:
 
 ```python
 import xarray as xr
@@ -431,7 +431,7 @@ ds2 = dataset[1]
 
 ```
 
-No Errors! Finally. There were infact two datasets in that file.
+No Errors! Finally. There were in-fact two datasets in that file.
 
 Here is ds1 (everything except tp): 
 [Sorry I'm lazy but please view these two outputs in `lightmode` (toggle theme)]
@@ -1874,7 +1874,7 @@ Attributes:
 </div>
 
 We obvserve: **4 dimensions?**  
-Apparently the "time" is divided into **12 steps**, and the timestamps, are only given **6 hourly**. So do we sum up all the values and only use the 6 hour timestamps? No. that woun't be nescessary.
+Apparently the "time" is divided into **12 steps**, and the timestamps, are only given **6 hourly**. So do we sum up all the values and only use the 6 hour timestamps? No. that won't be nescessary.
 Guess what this outputs:
 
 ```python
@@ -2564,7 +2564,7 @@ Now the plotting part: (We're back in `plot_tp()`)
 ```
 Most of this is pretty standard procedure... Again I added the normalization and stuff but I think it was just fine without.
 
-So finally out complicated function looks something like:
+So finally our complicated function looks something like:
 
 ```python
 def plot_tp(
@@ -2674,7 +2674,240 @@ Here are some plots I got:
 
 
 # Problem 2: Too Big GRIB No Work.
-[I still haven't tackled this problem, but it's more of just chunking the dataset, and i'm gonna figure that out later while dataloading anyways]
+[I still haven't tackled this problem, but it's more of just chunking the dataset, and I'm gonna figure that out later while dataloading anyways]
+
+You might've noticed that we never indexed above **2nd July 2024**, even though we downloaded the entire month's data? Let's try that, say we **take 15th July 2024**, with something like:
+
+```python
+from helpers.plotter import *
+
+plot_tp(ds2, "2024-07-15T18:00:00", lat_range=(5.0, 40.0), lon_range=(60, 100), step=0)
+
+```
+
+<br>
+
+we get this error:
+
+<div class="error-block">
+<details>
+<summary>OSError: [Errno 22] Invalid argument</summary>
+<pre>
+---------------------------------------------------------------------------
+OSError                                   Traceback (most recent call last)
+Cell In[7], line 3
+      1 from helpers.plotter import *
+----> 3 plot_tp(ds2, "2024-07-15T18:00:00", lat_range=(5.0, 40.0), lon_range=(60, 100), step=0)
+
+File c:\dev\weather\helpers\plotter.py:136, in plot_tp(data, time, lat_range, lon_range, cmap, step)
+    114 """
+    115 Plot total precipitation (tp) at a specified time.
+    116 
+   (...)    133     The Matplotlib Figure object of the precipitation plot.
+    134 """
+    135 da = data.tp.sel(time=time, method='nearest')
+--> 136 arr = da[0] if step else (da.fillna(0).sum(dim='step') * 1000).compute()
+    138 if lat_range:
+    139     arr = arr.sel(latitude=_slice_coord(data.latitude.values, *lat_range))
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\dataarray.py:3525, in DataArray.fillna(self, value)
+   3520 if utils.is_dict_like(value):
+   3521     raise TypeError(
+   3522         "cannot provide fill value as a dictionary with "
+   3523         "fillna on a DataArray"
+   3524     )
+-> 3525 out = ops.fillna(self, value)
+   3526 return out
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\ops.py:148, in fillna(data, other, join, dataset_join)
+    124 """Fill missing values in this object with data from the other object.
+    125 Follows normal broadcasting and alignment rules.
+    126 
+   (...)    144     - "right": take only variables from the last object
+    145 """
+    146 from xarray.core.computation import apply_ufunc
+--> 148 return apply_ufunc(
+    149     duck_array_ops.fillna,
+    150     data,
+    151     other,
+    152     join=join,
+    153     dask="allowed",
+    154     dataset_join=dataset_join,
+    155     dataset_fill_value=np.nan,
+    156     keep_attrs=True,
+    157 )
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\computation.py:1265, in apply_ufunc(func, input_core_dims, output_core_dims, exclude_dims, vectorize, join, dataset_join, dataset_fill_value, keep_attrs, kwargs, dask, output_dtypes, output_sizes, meta, dask_gufunc_kwargs, on_missing_core_dim, *args)
+   1263 # feed DataArray apply_variable_ufunc through apply_dataarray_vfunc
+   1264 elif any(isinstance(a, DataArray) for a in args):
+-> 1265     return apply_dataarray_vfunc(
+   1266         variables_vfunc,
+   1267         *args,
+   1268         signature=signature,
+   1269         join=join,
+   1270         exclude_dims=exclude_dims,
+   1271         keep_attrs=keep_attrs,
+   1272     )
+   1273 # feed Variables directly through apply_variable_ufunc
+   1274 elif any(isinstance(a, Variable) for a in args):
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\computation.py:307, in apply_dataarray_vfunc(func, signature, join, exclude_dims, keep_attrs, *args)
+    302 result_coords, result_indexes = build_output_coords_and_indexes(
+    303     args, signature, exclude_dims, combine_attrs=keep_attrs
+    304 )
+    306 data_vars = [getattr(a, "variable", a) for a in args]
+--> 307 result_var = func(*data_vars)
+    309 out: tuple[DataArray, ...] | DataArray
+    310 if signature.num_outputs > 1:
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\computation.py:729, in apply_variable_ufunc(func, signature, exclude_dims, dask, output_dtypes, vectorize, keep_attrs, dask_gufunc_kwargs, *args)
+    722 broadcast_dims = tuple(
+    723     dim for dim in dim_sizes if dim not in signature.all_core_dims
+    724 )
+    725 output_dims = [broadcast_dims + out for out in signature.output_core_dims]
+    727 input_data = [
+    728     (
+--> 729         broadcast_compat_data(arg, broadcast_dims, core_dims)
+    730         if isinstance(arg, Variable)
+    731         else arg
+    732     )
+    733     for arg, core_dims in zip(args, signature.input_core_dims, strict=True)
+    734 ]
+    736 if any(is_chunked_array(array) for array in input_data):
+    737     if dask == "forbidden":
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\computation.py:650, in broadcast_compat_data(variable, broadcast_dims, core_dims)
+    645 def broadcast_compat_data(
+    646     variable: Variable,
+    647     broadcast_dims: tuple[Hashable, ...],
+    648     core_dims: tuple[Hashable, ...],
+    649 ) -> Any:
+--> 650     data = variable.data
+    652     old_dims = variable.dims
+    653     new_dims = broadcast_dims + core_dims
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\variable.py:474, in Variable.data(self)
+    472     return self._data
+    473 elif isinstance(self._data, indexing.ExplicitlyIndexed):
+--> 474     return self._data.get_duck_array()
+    475 else:
+    476     return self.values
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\indexing.py:840, in MemoryCachedArray.get_duck_array(self)
+    839 def get_duck_array(self):
+--> 840     self._ensure_cached()
+    841     return self.array.get_duck_array()
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\indexing.py:837, in MemoryCachedArray._ensure_cached(self)
+    836 def _ensure_cached(self):
+--> 837     self.array = as_indexable(self.array.get_duck_array())
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\indexing.py:794, in CopyOnWriteArray.get_duck_array(self)
+    793 def get_duck_array(self):
+--> 794     return self.array.get_duck_array()
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\indexing.py:657, in LazilyIndexedArray.get_duck_array(self)
+    653     array = apply_indexer(self.array, self.key)
+    654 else:
+    655     # If the array is not an ExplicitlyIndexedNDArrayMixin,
+    656     # it may wrap a BackendArray so use its __getitem__
+--> 657     array = self.array[self.key]
+    659 # self.array[self.key] is now a numpy array when
+    660 # self.array is a BackendArray subclass
+    661 # and self.key is BasicIndexer((slice(None, None, None),))
+    662 # so we need the explicit check for ExplicitlyIndexed
+    663 if isinstance(array, ExplicitlyIndexed):
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\xarray_plugin.py:163, in CfGribArrayWrapper.__getitem__(self, key)
+    159 def __getitem__(
+    160     self,
+    161     key: xr.core.indexing.ExplicitIndexer,
+    162 ) -> np.ndarray:
+--> 163     return xr.core.indexing.explicit_indexing_adapter(
+    164         key, self.shape, xr.core.indexing.IndexingSupport.BASIC, self._getitem
+    165     )
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\xarray\core\indexing.py:1018, in explicit_indexing_adapter(key, shape, indexing_support, raw_indexing_method)
+    996 """Support explicit indexing by delegating to a raw indexing method.
+    997 
+    998 Outer and/or vectorized indexers are supported by indexing a second time
+   (...)   1015 Indexing result, in the form of a duck numpy-array.
+   1016 """
+   1017 raw_key, numpy_indices = decompose_indexer(key, shape, indexing_support)
+-> 1018 result = raw_indexing_method(raw_key.tuple)
+   1019 if numpy_indices.tuple:
+   1020     # index the loaded np.ndarray
+   1021     indexable = NumpyIndexingAdapter(result)
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\xarray_plugin.py:172, in CfGribArrayWrapper._getitem(self, key)
+    167 def _getitem(
+    168     self,
+    169     key: T.Tuple[T.Any, ...],
+    170 ) -> np.ndarray:
+    171     with self.datastore.lock:
+--> 172         return self.array[key]
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\dataset.py:373, in OnDiskArray.__getitem__(self, item)
+    371     continue
+    372 # NOTE: fill a single field as found in the message
+--> 373 message = self.index.get_field(message_ids[0])  # type: ignore
+    374 values = get_values_in_order(message, array_field[tuple(array_field_indexes)].shape)
+    375 array_field.__getitem__(tuple(array_field_indexes)).flat[:] = values
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\messages.py:488, in FieldsetIndex.get_field(self, message_id)
+    487 def get_field(self, message_id: T.Any) -> abc.Field:
+--> 488     return ComputedKeysAdapter(self.fieldset[message_id], self.computed_keys)
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\messages.py:345, in FileStream.__getitem__(self, item)
+    343 def __getitem__(self, item: T.Optional[OffsetType]) -> Message:
+    344     with open(self.path, "rb") as file:
+--> 345         return self.message_from_file(file, offset=item)
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\messages.py:341, in FileStream.message_from_file(self, file, offset, **kwargs)
+    339 def message_from_file(self, file, offset=None, **kwargs):
+    340     # type: (T.IO[bytes], T.Optional[OffsetType], T.Any) -> Message
+--> 341     return Message.from_file(file, offset, **kwargs)
+
+File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\messages.py:94, in Message.from_file(cls, file, offset, **kwargs)
+     92     offset, field_in_message = offset
+     93 if offset is not None:
+---> 94     file.seek(offset)
+     95 codes_id = None
+     96 if field_in_message == 0:
+
+**OSError: [Errno 22] Invalid argument**
+</pre>
+</details>
+</div>
+
+
+What? Why? I rechecked, even redownloaded the dataset... so we definitely DO have the data. Then what went wrong? 
+
+It has something to do with **how cfgrib works** (on windows especially)  
+You see, cfgrib uses `eccodes`, a **C library** under the hood. What's the problem with that? Quite a big one actually. 
+
+So first of all, we should notice that whenever cfgrib loads our dataset it creates an **index file**, like `era5_july2024_global_hourly.grib.5b7b6.idx`. Now a plausible explanation might be that they are still using the `long` datatype instead of fixed ones. This would actually cause a lot quirky platform problems. On Windows this might mean **32-bit** offsets, which roughly translates to **<2GB** of data. So whenever we seek past 2GB, it overflows, possibly goes negative, hence the error. This is highly speculative though, and my rudimentary C++ skills should not be relied on.
+
+<br>
+
+> Random Rant:
+> _Ok so I accidentally deleted the 19GB dataset I downloaded for the 4th time now- This has cost me more time than all the actual coding combined! I was trying to write a demo notebook to show how to download it using the API, but guess what I executed the cell, out of muscle memory, and when I stopped it, I realized it was too late because it had already deleted the file with the same name... True Horror story based on real events. I really need to add some fail-safes, yep let's add that to the agenda next time (Future me: It happened again, this time I fat fingered in the command prompt itself)_
+
+<br>
+
+Ok back to the topic. So I don't want to bother fixing this right now as we won't be loading data this way anyways, we will be chunking it in the future and trying to feed it to `pytorch DataLoader` and what not.
+
+
+# Conclusion & Plans
+
+In this post we explored the actual structure of the data, and also touched up on some plotting, solving a few errors along the way.  
+
+I have realized that it is imperative that we must first draft up a **Project-Spec**, so I will be doing that next time. Next-to-Next time, I want to try to set up **WandB** (Never used it before, but I'm willing to join the cult), and possibly get to **DataLoading**. Of course, we must also cover the augmentation of data with stuff like solar angle, and topology/geopotential, for **physics-informed loss** purposes.
+
+
+**You can read the next part [here (Not Released Yet)](#)**
+
+
 
 
 

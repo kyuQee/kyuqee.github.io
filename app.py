@@ -11,7 +11,7 @@ freezer = Freezer(app)
 
 def load_posts(directory):
     posts = []
-    md = markdown.Markdown(extensions=['codehilite', 'fenced_code'])
+    md = markdown.Markdown(extensions=['codehilite', 'fenced_code', 'toc'])  # Added 'toc' extension
 
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
@@ -20,10 +20,13 @@ def load_posts(directory):
                 metadata = post.metadata
                 content_html = md.convert(post.content)
                 slug = metadata.get('slug', os.path.splitext(filename)[0])
+                toc = md.toc if hasattr(md, 'toc') else ""  # Capture TOC
+                # print(toc)
                 posts.append({
                     'metadata': metadata,
                     'content_html': content_html,
-                    'slug': slug
+                    'slug': slug,
+                    'toc': toc  # Include TOC in post data
                 })
     return posts
 
@@ -85,8 +88,6 @@ def post():
 def highlight():
     for h in HIGHLIGHTS:
         yield {'slug': h['slug']}
-
-
 
 if __name__ == '__main__':
     freezer.freeze()  # Generates static files

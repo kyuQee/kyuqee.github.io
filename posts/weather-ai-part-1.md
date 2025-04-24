@@ -49,7 +49,7 @@ This image explains it much better than words can:
 
 <br>
 
-<a href="https://www.researchgate.net/figure/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous_fig3_273949389"><img src="https://www.researchgate.net/profile/Mesut-Demircan/publication/273949389/figure/fig3/AS:669379721187338@1536603970467/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous.ppm" alt="An imaginary uniform Earth with idealized zonal (continuous) pressure belts."/></a>
+<a href="https://www.researchgate.net/figure/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous_fig3_273949389"><img src="https://www.researchgate.net/profile/Mesut-Demircan/publication/273949389/figure/fig3/AS:669379721187338@1536603970467/Ideal-Zonal-Pressure-Belts-An-imaginary-uniform-Earth-with-idealized-zonal-continuous.ppm" alt="An imaginary uniform Earth with idealized zonal (continuous) pressure belts." class="invertible"/></a>
 
 <br>
 

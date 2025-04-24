@@ -4,6 +4,18 @@
 <article>
     <h1>{{ post.metadata.title }}</h1>
     <p>{{ post.metadata.date }}</p>
+    <br>
+
+    {% if post.toc %}
+    <div class="toc-wrapper">
+        <h2>Table of Contents</h2>
+        <div class="toc">
+            {{ post.toc | safe }}
+        </div>
+    </div>
+    {% endif %}
+    <br>
     <div>{{ post.content_html | safe }}</div>
 </article>
 {% endblock %}
+
