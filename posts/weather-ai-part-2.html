@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="QMvy4LUd9kqEbkLgKUPNyuYlMu0E12nfHPE_xX4zg9I" />
-    <title>Forecasting Weather (Part 2): Fighting the data</title>
+    <title>Forecasting Weather (Part 2): Fighting the Data</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lora&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -59,7 +59,7 @@
         <main>
             
 <article>
-    <h1>Forecasting Weather (Part 2): Fighting the data</h1>
+    <h1>Forecasting Weather (Part 2): Fighting the Data</h1>
     <p>2025-04-24</p>
     <br>
 
@@ -87,11 +87,11 @@
     <br>
     <div><p><strong>You can read the previous part <a href="weather-ai-part-1.html">here</a>.</strong></p>
 <h1 id="overview">Overview</h1>
-<p>Last time was a disaster as I realized that I had naively thrown together code, without knowing much. We were also missing the most important variables, i.e, <strong>total precipitation (tc)</strong> and <strong>total cloud cover (tcc)</strong>. As I explored the data, I ran into numerous errors and weird quirks (which was made worse by being lazy and using AI, to fix the errors, so I stopped using it midway).<br />
-In this post I'd like to go through all the errors in chronological order (the order in which I ran into them), and finally get to writing helper functions for plotting/visualizing the data.</p>
+<p>Last time was a disaster&mdash;I realized I had naively thrown together some code without really knowing what I was doing. We were also missing the key variables, i.e., <strong>total precipitation (tp)</strong> and <strong>total cloud cover (tcc)</strong>. As I dug into the data, I hit a ton of errors and weird quirks. Things got worse because I was lazy and tried using AI to fix them, but that flopped, so I ditched it halfway through.
+In this post, I want to walk through all the errors in the order I stumbled into them and finally get to writing some helper functions to plot and visualize the data.</p>
 <p><br></p>
 <h1 id="the-right-data">The Right Data</h1>
-<p>Okay, so having data spaced at <strong>4 hour intervals</strong>, for a nowcasting project, was far from ideal. So instead I decided to take only 1 month of data but have complete hourly data.
+<p>Okay, so having data spaced at <strong>4 hour intervals</strong>, for a now-casting project, was far from ideal. So instead I decided to take only 1 month of data but have complete hourly data.
 I also included <strong>total precipitation (tp)</strong>, <strong>total cloud cover (tcc)</strong>, and <strong>geopotential (z)</strong> (because we might need it to augment the model with topological data constraints, but we'll see).
 I also switched to <strong>GRIB</strong> instead of <strong>NetCDF</strong>, the reasons are as you will see ahead.</p>
 <p>Also we needed the best month to get the data from, with plenty of activity going on, so I picked <strong>July 2024</strong>.</p>
@@ -279,9 +279,9 @@ File src\\netCDF4\\_netCDF4.pyx:2158, in netCDF4._netCDF4._ensure_nc_success()
 </details>
 </div>
 
-<p>I should be crying (did) but I thought "maybe the download got corrupted". So I tried about thrice just to make sure... But that wasn't it. </p>
-<p>So the thing is- <strong>This did not happen with the original test dataset</strong>. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to <strong>Total Precipitation (tp)</strong>. (This did take a lot of time as the datasets weren't small ~19GB).</p>
-<p>Then I noticed that the ERA5 website says that the NetCDF version is "experimental". So I switched over to the <strong>GRIB</strong> format. 
+<p>I should be crying (I did)&mdash;but I thought "maybe the download got corrupted". So I tried about thrice just to make sure&mdash; But that wasn't it. </p>
+<p>So the thing is&mdash; <strong>This did not happen with the original test dataset</strong>. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to <strong>Total Precipitation (tp)</strong>. (This did take a lot of time as the datasets weren't small ~19GB).</p>
+<p>Then I noticed that the ERA5 website says that the NetCDF version is <strong>"experimental"</strong>. So I switched over to the <strong>GRIB</strong> format. 
 Quite conveniently a library called <code>cfgrib</code> is available, and also works with xarray.</p>
 <p>So I tried again with the GRIB version:   </p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
@@ -2438,7 +2438,7 @@ Attributes:
 </details>
 </div>
 
-<p>Eh? That didn't say much... how about:</p>
+<p>Eh? That didn't say much&mdash; how about:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">ds2</span><span class="o">.</span><span class="n">tp</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span>
 </code></pre></div>
 
@@ -2452,7 +2452,7 @@ Attributes:
 </code></pre></div>
 
 <p>Sloppy but works. 
-Also the website says that the precipitation value is in <strong>metres (m)</strong>. Let's get to plotting!</p>
+Also the website says that the precipitation value is in <strong>metres (m)</strong>. Anyways let's get to plotting!</p>
 <p>First I made <code>helpers/plotter.py</code> to act as a helper script so we can use the functions in any notebook.</p>
 <p>Let's define <code>plot_tp</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_tp</span><span class="p">(</span>
@@ -2511,7 +2511,7 @@ Also the next part was done over a lot of trial and error, and in retrospect has
     <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span> <span class="k">if</span> <span class="n">vmax</span> <span class="o">&gt;</span> <span class="n">vmin</span> <span class="k">else</span> <span class="kc">None</span>
 </code></pre></div>
 
-<p>Pretty straight forward error handling (Maybe not, it took me a few days to get right so-).
+<p>Pretty straight forward error handling (Maybe not, it took me a few days to get right so&mdash;).
 <strong>cleaning NaNs</strong>, <strong>No empty Selections</strong> etc. </p>
 <p>What is <code>_slice_coord()</code>? It's to deal with <strong>wrap arounds</strong> (No idea why I added this, I'm the only one who is going to use it anyway). Here is the code:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_slice_coord</span><span class="p">(</span>
@@ -2579,7 +2579,7 @@ Also the next part was done over a lot of trial and error, and in retrospect has
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div>
 
-<p>Most of this is pretty standard procedure... Again I added the normalization and stuff but I think it was just fine without.</p>
+<p>Most of this is pretty standard procedure&mdash; Again I added the normalization and stuff but I think it was just fine without.</p>
 <p>So finally our complicated function looks something like:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_tp</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
@@ -2881,6 +2881,7 @@ File c:\Users\*****\anaconda3\envs\era5_env\Lib\site-packages\cfgrib\messages.py
 <p>It has something to do with <strong>how cfgrib works</strong> (on windows especially)<br />
 You see, cfgrib uses <code>eccodes</code>, a <strong>C library</strong> under the hood. What's the problem with that? Quite a big one actually. </p>
 <p>So first of all, we should notice that whenever cfgrib loads our dataset it creates an <strong>index file</strong>, like <code>era5_july2024_global_hourly.grib.5b7b6.idx</code>. Now a plausible explanation might be that they are still using the <code>long</code> datatype instead of fixed ones. This would actually cause a lot quirky platform problems. On Windows this might mean <strong>32-bit</strong> offsets, which roughly translates to <strong>&lt;2GB</strong> of data. So whenever we seek past 2GB, it overflows, possibly goes negative, hence the error. This is highly speculative though, and my rudimentary C++ skills should not be relied on.</p>
+<p>I mentioned <code>.compute()</code> before, this is why it was needed. I was trying to test whether we can actually carry out computations on data beyond 5th july, it would also force xarray to not lazy load it. But either way it didn't work.</p>
 <p><br></p>
 <blockquote>
 <p>Random Rant:
