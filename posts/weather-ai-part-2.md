@@ -1,5 +1,5 @@
 ---
-title: "Forecasting Weather (Part 2): Fighting the data"
+title: "Forecasting Weather (Part 2): Fighting the Data"
 date: 2025-04-24
 slug: weather-ai-part-2
 tags: [python, blog, weather]
@@ -8,13 +8,13 @@ tags: [python, blog, weather]
 **You can read the previous part [here](weather-ai-part-1.html).**
 
 # Overview
-Last time was a disaster as I realized that I had naively thrown together code, without knowing much. We were also missing the most important variables, i.e, **total precipitation (tc)** and **total cloud cover (tcc)**. As I explored the data, I ran into numerous errors and weird quirks (which was made worse by being lazy and using AI, to fix the errors, so I stopped using it midway).  
-In this post I'd like to go through all the errors in chronological order (the order in which I ran into them), and finally get to writing helper functions for plotting/visualizing the data.
+Last time was a disaster&mdash;I realized I had naively thrown together some code without really knowing what I was doing. We were also missing the key variables, i.e., **total precipitation (tp)** and **total cloud cover (tcc)**. As I dug into the data, I hit a ton of errors and weird quirks. Things got worse because I was lazy and tried using AI to fix them, but that flopped, so I ditched it halfway through.
+In this post, I want to walk through all the errors in the order I stumbled into them and finally get to writing some helper functions to plot and visualize the data.
 
 <br>
 
 # The Right Data
-Okay, so having data spaced at **4 hour intervals**, for a nowcasting project, was far from ideal. So instead I decided to take only 1 month of data but have complete hourly data.
+Okay, so having data spaced at **4 hour intervals**, for a now-casting project, was far from ideal. So instead I decided to take only 1 month of data but have complete hourly data.
 I also included **total precipitation (tp)**, **total cloud cover (tcc)**, and **geopotential (z)** (because we might need it to augment the model with topological data constraints, but we'll see).
 I also switched to **GRIB** instead of **NetCDF**, the reasons are as you will see ahead.
 
@@ -216,11 +216,11 @@ File src\\netCDF4\\_netCDF4.pyx:2158, in netCDF4._netCDF4._ensure_nc_success()
 </details>
 </div>
 
-I should be crying (did) but I thought "maybe the download got corrupted". So I tried about thrice just to make sure... But that wasn't it. 
+I should be crying (I did)&mdash;but I thought "maybe the download got corrupted". So I tried about thrice just to make sure&mdash; But that wasn't it. 
 
-So the thing is- **This did not happen with the original test dataset**. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Precipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
+So the thing is&mdash; **This did not happen with the original test dataset**. Which troubled me to no end. I speculated that one of the variables messed up the data, so after several tries selectively removing and downloading and testing, I narrowed the suspect down to **Total Precipitation (tp)**. (This did take a lot of time as the datasets weren't small ~19GB).
   
-Then I noticed that the ERA5 website says that the NetCDF version is "experimental". So I switched over to the **GRIB** format. 
+Then I noticed that the ERA5 website says that the NetCDF version is **"experimental"**. So I switched over to the **GRIB** format. 
 Quite conveniently a library called `cfgrib` is available, and also works with xarray.
 
 So I tried again with the GRIB version:   
@@ -2396,7 +2396,7 @@ Attributes:
 </details>
 </div>
 
-Eh? That didn't say much... how about:
+Eh? That didn't say much&mdash; how about:
 
 ```python
 
@@ -2419,7 +2419,7 @@ ds2.tp.isel(time=8).values[0]
 ```
 
 Sloppy but works. 
-Also the website says that the precipitation value is in **metres (m)**. Let's get to plotting!
+Also the website says that the precipitation value is in **metres (m)**. Anyways let's get to plotting!
 
 First I made `helpers/plotter.py` to act as a helper script so we can use the functions in any notebook.
 
@@ -2489,7 +2489,7 @@ Also the next part was done over a lot of trial and error, and in retrospect has
 
 ```    
 
-Pretty straight forward error handling (Maybe not, it took me a few days to get right so-).
+Pretty straight forward error handling (Maybe not, it took me a few days to get right so&mdash;).
 **cleaning NaNs**, **No empty Selections** etc. 
 
 What is `_slice_coord()`? It's to deal with **wrap arounds** (No idea why I added this, I'm the only one who is going to use it anyway). Here is the code:
@@ -2562,7 +2562,7 @@ Now the plotting part: (We're back in `plot_tp()`)
     return fig
 
 ```
-Most of this is pretty standard procedure... Again I added the normalization and stuff but I think it was just fine without.
+Most of this is pretty standard procedure&mdash; Again I added the normalization and stuff but I think it was just fine without.
 
 So finally our complicated function looks something like:
 
@@ -2887,6 +2887,8 @@ It has something to do with **how cfgrib works** (on windows especially)
 You see, cfgrib uses `eccodes`, a **C library** under the hood. What's the problem with that? Quite a big one actually. 
 
 So first of all, we should notice that whenever cfgrib loads our dataset it creates an **index file**, like `era5_july2024_global_hourly.grib.5b7b6.idx`. Now a plausible explanation might be that they are still using the `long` datatype instead of fixed ones. This would actually cause a lot quirky platform problems. On Windows this might mean **32-bit** offsets, which roughly translates to **<2GB** of data. So whenever we seek past 2GB, it overflows, possibly goes negative, hence the error. This is highly speculative though, and my rudimentary C++ skills should not be relied on.
+
+I mentioned `.compute()` before, this is why it was needed. I was trying to test whether we can actually carry out computations on data beyond 5th july, it would also force xarray to not lazy load it. But either way it didn't work.
 
 <br>
 
