@@ -60,7 +60,7 @@
             
 <article>
     <h1>Beyond High School Probability: Unlocking Binomial, Gaussian, and More</h1>
-    <p>2025-05-15</p>
+    <p>2025-05-17</p>
     <br>
 
     
@@ -87,14 +87,14 @@
     <br>
     <div><h1 id="work-in-progress">WORK IN PROGRESS</h1>
 <h1 id="introduction">Introduction</h1>
-<p>Typically we are taught basic probability in high school, but real probability theory using in financial math, and statistics differs greatly from the concepts taught back in high school. So as a way to learn and brush up my skills I am going to explore probability theory in depth.</p>
+<p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
 <h2 id="the-paradox">The Paradox</h2>
-<p>Let's start with a question, that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
-<p>According to wikipedia it may be formulated as follows: </p>
+<p>Let's start with a question that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
+<p>According to Wikipedia it may be formulated as follows: </p>
 <blockquote>
 <p>"Consider an equilateral triangle that is inscribed in a circle. Suppose a chord of the circle is chosen at random. What is the probability that the chord is longer than a side of the triangle?"</p>
 </blockquote>
-<p>I don't really like the way it is formulated here and it makes it seem like quite an abstract question,   </p>
+<p>This formulation makes it seem like quite an abstract question,   </p>
 <p>So we may present it alternatively as: </p>
 <blockquote>
 <p>Consider two concentric circles with <code>A</code> and <code>B</code> with radius <code>R</code> and <code>2R</code>. Given a chord of the circle <code>B</code> is picked at random, find the probability that this chord intersects, the inner circle <code>A</code>.</p>
@@ -102,11 +102,11 @@
 <p><br></p>
 <p><img src="/static/images/mathforquant/math-for-quant-part-1-1.svg" style="height: 300px !important" class="invertible"></p>
 <p><br></p>
-<p>Now this may be a simplification of some real world problem, say like piercing a padded ball and predicting if it will burst the bladder, or shooting a bullet through a water melon etc. This is however simply personal preference and has no impact on the actual question/problem at hand.</p>
+<p>This reformulation may model practical scenarios, such as piercing a padded sphere to assess whether it impacts an inner core, though this is merely a contextual preference and does not alter the mathematical problem.</p>
 <p>Now typically there are <strong>Three methods</strong> of tackling this problem. </p>
 <h3 id="method-1-random-midpoint-method">Method 1: Random Midpoint Method</h3>
 <p>This is the method that occurred to me, when I tried to solve this problem. </p>
-<p>If one plays around with the problem long enough, drawing multiple sketches, we might notice this</p>
+<p>If one plays around with the problem long enough, drawing multiple sketches, we might notice this&mdash;</p>
 <p><br>
 <img src="/static/images/mathforquant/math-for-quant-part-1-2.svg" style="height: 300px !important"  class="invertible">
 <br></p>
