@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="QMvy4LUd9kqEbkLgKUPNyuYlMu0E12nfHPE_xX4zg9I" />
+    <title>Bridging the Gap between Highschool Probability and the Real Deal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&family=Lora&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/pygments.css">
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="/static/js/main.js" defer></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z497HS9D6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-0Z497HS9D6');
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="/" class="logo">MONOQ</a>
+            <div class="hamburger">☰</div>
+            <div class="nav-content">
+                <ul class="main-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/posts/">Posts</a></li>
+                    <li><a href="/highlights/">Highlights</a></li>
+                    <li><a href="/about/">About Me</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://github.com/kyuqee" target="_blank">
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                            alt="GitHub" class="social-icon invertible">
+                    </a>
+                    <a href="mailto:kyuqeg@gmail.com">
+                        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email"
+                            class="social-icon invertible">
+                    </a>
+                </div>
+                <button id="theme-toggle">Toggle Theme</button>
+            </div>
+        </nav>
+        <main>
+            
+<article>
+    <h1>Bridging the Gap between Highschool Probability and the Real Deal</h1>
+    <p>2025-05-15</p>
+    <br>
+
+    
+    <div class="toc-wrapper">
+        <h2>Table of Contents</h2>
+        <div class="toc">
+            <div class="toc">
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#the-paradox">The Paradox</a><ul>
+<li><a href="#method-1-random-midpoint-method">Method 1: Random Midpoint Method</a></li>
+<li><a href="#method-2-diameter-method">Method 2: Diameter Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    
+    <br>
+    <div><h1 id="introduction">Introduction</h1>
+<p>Typically we are taught basic probability in high school, but real probability theory using in financial math, and statistics differs greatly from the concepts taught back in high school. So as a way to learn and brush up my skills I am going to explore probability theory in depth.</p>
+<h2 id="the-paradox">The Paradox</h2>
+<p>Let's start with a question, that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
+<p>According to wikipedia it may be formulated as follows: </p>
+<blockquote>
+<p>"Consider an equilateral triangle that is inscribed in a circle. Suppose a chord of the circle is chosen at random. What is the probability that the chord is longer than a side of the triangle?"</p>
+</blockquote>
+<p>I don't really like the way it is formulated here and it makes it seem like quite an abstract question,   </p>
+<p>So we may present it alternatively as: </p>
+<blockquote>
+<p>Consider two concentric circles with <code>A</code> and <code>B</code> with radius <code>R</code> and <code>2R</code>. Given a chord of the circle <code>B</code> is picked at random, find the probability that this chord intersects, the inner circle <code>A</code>.</p>
+</blockquote>
+<p><br></p>
+<p><img src="/static/images/mathforquant/math-for-quant-part-1-1.svg" style="height: 300px !important" class="invertible"></p>
+<p><br></p>
+<p>Now this may be a simplification of some real world problem, say like piercing a padded ball and predicting if it will burst the bladder, or shooting a bullet through a water melon etc. This is however simply personal preference and has no impact on the actual question/problem at hand.</p>
+<p>Now typically there are <strong>Three methods</strong> of tackling this problem. </p>
+<h3 id="method-1-random-midpoint-method">Method 1: Random Midpoint Method</h3>
+<p>This is the method that occurred to me, when I tried to solve this problem. </p>
+<p>If one plays around with the problem long enough, drawing multiple sketches, we might notice this</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-2.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>The <strong>midpoints</strong> of all chords that intersect the inner circle, <strong>must lie inside the inner circle</strong>.  </p>
+<p>Since any chord $ AB $ of the outer circle that intersects the inner circle must have its perpendicular distance $ d \leq R $, its midpoint $ M $ (at distance $ d $ from $ O $) must lie within or on the inner circle.</p>
+<p>Now one can definitely prove this rigourously (and it is a trivial geometric proof), but for our case, let's just say it is true, visually.</p>
+<p>Now if we take only the mid points into consideration, and define a coordinate system with the origin at the centre of $ A , B $, we get a sample space that looks like this&mdash;</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-3.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>And if we draw our required event on it, we get&mdash;</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-4.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>Now, to calculate $ P(E) $ we can simply do&mdash; </p>
+<p>$$ 
+P(E) = \frac{\pi(R)^2}{\pi(2R)^2} = \frac{1}{4}
+$$</p>
+<p>So our $ P(E) $ is &mdash;</p>
+<p>$$
+P(E) = \boxed{\frac{1}{4}}
+$$</p>
+<h3 id="method-2-diameter-method">Method 2: Diameter Method</h3>
+<p>We may also try a more methodical way&mdash;</p>
+<p>We first pick a point on the circumference of $ B $, say $ P $,  then we draw a <strong>diameter</strong> passing through the center. Now we may vary this line, by an angle $ \theta $ and get all possible chords that pass through the point $ P $. Similarly we may do this for every point on the circumference of $ B $. </p>
+<p>here is what it looks like&mdash;</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-5.svg" style="height: 300px !important"  class="invertible">
+<br></p></div>
+</article>
+
+        </main>
+    </div>
+</body>
+
+</html>
