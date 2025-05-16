@@ -5,6 +5,9 @@ slug: math-for-quant-part-1
 tags: [maths, blog, quant]
 ---
 
+# WORK IN PROGRESS
+
+
 # Introduction
 
 Typically we are taught basic probability in high school, but real probability theory using in financial math, and statistics differs greatly from the concepts taught back in high school. So as a way to learn and brush up my skills I am going to explore probability theory in depth.
