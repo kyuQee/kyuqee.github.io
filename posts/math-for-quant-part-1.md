@@ -1,6 +1,6 @@
 ---
 title: "Beyond High School Probability: Unlocking Binomial, Gaussian, and More"
-date: 2025-05-15
+date: 2025-05-17
 slug: math-for-quant-part-1
 tags: [maths, blog, quant]
 ---
@@ -10,17 +10,17 @@ tags: [maths, blog, quant]
 
 # Introduction
 
-Typically we are taught basic probability in high school, but real probability theory using in financial math, and statistics differs greatly from the concepts taught back in high school. So as a way to learn and brush up my skills I am going to explore probability theory in depth.
+High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.
 
 
 ## The Paradox
 
-Let's start with a question, that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   
+Let's start with a question that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   
 
-According to wikipedia it may be formulated as follows: 
+According to Wikipedia it may be formulated as follows: 
 > "Consider an equilateral triangle that is inscribed in a circle. Suppose a chord of the circle is chosen at random. What is the probability that the chord is longer than a side of the triangle?"
 
-I don't really like the way it is formulated here and it makes it seem like quite an abstract question,   
+This formulation makes it seem like quite an abstract question,   
 
 So we may present it alternatively as: 
 > Consider two concentric circles with `A` and `B` with radius `R` and `2R`. Given a chord of the circle `B` is picked at random, find the probability that this chord intersects, the inner circle `A`.
@@ -31,7 +31,7 @@ So we may present it alternatively as:
 
 <br>
 
-Now this may be a simplification of some real world problem, say like piercing a padded ball and predicting if it will burst the bladder, or shooting a bullet through a water melon etc. This is however simply personal preference and has no impact on the actual question/problem at hand.
+This reformulation may model practical scenarios, such as piercing a padded sphere to assess whether it impacts an inner core, though this is merely a contextual preference and does not alter the mathematical problem.
 
 Now typically there are **Three methods** of tackling this problem. 
 
@@ -39,7 +39,7 @@ Now typically there are **Three methods** of tackling this problem.
 
 This is the method that occurred to me, when I tried to solve this problem. 
 
-If one plays around with the problem long enough, drawing multiple sketches, we might notice this
+If one plays around with the problem long enough, drawing multiple sketches, we might notice this&mdash;
 
 <br>
 <img src="/static/images/mathforquant/math-for-quant-part-1-2.svg" style="height: 300px !important"  class="invertible">
