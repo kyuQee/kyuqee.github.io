@@ -1,5 +1,5 @@
 ---
-title: "Bridging the Gap between Highschool Probability and the Real Deal"
+title: "Beyond High School Probability: Unlocking Binomial, Gaussian, and More"
 date: 2025-05-15
 slug: math-for-quant-part-1
 tags: [maths, blog, quant]
