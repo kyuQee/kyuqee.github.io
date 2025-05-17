@@ -29,6 +29,7 @@
 
         gtag('config', 'G-0Z497HS9D6');
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Noto+Sans+JP&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -74,8 +75,15 @@
 <li><a href="#the-paradox">The Paradox</a><ul>
 <li><a href="#method-1-random-midpoint-method">Method 1: Random Midpoint Method</a></li>
 <li><a href="#method-2-diameter-method">Method 2: Diameter Method</a></li>
+<li><a href="#method-3-radius-method">Method 3: Radius Method</a></li>
+<li><a href="#the-contradiction">The Contradiction</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#terms-and-definitions">Terms and Definitions</a><ul>
+<li><a href="#what-is-probability">What is Probability?</a></li>
+<li><a href="#sample-space">Sample Space</a></li>
 </ul>
 </li>
 </ul>
@@ -90,7 +98,7 @@
 <p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
 <h2 id="the-paradox">The Paradox</h2>
 <p>Let's start with a question that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
-<p>According to Wikipedia it may be formulated as follows: </p>
+<p>According to <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia</a> it may be formulated as follows: </p>
 <blockquote>
 <p>"Consider an equilateral triangle that is inscribed in a circle. Suppose a chord of the circle is chosen at random. What is the probability that the chord is longer than a side of the triangle?"</p>
 </blockquote>
@@ -121,13 +129,27 @@
 <p><br>
 <img src="/static/images/mathforquant/math-for-quant-part-1-4.svg" style="height: 300px !important"  class="invertible">
 <br></p>
-<p>Now, to calculate $ P(E) $ we can simply do&mdash; </p>
-<p>$$ 
-P(E) = \frac{\pi(R)^2}{\pi(2R)^2} = \frac{1}{4}
+<p>So for some formal definitions&mdash; <br />
+$$
+\begin{aligned}
+\Omega &amp;\in (-2R, 2R) \times (-2R, 2R) \newline
+\mathbb{E} &amp;\in (-R, R) \times (-R, R)
+\end{aligned}
 $$</p>
-<p>So our $ P(E) $ is &mdash;</p>
+<p>Which essentially means&mdash; <br />
+$$
+\begin{aligned}
+\Omega &amp;= \{(X, Y) \in \mathbb{R}^2 \mid X \in (-2R, 2R), Y \in (-2R, 2R)\} \newline
+\mathbb{E} &amp;= \{(X, Y) \in \mathbb{R}^2 \mid X \in (-R, R), Y \in (-R, R)\}
+\end{aligned}
+$$</p>
+<p>Now, to calculate $ P(\mathbb{E}) $ we can simply do&mdash; </p>
+<p>$$ 
+P(\mathbb{E}) = \frac{\pi(R)^2}{\pi(2R)^2} = \frac{1}{4}
+$$</p>
+<p>So our $ P(\mathbb{E}) $ is &mdash;</p>
 <p>$$
-P(E) = \boxed{\frac{1}{4}}
+P(\mathbb{E}) = \boxed{\frac{1}{4}}
 $$</p>
 <h3 id="method-2-diameter-method">Method 2: Diameter Method</h3>
 <p>We may also try a more methodical way&mdash;</p>
@@ -135,7 +157,60 @@ $$</p>
 <p>here is what it looks like&mdash;</p>
 <p><br>
 <img src="/static/images/mathforquant/math-for-quant-part-1-5.svg" style="height: 300px !important"  class="invertible">
-<br></p></div>
+<br></p>
+<p>here is the visualization of $ \Omega $ and $ \mathbb{E} $ (NOTE: here X is the distance along the circumference of B)</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-6.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>Why $ \frac{\pi}{6} $?<br />
+We can clearly see that a right angled triangle is formed when the chord just touches the inner circle (it is tangent). The hypotenuse is $ 2R $ and the base is $ R $. So we may do $ \cos(\theta) = \frac{R}{2R} $ and then inverse it to get $ \theta = \frac{\pi}{6}$.  </p>
+<p>Formally&mdash;
+$$
+\begin{aligned}
+\Omega &amp;= \{(X, \theta) \in \mathbb{R}^2 \mid X \in (-2\pi R, 2\pi R), \theta \in (0, \pi/2)\} \newline
+\mathbb{E} &amp;= \{(X, \theta) \in \mathbb{R}^2 \mid X \in (-2\pi R, 2\pi R), \theta \in (0, \pi/6)\}
+\end{aligned}
+$$</p>
+<p>Or&mdash;
+$$
+\begin{aligned}
+\Omega &amp;= (-2\pi R, 2\pi R) \times (0, \pi/2) \newline
+\mathbb{E} &amp;= (-2\pi R, 2\pi R) \times (0, \pi/6)
+\end{aligned}
+$$</p>
+<p>We can now calculate the probability, like&mdash;
+$$
+\begin{aligned}
+P(\mathbb{E}) &amp;= \frac{4\pi R \cdot (\pi/6)}{4\pi R \cdot (\pi/2)} = \frac{1}{3} \newline
+P(\mathbb{E}) &amp;= \boxed{\frac{1}{3}}
+\end{aligned}
+$$</p>
+<h3 id="method-3-radius-method">Method 3: Radius Method</h3>
+<p>Take a chord passing through the center at an elevation $ \theta $ from the horizontal. Now we may consider all parallel chords to the diameter, at that elevation, their perpedicular distance from the center being $ x $. We get&mdash;</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-7.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>and the visualization&mdash;
+<br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-8.svg" style="height: 300px !important"  class="invertible">
+<br></p>
+<p>The rest of it is elementary, and $ P(\mathbb{E}) $ comes out to&mdash;
+$$
+P(\mathbb{E}) = \boxed{\frac{1}{2}}
+$$</p>
+<h3 id="the-contradiction">The Contradiction</h3>
+<p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math. <br />
+In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. <br />
+To know the real in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
+(HINT: the answer is $ \frac{1}{2} $)</p>
+<h1 id="terms-and-definitions">Terms and Definitions</h1>
+<p>Understanding the terms and notation is the most crucial part to understanding probability. </p>
+<p>Let's try to intuitively find out what are the terms required to make a reasonable comment on the probability of an event.  </p>
+<h2 id="what-is-probability">What is Probability?</h2>
+<p>One could call it the <strong>likelihood or chance</strong>, of a certain event happening. (not to be confused with plausibility)    </p>
+<p>What information would we need to comment on such a matter? Usually we would need to know what it is, whose outcome we are trying to determine&mdash; Is it a coin flip? a horse race? a cricket match?&mdash; This is is called the <strong>Random Experiment (RE)</strong>.    </p>
+<p>Say we want to determine the probability that a grain of sand ends up exactly on top of a treasure chest, on a beach, after being washed away. Obviously we cannot make any reasonably accurate prediction of such an event. Why is that so? It is because we <strong>do not know</strong> the set of <strong>all possible outcomes</strong> of our random experiment (RE). So to make an accurate comment on the probability of an event, we must also know the set of all possible outcomes of our RE. This set is called the <strong>Sample Space</strong> ($ \Omega $)</p>
+<h2 id="sample-space">Sample Space</h2></div>
 </article>
 
         </main>
