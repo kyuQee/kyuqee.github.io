@@ -49,7 +49,7 @@ The **midpoints** of all chords that intersect the inner circle, **must lie insi
 
 Since any chord $ AB $ of the outer circle that intersects the inner circle must have its perpendicular distance $ d \leq R $, its midpoint $ M $ (at distance $ d $ from $ O $) must lie within or on the inner circle.
 
-Now one can definitely prove this rigourously (and it is a trivial geometric proof), but for our case, let's just say it is true, visually.
+Now one can definitely prove this rigorously (and it is a trivial geometric proof), but for our case, let's just say it is true, visually.
 
 Now if we take only the mid points into consideration, and define a coordinate system with the origin at the centre of $ A , B $, we get a sample space that looks like this&mdash;
 
@@ -184,3 +184,126 @@ What information would we need to comment on such a matter? Usually we would nee
 Say we want to determine the probability that a grain of sand ends up exactly on top of a treasure chest, on a beach, after being washed away. Obviously we cannot make any reasonably accurate prediction of such an event. Why is that so? It is because we **do not know** the set of **all possible outcomes** of our random experiment (RE). So to make an accurate comment on the probability of an event, we must also know the set of all possible outcomes of our RE. This set is called the **Sample Space** ($ \Omega $)
 
 ## Sample Space 
+
+Now the sample space space could be something like&mdash;
+
+$$
+\Omega = \\{Heads, Tails\\}
+$$
+
+for a coin flip to something like&mdash;
+
+$$
+\Omega = \\{1,2,3,4,5,6 \\}
+$$
+
+for a dice roll.    
+
+It may also be something complex like&mdash;
+
+$$
+\Omega = \\{(x,y) \in \mathbb{R}^2 \mid 0 \leq x \leq 1, 0 \leq y \leq 1\\}
+$$
+
+i.e any random point on a unit square. Even more complex &mdash;
+
+$$
+\Omega = \\{(x,y) \in \mathbb{R}^2 \mid 0.25 \leq x^2 + y^2 \leq 1\\}
+$$
+
+i.e any random point on a unit disc, that is atleast 0.5 units away from the center. It could also be visualized as a ring. 
+
+Finally, can you guess what this represents &mdash;
+
+$$
+\Omega = \\{(x,y,z) \in \mathbb{R}^3 \mid x^2 + y^2 + z^2 = 1, z \geq 0, \sqrt{x^2 + y^2 + (z-1)^2} \leq 1\\}
+$$
+
+Kind of scary isn't it?
+( HINT: it's a sphere, with a special condition.)   
+
+This should give an idea as to _why_ we need a formal notation for something so intuitive. As we will see later, the theory builds on this and becomes powerful enough to over-take the intuitive approach.
+
+
+## Sigma Algebra
+
+Again [Wikipedia](https://en.wikipedia.org/wiki/%CE%A3-algebra) says:
+> In formal terms, a $\sigma$-algebra on a set $ X $ is a nonempty collection $ \Sigma $ of subsets of $ X $ closed under complement, countable unions, and countable intersections. The ordered pair ( $ X $, $ \Sigma $) is called a measurable space.
+
+Too Complicated, Didn't Understand (TC;DU)
+
+Let's start with the simple problem of trying to have complete knowledge of all events that can possibly occur. How do we find this? simple its just all possible subsets of our sample space $ \Omega $&mdash; But can we assign probabilities to **all** of these events? 
+
+In some cases, no, we can't.
+
+
+To put it simply think of something like this&mdash;
+
+we have $ \Omega = [0,1] $, now if we say that we want an event ($ E $) where the **length of the interval is 0.5**.    
+How many such subsets do you think there are? infinite. It could be $ [0.2, 0.7] $, $ [0.3, 0.8] $, and so on.  
+
+Now whats $ P(E)_{[0.2 , 0.7]} $? 
+Common sense would say its **0.5** since it covers exactly half of the sample space. But this is where intuition breaks down, for example let's try the **vitali set**&mdash;
+
+(NOTE: In hindsight, the exploration coming up wasn't necessary, you may skip it if you like.)
+
+<br>
+<hr>
+<br>
+
+### Vitali Set
+
+Suppose we organize the numbers $(x,y)$ from $[0,1]$ into groups based on a set condition, i.e, $ x - y \in \mathbb{Q} $, the difference must be rational. So we could have $0.7 - 0.2 = 0.5$, in the same group, and $0.8 - 0.3 = 0.5$ in the same group.  
+This splits $[0,1]$ into a **uncountably many groups**, for instance, one group might include $0.2, 0.7, 0.2 + 1/3, 0.7 + 1/3,$ and so on, as long as the differences are rational. 
+
+Suppose, we pick *exactly one* number from each group to create a set $ V $, called the Vitali set. The rule is that the numbers we pick must not differ by a rational number, because if they did (like 0.2 and 0.7), they'd be in the same group, and we're only allowed one number per group. So something like $ 0.2 $, and $ 1/\sqrt{2} $ etc. This is tricky because there are uncountably many groups, and we rely on the axiom of choice to ensure we can pick one number from each.    
+
+
+So, we've got our Vitali set $ V $, a collection of numbers, one from each group, where no two numbers differ by a rational. Why does this cause trouble? Let's try to assign it a probability $ P(V) = a $. To check if this works, we shift $ V $ by all rational numbers in $ [0, 1] $, like 0, 0.1, 0.2, 0.3, and so on. For each rational $ q $, the set $ V + q $ (where we add $ q $ to each number in $ V $, wrapping around to stay in $ [0, 1] $) is a shifted copy of $ V $. These shifted sets are **disjoint**&mdash;they don't overlap. Why? If some number appeared in both $ V + q_1 $ and $ V + q_2 $, say $ x + q_1 = y + q_2 $, then $ x - y = q_2 - q_1 $, a rational number, which would mean $ x $ and $ y $ are in the same group, contradicting the fact that $ V $ has only one number per group.
+
+The union of all these shifted sets $ V + q $, over all rational $ q \in [0, 1] $, covers all of $ [0, 1] $. Why? Every number in $ [0, 1] $ belongs to some group, and by shifting $ V $'s representative from each group by all possible rational numbers, we hit every number in every group. Since $ P([0, 1]) = 1 $, the probability of this union should be 1. By our probability rule of countable additivity, the probability of the union is the sum of the probabilities of these disjoint sets:
+
+$$ P\left( \bigcup_{q} (V + q) \right) = \sum_{q} P(V + q) $$
+
+Since shifting by a rational doesn't change the "size" of the set (in a uniform measure), each $ V + q $ should have the same probability as $ V $, so $ P(V + q) = a $. There are countably many rational numbers in $ [0, 1] $, so the sum is:
+
+$$ \sum_{q} P(V + q) = \sum_{q} a $$
+
+Now, we're stuck:
+
+- If $ a > 0 $, the sum $ a + a + \dots $ over countably many terms is infinite, which can't equal 1. That's a contradiction.
+- If $ a = 0 $, the sum is 0, which also can't equal 1. Another contradiction.
+
+This shows we *can't* assign a probability to $ V $ without breaking our probability rules. The Vitali set is **non-measurable**-it's too strange to fit into our probability framework. This is why we can't assign probabilities to *every* subset of $ \Omega = [0, 1] $. We need a **sigma algebra** to limit ourselves to subsets that play nice.
+<br>
+<hr>
+<br>
+A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we can assign probabilities to consistently. It follows three rules:
+
+1. **The whole space is included**: $ \Omega \in \mathcal{F} $. We need to say "something happens" with probability 1.
+2. **Closed under complements**: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $. If "the number is in $ [0.2, 0.7] $" is an event, "the number is *not* in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.
+3. **Closed under countable unions**: If $ A_1, A_2, \dots \in \mathcal{F} $, then $ \bigcup_{i=1}^\infty A_i \in \mathcal{F} $. This lets us combine events like $ [0.1, 0.2] \cup [0.3, 0.4] $.
+
+For $ \Omega = [0, 1] $, a sigma algebra includes nice subsets like intervals, their unions, and complements, but leaves out non-measurable sets like the Vitali set.
+
+But for our intents and purposes, one may think of this as a **power set**, for simplicity.
+
+
+## The Borel Sigma Algebra
+
+**TL:DR** It's just a sigma algebra but open intervals.
+
+So, what's a **Borel sigma algebra**? It's the standard sigma algebra for continuous spaces like $ [0, 1] $, $ \mathbb{R} $, or $ \mathbb{R}^2 $, used in problems like the Bertrand paradox. Think of it as the ultimate collection of measurable subsets that makes probability calculations safe and practical.
+
+The Borel sigma algebra, denoted $ \mathcal{B} $, starts with all **open sets** in your space. In $ \Omega = [0, 1] $, open sets are intervals like $ (0.2, 0.5) $ (not including endpoints). In $ \mathbb{R}^2 $, they're open disks, rectangles, or shapes with smooth boundaries. The Borel sigma algebra is the smallest sigma algebra that contains all these open sets, built by:
+
+1. Including all open sets.
+2. Adding their complements (closed sets, like $ [0.2, 0.5] $).
+3. Adding all countable unions and intersections of these sets.
+
+This creates a huge collection of measurable sets, including:
+
+- Intervals: $ [0.2, 0.5] $, $ (0, 1) $, or single points like $ \{0.42\} $.
+- Unions of intervals: $ [0.1, 0.3] \cup [0.5, 0.7] $.
+
+[TODO]
