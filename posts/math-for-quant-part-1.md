@@ -227,6 +227,8 @@ This should give an idea as to _why_ we need a formal notation for something so 
 
 ## Sigma Algebra
 
+Typically this is part of **measure theory**, so we'll only cover what we absolutely need to know.
+
 Again [Wikipedia](https://en.wikipedia.org/wiki/%CE%A3-algebra) says:
 > In formal terms, a $\sigma$-algebra on a set $ X $ is a nonempty collection $ \Sigma $ of subsets of $ X $ closed under complement, countable unions, and countable intersections. The ordered pair ( $ X $, $ \Sigma $) is called a measurable space.
 
@@ -281,7 +283,7 @@ This shows we *can't* assign a probability to $ V $ without breaking our probabi
 A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we can assign probabilities to consistently. It follows three rules:
 
 1. **The whole space is included**: $ \Omega \in \mathcal{F} $. We need to say "something happens" with probability 1.
-2. **Closed under complements**: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $. If "the number is in $ [0.2, 0.7] $" is an event, "the number is *not* in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.
+2. **Closed under complements**: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega$ - $\mathcal{F}$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is *not* in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.
 3. **Closed under countable unions**: If $ A_1, A_2, \dots \in \mathcal{F} $, then $ \bigcup_{i=1}^\infty A_i \in \mathcal{F} $. This lets us combine events like $ [0.1, 0.2] \cup [0.3, 0.4] $.
 
 For $ \Omega = [0, 1] $, a sigma algebra includes nice subsets like intervals, their unions, and complements, but leaves out non-measurable sets like the Vitali set.
@@ -305,5 +307,48 @@ This creates a huge collection of measurable sets, including:
 
 - Intervals: $ [0.2, 0.5] $, $ (0, 1) $, or single points like $ \{0.42\} $.
 - Unions of intervals: $ [0.1, 0.3] \cup [0.5, 0.7] $.
+
+## Probability Measures and Probability Spaces
+
+### Probability Measures
+So we laid down most of the formal stuff, now to actually define our **Probability measure**, we may take a function&mdash;
+
+$$
+P: \mathcal{F} \to [0,1]
+$$
+
+From domain = $\mathcal{F}$, to codomain/range = $[0,1]$.   
+It must satisfy:    
+
+1. $P(\Omega) = 1$  
+2. $P(\phi) = 0$
+3. **Countable additivity**: For a countable collection of **disjoint** sets, $A_1, A_2, \dots \in \mathcal{F}$, $$  P(\bigcup_{i=1}^\infty A_i) = \Sigma_{i=1}^\infty P(A_i) $$
+
+If all of this seems obvious, good. But in most cases it would be advisable to think of continuous probability as different from discrete probability.
+
+### Probability Spaces
+
+So from the terms we defined above, now we can finally define our "world", a probability space. Let's simply package all the relevant stuff into a triple of $(\Omega, \mathcal{F}, P)$.    
+
+For example, for a (single) fair coin flip&mdash;
+
+$$
+\begin{aligned}
+\Omega &= \\{H, T\\} \newline
+\mathcal{F} &= \\{\phi, \\{H\\}, \\{T\\}, \\{H, T\\}\\} \newline
+P&(\\{H\\}) = 0.5 , P({\\{T\\}}) = 0.5
+\end{aligned}
+$$
+
+## Random Variables
+
+So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set **ordering**. We typically want something in terms of **numbers** to do anything practical with it. So we introduce the **Random Variable (RV)**, that solve this problem.
+
+Contrary to the name, a Random Variable is actually a **function**&mdash;   
+$$
+X: \Omega \to \mathbb{R}
+$$
+
+It assigns a Real Number to every outcome in the sample space.
 
 [TODO]
