@@ -89,6 +89,12 @@
 </ul>
 </li>
 <li><a href="#the-borel-sigma-algebra">The Borel Sigma Algebra</a></li>
+<li><a href="#probability-measures-and-probability-spaces">Probability Measures and Probability Spaces</a><ul>
+<li><a href="#probability-measures">Probability Measures</a></li>
+<li><a href="#probability-spaces">Probability Spaces</a></li>
+</ul>
+</li>
+<li><a href="#random-variables">Random Variables</a></li>
 </ul>
 </li>
 </ul>
@@ -242,6 +248,7 @@ $$</p>
 ( HINT: it's a sphere, with a special condition.)   </p>
 <p>This should give an idea as to <em>why</em> we need a formal notation for something so intuitive. As we will see later, the theory builds on this and becomes powerful enough to over-take the intuitive approach.</p>
 <h2 id="sigma-algebra">Sigma Algebra</h2>
+<p>Typically this is part of <strong>measure theory</strong>, so we'll only cover what we absolutely need to know.</p>
 <p>Again <a href="https://en.wikipedia.org/wiki/%CE%A3-algebra">Wikipedia</a> says:</p>
 <blockquote>
 <p>In formal terms, a $\sigma$-algebra on a set $ X $ is a nonempty collection $ \Sigma $ of subsets of $ X $ closed under complement, countable unions, and countable intersections. The ordered pair ( $ X $, $ \Sigma $) is called a measurable space.</p>
@@ -279,7 +286,7 @@ This splits $[0,1]$ into a <strong>uncountably many groups</strong>, for instanc
 A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we can assign probabilities to consistently. It follows three rules:</p>
 <ol>
 <li><strong>The whole space is included</strong>: $ \Omega \in \mathcal{F} $. We need to say "something happens" with probability 1.</li>
-<li><strong>Closed under complements</strong>: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $. If "the number is in $ [0.2, 0.7] $" is an event, "the number is <em>not</em> in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.</li>
+<li><strong>Closed under complements</strong>: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega$ - $\mathcal{F}$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is <em>not</em> in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.</li>
 <li><strong>Closed under countable unions</strong>: If $ A_1, A_2, \dots \in \mathcal{F} $, then $ \bigcup_{i=1}^\infty A_i \in \mathcal{F} $. This lets us combine events like $ [0.1, 0.2] \cup [0.3, 0.4] $.</li>
 </ol>
 <p>For $ \Omega = [0, 1] $, a sigma algebra includes nice subsets like intervals, their unions, and complements, but leaves out non-measurable sets like the Vitali set.</p>
@@ -298,6 +305,37 @@ A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we 
 <li>Intervals: $ [0.2, 0.5] $, $ (0, 1) $, or single points like $ {0.42} $.</li>
 <li>Unions of intervals: $ [0.1, 0.3] \cup [0.5, 0.7] $.</li>
 </ul>
+<h2 id="probability-measures-and-probability-spaces">Probability Measures and Probability Spaces</h2>
+<h3 id="probability-measures">Probability Measures</h3>
+<p>So we laid down most of the formal stuff, now to actually define our <strong>Probability measure</strong>, we may take a function&mdash;</p>
+<p>$$
+P: \mathcal{F} \to [0,1]
+$$</p>
+<p>From domain = $\mathcal{F}$, to codomain/range = $[0,1]$. <br />
+It must satisfy:    </p>
+<ol>
+<li>$P(\Omega) = 1$  </li>
+<li>$P(\phi) = 0$</li>
+<li><strong>Countable additivity</strong>: For a countable collection of <strong>disjoint</strong> sets, $A_1, A_2, \dots \in \mathcal{F}$, $$  P(\bigcup_{i=1}^\infty A_i) = \Sigma_{i=1}^\infty P(A_i) $$</li>
+</ol>
+<p>If all of this seems obvious, good. But in most cases it would be advisable to think of continuous probability as different from discrete probability.</p>
+<h3 id="probability-spaces">Probability Spaces</h3>
+<p>So from the terms we defined above, now we can finally define our "world", a probability space. Let's simply package all the relevant stuff into a triple of $(\Omega, \mathcal{F}, P)$.    </p>
+<p>For example, for a (single) fair coin flip&mdash;</p>
+<p>$$
+\begin{aligned}
+\Omega &amp;= \{H, T\} \newline
+\mathcal{F} &amp;= \{\phi, \{H\}, \{T\}, \{H, T\}\} \newline
+P&amp;(\{H\}) = 0.5 , P({\{T\}}) = 0.5
+\end{aligned}
+$$</p>
+<h2 id="random-variables">Random Variables</h2>
+<p>So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set <strong>ordering</strong>. We typically want something in terms of <strong>numbers</strong> to do anything practical with it. So we introduce the <strong>Random Variable (RV)</strong>, that solve this problem.</p>
+<p>Contrary to the name, a Random Variable is actually a <strong>function</strong>&mdash; <br />
+$$
+X: \Omega \to \mathbb{R}
+$$</p>
+<p>It assigns a Real Number to every outcome in the sample space.</p>
 <p>[TODO]</p></div>
 </article>
 
