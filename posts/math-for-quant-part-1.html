@@ -94,7 +94,15 @@
 <li><a href="#probability-spaces">Probability Spaces</a></li>
 </ul>
 </li>
-<li><a href="#random-variables">Random Variables</a></li>
+<li><a href="#random-variables">Random Variables</a><ul>
+<li><a href="#discrete-random-variables">Discrete Random Variables</a></li>
+<li><a href="#continous-random-variables">Continous Random Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#probability-distributions">Probability distributions</a><ul>
+<li><a href="#the-pmf-and-the-pdf">The PMF and the PDF</a></li>
 </ul>
 </li>
 </ul>
@@ -210,10 +218,10 @@ $$
 P(\mathbb{E}) = \boxed{\frac{1}{2}}
 $$</p>
 <h3 id="the-contradiction">The Contradiction</h3>
-<p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math. <br />
-In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. <br />
-To know the real in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
-(HINT: the answer is $ \frac{1}{2} $)</p>
+<p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. This is called the <strong>Bertrand Paradox</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.  <br />
+In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   </p>
+<p>To know the real in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
+(HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)</p>
 <h1 id="terms-and-definitions">Terms and Definitions</h1>
 <p>Understanding the terms and notation is the most crucial part to understanding probability. </p>
 <p>Let's try to intuitively find out what are the terms required to make a reasonable comment on the probability of an event.  </p>
@@ -330,12 +338,47 @@ P&amp;(\{H\}) = 0.5 , P({\{T\}}) = 0.5
 \end{aligned}
 $$</p>
 <h2 id="random-variables">Random Variables</h2>
-<p>So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set <strong>ordering</strong>. We typically want something in terms of <strong>numbers</strong> to do anything practical with it. So we introduce the <strong>Random Variable (RV)</strong>, that solve this problem.</p>
+<p>So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set <strong>ordering</strong>. We typically want something in terms of <strong>numbers</strong> to do anything practical with it. So we introduce <strong>Random Variables (RVs)</strong>, that solve this problem.</p>
 <p>Contrary to the name, a Random Variable is actually a <strong>function</strong>&mdash; <br />
 $$
 X: \Omega \to \mathbb{R}
 $$</p>
-<p>It assigns a Real Number to every outcome in the sample space.</p>
+<p>It assigns a <strong>Real Number</strong> ($\mathbb{R}$) to every outcome in the sample space ($\Omega$).  <br />
+Now obviously we can have <strong>two types</strong> of random variables.    </p>
+<h3 id="discrete-random-variables">Discrete Random Variables</h3>
+<p>It usually takes countable values, for example let's take a dice rolled 3 times. Then&mdash;</p>
+<p>$$
+\Omega = \{(i,j,k): i,j,k \in {1,2,3,4,5,6}\}
+$$</p>
+<p>and suppose our random variable ($X$) is the number of 6s, rolled in the 3 tries&mdash;</p>
+<p>$$
+X: \Omega \to \{0,1,2,3\}
+$$</p>
+<p>and also&mdash;</p>
+<p>$$
+X(\omega \in \Omega) = \text{ number of sixes}
+$$</p>
+<p>More formally&mdash;</p>
+<p>$$
+X((i,j,k)) = \Sigma_{m\in\{i,j,k\}} 1_{\{6\}}(m)
+$$</p>
+<p>where $1_{\{6\}}(m)$ is an indicator function, defined as:    </p>
+<p>$$
+1_{\{6\}}(m) = 
+\begin{cases} 
+1 &amp; \text{if } m = 6, \newline
+0 &amp; \text{if } m \neq 6
+\end{cases}
+$$</p>
+<p>But anyways, there are many ways to define a RV.</p>
+<h3 id="continous-random-variables">Continous Random Variables</h3>
+<p>More or less similar to the discrete type, except&mdash;</p>
+<p>$$
+X: \Omega \to \mathbb{R}^n \text{ Where }  n \in \mathbb{Z}
+$$</p>
+<p>The rest can be inferred. Maybe try to guess what the RV was in the Bertrand Paradox stated earlier.</p>
+<h1 id="probability-distributions">Probability distributions</h1>
+<h2 id="the-pmf-and-the-pdf">The PMF and the PDF</h2>
 <p>[TODO]</p></div>
 </article>
 
