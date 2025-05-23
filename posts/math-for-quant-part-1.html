@@ -72,6 +72,7 @@
 <ul>
 <li><a href="#work-in-progress">WORK IN PROGRESS</a></li>
 <li><a href="#introduction">Introduction</a><ul>
+<li><a href="#prerequisites-for-reading">Prerequisites for Reading</a></li>
 <li><a href="#the-paradox">The Paradox</a><ul>
 <li><a href="#method-1-random-midpoint-method">Method 1: Random Midpoint Method</a></li>
 <li><a href="#method-2-diameter-method">Method 2: Diameter Method</a></li>
@@ -115,6 +116,14 @@
     <div><h1 id="work-in-progress">WORK IN PROGRESS</h1>
 <h1 id="introduction">Introduction</h1>
 <p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
+<h2 id="prerequisites-for-reading">Prerequisites for Reading</h2>
+<p>To get the most out of this blog post, you should have:</p>
+<p><strong>High School Math:</strong> A solid foundation in algebra, coordinate geometry, trigonometry, and basic probability (e.g., AP Calculus/Statistics, JEE Advanced, IB Math HL, or A-Level Mathematics). </p>
+<p><strong>Set Notation:</strong> Comfort with basic set notation (e.g., describing points in a plane or intervals).    </p>
+<p><strong>Geometric Intuition:</strong> Ability to visualize geometric shapes like circles and chords. </p>
+<p><strong>Curiosity:</strong> An interest in exploring advanced probability concepts, such as sigma algebras and probability spaces, introduced in an accessible way.  </p>
+<p><strong>Optional:</strong> Familiarity with calculus or logical reasoning can enhance understanding but isn't required.  </p>
+<p>No prior knowledge of measure theory or advanced probability is needed&mdash;we'll build from intuitive ideas to formal concepts together!</p>
 <h2 id="the-paradox">The Paradox</h2>
 <p>Let's start with a question that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
 <p>According to <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia</a> it may be formulated as follows: </p>
@@ -218,7 +227,7 @@ $$
 P(\mathbb{E}) = \boxed{\frac{1}{2}}
 $$</p>
 <h3 id="the-contradiction">The Contradiction</h3>
-<p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. This is called the <strong>Bertrand Paradox</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.  <br />
+<p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. This problem is called the <strong>Bertrand Paradox</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.  <br />
 In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   </p>
 <p>To know the real in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
 (HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)</p>
