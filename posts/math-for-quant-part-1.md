@@ -8,9 +8,28 @@ tags: [maths, blog, quant]
 # WORK IN PROGRESS
 
 
+
 # Introduction
 
 High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.
+
+## Prerequisites for Reading 
+
+To get the most out of this blog post, you should have:
+
+**High School Math:** A solid foundation in algebra, coordinate geometry, trigonometry, and basic probability (e.g., AP Calculus/Statistics, JEE Advanced, IB Math HL, or A-Level Mathematics). 
+
+**Set Notation:** Comfort with basic set notation (e.g., describing points in a plane or intervals).    
+
+**Geometric Intuition:** Ability to visualize geometric shapes like circles and chords. 
+
+**Curiosity:** An interest in exploring advanced probability concepts, such as sigma algebras and probability spaces, introduced in an accessible way.  
+
+**Optional:** Familiarity with calculus or logical reasoning can enhance understanding but isn't required.  
+
+
+No prior knowledge of measure theory or advanced probability is needed&mdash;we'll build from intuitive ideas to formal concepts together!
+
 
 
 ## The Paradox
@@ -163,7 +182,7 @@ $$
 
 ### The Contradiction 
 
-So, we have **Three answers**. This is clearly a contradiction. It means somewhere along the way, our approach with **highschool math** was **flawed**. This is called the **Bertrand Paradox**. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.    
+So, we have **Three answers**. This is clearly a contradiction. It means somewhere along the way, our approach with **highschool math** was **flawed**. This problem is called the **Bertrand Paradox**. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.    
 In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   
 
 To know the real in-depth reason you can check out the [Wikipedia Page](https://en.wikipedia.org/wiki/Bertrand_paradox_(probability))   
