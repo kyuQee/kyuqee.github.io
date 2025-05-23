@@ -163,10 +163,11 @@ $$
 
 ### The Contradiction 
 
-So, we have **Three answers**. This is clearly a contradiction. It means somewhere along the way, our approach with **highschool math** was **flawed**. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.   
-In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox.   
+So, we have **Three answers**. This is clearly a contradiction. It means somewhere along the way, our approach with **highschool math** was **flawed**. This is called the **Bertrand Paradox**. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.    
+In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   
+
 To know the real in-depth reason you can check out the [Wikipedia Page](https://en.wikipedia.org/wiki/Bertrand_paradox_(probability))   
-(HINT: the answer is $ \frac{1}{2} $)
+(HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)
 
 
 # Terms and Definitions 
@@ -342,13 +343,72 @@ $$
 
 ## Random Variables
 
-So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set **ordering**. We typically want something in terms of **numbers** to do anything practical with it. So we introduce the **Random Variable (RV)**, that solve this problem.
+So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set **ordering**. We typically want something in terms of **numbers** to do anything practical with it. So we introduce **Random Variables (RVs)**, that solve this problem.
 
 Contrary to the name, a Random Variable is actually a **function**&mdash;   
 $$
 X: \Omega \to \mathbb{R}
 $$
 
-It assigns a Real Number to every outcome in the sample space.
+It assigns a **Real Number** ($\mathbb{R}$) to every outcome in the sample space ($\Omega$).    
+Now obviously we can have **two types** of random variables.    
+
+### Discrete Random Variables
+
+It usually takes countable values, for example let's take a dice rolled 3 times. Then&mdash;
+
+$$
+\Omega = \\{(i,j,k): i,j,k \in {1,2,3,4,5,6}\\}
+$$
+
+and suppose our random variable ($X$) is the number of 6s, rolled in the 3 tries&mdash;
+
+$$
+X: \Omega \to \\{0,1,2,3\\}
+$$
+
+and also&mdash;
+
+$$
+X(\omega \in \Omega) = \text{ number of sixes}
+$$
+
+More formally&mdash;
+
+$$
+X((i,j,k)) = \Sigma_{m\in\\{i,j,k\\}} 1_{\\{6\\}}(m)
+$$
+
+where $1_{\\{6\\}}(m)$ is an indicator function, defined as:    
+
+$$
+1_{\\{6\\}}(m) = 
+\begin{cases} 
+1 & \text{if } m = 6, \newline
+0 & \text{if } m \neq 6
+\end{cases}
+$$
+
+But anyways, there are many ways to define a RV.
+
+### Continous Random Variables
+
+More or less similar to the discrete type, except&mdash;
+
+$$
+X: \Omega \to \mathbb{R}^n \text{ Where }  n \in \mathbb{Z}
+$$
+
+The rest can be inferred. Maybe try to guess what the RV was in the Bertrand Paradox stated earlier.
+
+# Probability distributions
+
+## The PMF and the PDF
+
+
+
+
+
+
 
 [TODO]
