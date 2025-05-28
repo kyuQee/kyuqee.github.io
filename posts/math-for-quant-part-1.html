@@ -112,6 +112,7 @@
 </li>
 </ul>
 </li>
+<li><a href="#the-binomial-distribution">The Binomial distribution</a></li>
 </ul>
 </li>
 </ul>
@@ -176,15 +177,8 @@
 <p>So for some formal definitions&mdash; <br />
 $$
 \begin{aligned}
-\Omega &amp;\in (-2R, 2R) \times (-2R, 2R) \newline
-\mathbb{E} &amp;\in (-R, R) \times (-R, R)
-\end{aligned}
-$$</p>
-<p>Which essentially means&mdash; <br />
-$$
-\begin{aligned}
-\Omega &amp;= \{(X, Y) \in \mathbb{R}^2 \mid X \in (-2R, 2R), Y \in (-2R, 2R)\} \newline
-\mathbb{E} &amp;= \{(X, Y) \in \mathbb{R}^2 \mid X \in (-R, R), Y \in (-R, R)\}
+\Omega &amp;= \{(x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq (2R)^2\} \newline
+\mathbb{E} &amp;= \{(x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq R^2\}
 \end{aligned}
 $$</p>
 <p>Now, to calculate $ P(\mathbb{E}) $ we can simply do&mdash; </p>
@@ -244,8 +238,8 @@ P(\mathbb{E}) = \boxed{\frac{1}{2}}
 $$</p>
 <h3 id="the-contradiction">The Contradiction</h3>
 <p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. This problem is called the <strong>Bertrand Paradox</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.  <br />
-In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   </p>
-<p>To know the real in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
+In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that <strong>the choice of our random chord can impact the probability measure</strong>. There are <strong>different kinds of random</strong>.  </p>
+<p>Unfortuanately, we need the proper "advanced probability theory" to properly discuss the resolution, which is what we'll be exploring in this article. I might write a follow-up post for the resolution as this post is already going to get pretty long. If you really want to know the in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
 (HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)</p>
 <h1 id="terms-and-definitions">Terms and Definitions</h1>
 <p>Understanding the terms and notation is the most crucial part to understanding probability. </p>
@@ -462,6 +456,7 @@ P(a \leq X \leq b) = \int_{a}^{b} f(x)dx
 $$</p>
 <p>Also it must be <strong>non-negative</strong> for all $x$. i.e $f(x)\geq 0 \forall x$ (try to justify this claim, it's pretty intuitive, but the proof is still quite long and excluded for brevity).    </p>
 <p>Let's do some examples because abstract definitions like this make no sense.    </p>
+<hr />
 <h4 id="example-1-uniform-distribution-on-an-interval-1d">Example 1: Uniform Distribution on an Interval (1D)</h4>
 <p><strong>Scenario</strong>: Suppose you're waiting for a bus that arrives randomly between 0 and 10 minutes from now. Let $X$ be the waiting time in minutes, uniformly distributed over $[0, 10]$.</p>
 <p><strong>PDF</strong>: Since $X$ is equally likely to take any value in $[0, 10]$, the PDF is constant over that interval. The total area under the PDF must be 1:</p>
@@ -477,7 +472,48 @@ $$</p>
 <p>It looks something like&mdash;</p>
 <p><br></p>
 <p><img src="/static/images/mathforquant/math-for-quant-part-1-9.svg" style="height: 300px !important" class="invertible"></p>
+<p><br>
+<br></p>
+<hr />
+<p><br>
+For the sake of brevity, we'll go straight to the named distributions from here, but maybe try to think up a few more examples, before we do. Maybe try to get an exponential distribution (i.e in terms of $e^k \text{ or } a^k$)? (Remember you must normalize them in some way to get $f(x)$)</p>
+<h2 id="the-binomial-distribution">The Binomial distribution</h2>
+<p>We've already seen the binomial distribution sneak into our dice example, where we calculated the probability of rolling exactly one 6 in three tries. But what exactly is this distribution, and why is it so important? Let's break it down.  </p>
+<p>Let's start with the main question:</p>
+<blockquote>
+<p>Given a fixed number of trials (<code>n</code>), flipping a fair coin, calculate the probability of getting exactly 1 heads in these <code>n</code> trials.</p>
+</blockquote>
+<p>Simple high school math right?<br />
+But let's visualize it&mdash;</p>
+<p><br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-10.svg" style="height: 300px !important" class="invertible">
+<br></p>
+<p>Notice that if we select a path all the way down to the bottom, the probabilities of each branch get <strong>multiplied</strong>. In our case, as it's a fair coin, $ p = (1-p) = 0.5 $.
+here we <strong>only need 1 heads</strong>, so we must continue on the rightmost branch, and select the place where we get our heads. We can select the "branch" where we make the split with&mdash;</p>
+<p>$$
+\binom{n}{1} = n
+$$</p>
+<p>And our final probability will look like&mdash;</p>
+<p>$$
+\binom{n}{1}\cdot(0.5)^1\cdot(0.5)^{(n-1)}
+$$</p>
+<p>So to generalize this:<br />
+$$
+\begin{aligned}
+p:&amp; \text{ Probability of success.} \newline
+n:&amp; \text{ Number of trials} \newline
+k:&amp; \text{ Required number of successes}
+\end{aligned}
+$$</p>
+<p>So we get a RV, $X$, and&mdash;
+$$
+P(X=k) = \binom{n}{k}\cdot(p)^k\cdot(1-p)^{(n-k)}
+$$</p>
+<p>Here is the graph ($n=10, p=0.5$)&mdash;
+<br></p>
+<iframe src="https://www.desmos.com/calculator/uwq5nondpt?embed" width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
 <p><br></p>
+<p>The green lines are the floored values of $X$, i.e Integers, where as the red curve is the extension of this binomial distribution. Can you point out what's wrong with it? yeah. The red graph may cause confusion, as the binomial distribution is <strong>discrete</strong> in nature, so it shouldn't have a continuous graph.    </p>
 <p>[TODO]</p></div>
 </article>
 
