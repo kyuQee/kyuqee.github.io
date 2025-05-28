@@ -95,20 +95,10 @@ And if we draw our required event on it, we get&mdash;
 So for some formal definitions&mdash;   
 $$
 \begin{aligned}
-\Omega &\in (-2R, 2R) \times (-2R, 2R) \newline
-\mathbb{E} &\in (-R, R) \times (-R, R)
+\Omega &= \\{(x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq (2R)^2\\} \newline
+\mathbb{E} &= \\{(x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq R^2\\}
 \end{aligned}
 $$
-
-
-Which essentially means&mdash;   
-$$
-\begin{aligned}
-\Omega &= \\{(X, Y) \in \mathbb{R}^2 \mid X \in (-2R, 2R), Y \in (-2R, 2R)\\} \newline
-\mathbb{E} &= \\{(X, Y) \in \mathbb{R}^2 \mid X \in (-R, R), Y \in (-R, R)\\}
-\end{aligned}
-$$
-
 
 
 Now, to calculate $ P(\mathbb{E}) $ we can simply do&mdash; 
@@ -193,9 +183,9 @@ $$
 ### The Contradiction 
 
 So, we have **Three answers**. This is clearly a contradiction. It means somewhere along the way, our approach with **highschool math** was **flawed**. This problem is called the **Bertrand Paradox**. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.    
-In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that the choice of our random chord can impact the probability measure.   
+In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that **the choice of our random chord can impact the probability measure**. There are **different kinds of random**.  
 
-To know the real in-depth reason you can check out the [Wikipedia Page](https://en.wikipedia.org/wiki/Bertrand_paradox_(probability))   
+Unfortuanately, we need the proper "advanced probability theory" to properly discuss the resolution, which is what we'll be exploring in this article. I might write a follow-up post for the resolution as this post is already going to get pretty long. If you really want to know the in-depth reason you can check out the [Wikipedia Page](https://en.wikipedia.org/wiki/Bertrand_paradox_(probability))   
 (HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)
 
 
@@ -525,6 +515,8 @@ Also it must be **non-negative** for all $x$. i.e $f(x)\geq 0 \forall x$ (try to
 
 Let's do some examples because abstract definitions like this make no sense.    
 
+--- 
+
 
 #### Example 1: Uniform Distribution on an Interval (1D)
 
@@ -553,6 +545,57 @@ It looks something like&mdash;
 <img src="/static/images/mathforquant/math-for-quant-part-1-9.svg" style="height: 300px !important" class="invertible">
 
 <br>
+<br>
+--- 
+<br>
+For the sake of brevity, we'll go straight to the named distributions from here, but maybe try to think up a few more examples, before we do. Maybe try to get an exponential distribution (i.e in terms of $e^k \text{ or } a^k$)? (Remember you must normalize them in some way to get $f(x)$)
+
+## The Binomial distribution    
+We've already seen the binomial distribution sneak into our dice example, where we calculated the probability of rolling exactly one 6 in three tries. But what exactly is this distribution, and why is it so important? Let's break it down.  
+
+Let's start with the main question:
+> Given a fixed number of trials (`n`), flipping a fair coin, calculate the probability of getting exactly 1 heads in these `n` trials.
+
+Simple high school math right?  
+But let's visualize it&mdash;
+
+<br>
+<img src="/static/images/mathforquant/math-for-quant-part-1-10.svg" style="height: 300px !important" class="invertible">
+<br>
+
+Notice that if we select a path all the way down to the bottom, the probabilities of each branch get **multiplied**. In our case, as it's a fair coin, $ p = (1-p) = 0.5 $.
+here we **only need 1 heads**, so we must continue on the rightmost branch, and select the place where we get our heads. We can select the "branch" where we make the split with&mdash;
+
+$$
+\binom{n}{1} = n
+$$
+
+And our final probability will look like&mdash;
+
+$$
+\binom{n}{1}\cdot(0.5)^1\cdot(0.5)^{(n-1)}
+$$
+
+So to generalize this:  
+$$
+\begin{aligned}
+p:& \text{ Probability of success.} \newline
+n:& \text{ Number of trials} \newline
+k:& \text{ Required number of successes}
+\end{aligned}
+$$
+
+So we get a RV, $X$, and&mdash;
+$$
+P(X=k) = \binom{n}{k}\cdot(p)^k\cdot(1-p)^{(n-k)}
+$$
+
+Here is the graph ($n=10, p=0.5$)&mdash;
+<br>
+<iframe src="https://www.desmos.com/calculator/uwq5nondpt?embed" width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
+<br>
+
+The green lines are the floored values of $X$, i.e Integers, where as the red curve is the extension of this binomial distribution. Can you point out what's wrong with it? yeah. The red graph may cause confusion, as the binomial distribution is **discrete** in nature, so it shouldn't have a continuous graph.    
 
 
 [TODO]
