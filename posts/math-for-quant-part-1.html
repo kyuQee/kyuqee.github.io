@@ -72,6 +72,7 @@
 <ul>
 <li><a href="#work-in-progress">WORK IN PROGRESS</a></li>
 <li><a href="#introduction">Introduction</a><ul>
+<li><a href="#resources">Resources</a></li>
 <li><a href="#prerequisites-for-reading">Prerequisites for Reading</a></li>
 <li><a href="#the-paradox">The Paradox</a><ul>
 <li><a href="#method-1-random-midpoint-method">Method 1: Random Midpoint Method</a></li>
@@ -86,7 +87,7 @@
 <li><a href="#what-is-probability">What is Probability?</a></li>
 <li><a href="#sample-space">Sample Space</a></li>
 <li><a href="#sigma-algebra">Sigma Algebra</a><ul>
-<li><a href="#vitali-set">Vitali Set</a></li>
+<li><a href="#vitali-set-deep-dive">Vitali Set (Deep Dive)</a></li>
 </ul>
 </li>
 <li><a href="#the-borel-sigma-algebra">The Borel Sigma Algebra</a></li>
@@ -103,7 +104,14 @@
 </ul>
 </li>
 <li><a href="#probability-distributions">Probability distributions</a><ul>
-<li><a href="#the-pmf-and-the-pdf">The PMF and the PDF</a></li>
+<li><a href="#the-pmf-and-the-pdf">The PMF and the PDF</a><ul>
+<li><a href="#probability-mass-function-pmf">Probability Mass Function (PMF)</a></li>
+<li><a href="#probability-density-function-pdf">Probability Density Function (PDF)</a><ul>
+<li><a href="#example-1-uniform-distribution-on-an-interval-1d">Example 1: Uniform Distribution on an Interval (1D)</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -115,9 +123,17 @@
     <br>
     <div><h1 id="work-in-progress">WORK IN PROGRESS</h1>
 <h1 id="introduction">Introduction</h1>
-<p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
+<p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as Binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
+<p>This is by no means a proper text, or learning resource. This is simply what <strong>I would've wanted to read</strong>, when I was getting started with these topics. Here are the resources I used to learn these topics (still learning, but more less understood the basics).</p>
+<h2 id="resources">Resources</h2>
+<ol>
+<li><strong>MIT OCW 18.S096</strong>: <a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP63ctJIEC1UnZ0btsphnnoHR">youtube link</a>, <a href="https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-with-applications-in-finance-fall-2013/">website link</a>. It's pretty good, but required a lot of previous undergrad knowledge so the learning curve was quite steep. It did however introduce me to the right topics to learn, and I learnt them all individually from different resources.</li>
+<li><strong>Probability and Stochastics for finance, NPTEL</strong>: <a href="https://www.youtube.com/@probabilityandstochasticsf5278">youtube link</a>, Extremely good, especially since it starts right from the highschool level. This is also where I got the inspiration for the Bertrand Paradox, presented ahead.</li>
+<li><strong>Quantitative Finance 101, FEBS IIT Bhubaneshwar</strong>: <a href="https://www.youtube.com/playlist?list=PLX5wiDP8rz62dRofitFcP10iqLTjLKfmq">youtube link</a>. This made me understand sigma algebras, atleast at a level where I can apply them reasonably. It doesn't really assume zero knowledge, but is pretty in depth.    </li>
+<li><strong>Shreve Stochastic Calculus for Finance II: Continuous-Time Models</strong>: <a href="https://g.co/kgs/n3SQKnz">link</a>. This book was recommended multiple times, no matter where I looked on the internet. It is in-fact the go-to book for this topic. </li>
+</ol>
+<p>Apart from these I've used several other miscellaneous sources, which I won't state here for the sake of brevity.</p>
 <h2 id="prerequisites-for-reading">Prerequisites for Reading</h2>
-<p>To get the most out of this blog post, you should have:</p>
 <p><strong>High School Math:</strong> A solid foundation in algebra, coordinate geometry, trigonometry, and basic probability (e.g., AP Calculus/Statistics, JEE Advanced, IB Math HL, or A-Level Mathematics). </p>
 <p><strong>Set Notation:</strong> Comfort with basic set notation (e.g., describing points in a plane or intervals).    </p>
 <p><strong>Geometric Intuition:</strong> Ability to visualize geometric shapes like circles and chords. </p>
@@ -282,7 +298,7 @@ Common sense would say its <strong>0.5</strong> since it covers exactly half of 
 <p><br></p>
 <hr>
 <p><br></p>
-<h3 id="vitali-set">Vitali Set</h3>
+<h3 id="vitali-set-deep-dive">Vitali Set (Deep Dive)</h3>
 <p>Suppose we organize the numbers $(x,y)$ from $[0,1]$ into groups based on a set condition, i.e, $ x - y \in \mathbb{Q} $, the difference must be rational. So we could have $0.7 - 0.2 = 0.5$, in the same group, and $0.8 - 0.3 = 0.5$ in the same group.<br />
 This splits $[0,1]$ into a <strong>uncountably many groups</strong>, for instance, one group might include $0.2, 0.7, 0.2 + 1/3, 0.7 + 1/3,$ and so on, as long as the differences are rational. </p>
 <p>Suppose, we pick <em>exactly one</em> number from each group to create a set $ V $, called the Vitali set. The rule is that the numbers we pick must not differ by a rational number, because if they did (like 0.2 and 0.7), they'd be in the same group, and we're only allowed one number per group. So something like $ 0.2 $, and $ 1/\sqrt{2} $ etc. This is tricky because there are uncountably many groups, and we rely on the axiom of choice to ensure we can pick one number from each.    </p>
@@ -303,7 +319,7 @@ This splits $[0,1]$ into a <strong>uncountably many groups</strong>, for instanc
 A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we can assign probabilities to consistently. It follows three rules:</p>
 <ol>
 <li><strong>The whole space is included</strong>: $ \Omega \in \mathcal{F} $. We need to say "something happens" with probability 1.</li>
-<li><strong>Closed under complements</strong>: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega$ - $\mathcal{F}$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is <em>not</em> in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.</li>
+<li><strong>Closed under complements</strong>: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega$ - A$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is <em>not</em> in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.</li>
 <li><strong>Closed under countable unions</strong>: If $ A_1, A_2, \dots \in \mathcal{F} $, then $ \bigcup_{i=1}^\infty A_i \in \mathcal{F} $. This lets us combine events like $ [0.1, 0.2] \cup [0.3, 0.4] $.</li>
 </ol>
 <p>For $ \Omega = [0, 1] $, a sigma algebra includes nice subsets like intervals, their unions, and complements, but leaves out non-measurable sets like the Vitali set.</p>
@@ -317,7 +333,7 @@ A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we 
 <li>Adding their complements (closed sets, like $ [0.2, 0.5] $).</li>
 <li>Adding all countable unions and intersections of these sets.</li>
 </ol>
-<p>This creates a huge collection of measurable sets, including:</p>
+<p>This creates a huge collection of measurable sets (called <strong>Borel Sets</strong>), including:</p>
 <ul>
 <li>Intervals: $ [0.2, 0.5] $, $ (0, 1) $, or single points like $ {0.42} $.</li>
 <li>Unions of intervals: $ [0.1, 0.3] \cup [0.5, 0.7] $.</li>
@@ -328,7 +344,7 @@ A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we 
 <p>$$
 P: \mathcal{F} \to [0,1]
 $$</p>
-<p>From domain = $\mathcal{F}$, to codomain/range = $[0,1]$. <br />
+<p>From domain = $\mathcal{F}$, to codomain/range = $[0,1]$. Note this assigns probabilities to <strong>events in</strong> $ \mathcal{F} $(similar to what is covered in highschool), and <strong>is different from PMFs and PDFs</strong> covered later on. 
 It must satisfy:    </p>
 <ol>
 <li>$P(\Omega) = 1$  </li>
@@ -348,7 +364,7 @@ P&amp;(\{H\}) = 0.5 , P({\{T\}}) = 0.5
 $$</p>
 <h2 id="random-variables">Random Variables</h2>
 <p>So we have a sample space, but doing calculations on it could be quite difficult, especially because we don't really have any set <strong>ordering</strong>. We typically want something in terms of <strong>numbers</strong> to do anything practical with it. So we introduce <strong>Random Variables (RVs)</strong>, that solve this problem.</p>
-<p>Contrary to the name, a Random Variable is actually a <strong>function</strong>&mdash; <br />
+<p>Despite the name, a Random Variable is actually a <strong>function</strong>&mdash; <br />
 $$
 X: \Omega \to \mathbb{R}
 $$</p>
@@ -379,7 +395,20 @@ $$</p>
 0 &amp; \text{if } m \neq 6
 \end{cases}
 $$</p>
-<p>But anyways, there are many ways to define a RV.</p>
+<p>But anyways, there are many ways to define a RV.    </p>
+<p>Then where is the $\sigma$-algebra ($\mathcal{F}$)? This is the question that confused me for a long time.<br />
+Think of it something like this&mdash;<br />
+In the dice roll example above, if we want the probability of the event that the RV takes the value $X=1$ (i.e $P(X=1)$)  <br />
+We would want the probability of the event defined by the set&mdash;
+$$
+\{\omega \in \Omega: X(\omega) = 1\}
+$$  </p>
+<p>This looks some thing like $\{(2,6,4),(4,6,5) \dots\}$. Now this set must belong to $\mathcal{F}$, i.e, <br />
+$$
+\{\omega \in \Omega: X(\omega) = 1\} \in \mathcal{F}
+$$</p>
+<p>This ensures our event is <strong>measurable</strong> (refer to the Vitali set above for the counter example). But when applied to most real-world scenarios, one doesn't have to actively check for this statement to be true.  </p>
+<p>Also note, here the $ X $ maps from $ \Omega $ to a <strong>Borel Set</strong>, in this case $\{0,1,2,3\}$</p>
 <h3 id="continous-random-variables">Continous Random Variables</h3>
 <p>More or less similar to the discrete type, except&mdash;</p>
 <p>$$
@@ -388,6 +417,67 @@ $$</p>
 <p>The rest can be inferred. Maybe try to guess what the RV was in the Bertrand Paradox stated earlier.</p>
 <h1 id="probability-distributions">Probability distributions</h1>
 <h2 id="the-pmf-and-the-pdf">The PMF and the PDF</h2>
+<p>So, we've defined random variables, which turn outcomes in $\Omega$ into numbers, and we've set up our probability space ($\Omega, \mathcal{F}, P$) to assign probabilities to events. But how do we figure out the likelihood of a random variable taking specific values, like "exactly one 6 in three dice rolls" or "the chord's midpoint in the inner circle"? 
+This is where <strong>probability distributions</strong> come in&mdash;they describe how probabilities are spread across the values of a random variable.    </p>
+<p>The <strong>probability measure</strong> $ P $, assigns probabilities to <strong>events</strong> in $ \mathcal{F} $, but as we've seen before RVs aren't events. So just to compute the <strong>probability of the subset of events the RV takes</strong> directly (like $P(X=1)$), we introduce tools like the <strong>PMF and PDF</strong>.</p>
+<h3 id="probability-mass-function-pmf">Probability Mass Function (PMF)</h3>
+<p>For a <strong>discrete random variable</strong>, which takes countable values (like the number of 6s in three dice rolls), the probability mass function (PMF) gives the probability of each possible value: </p>
+<p>$$
+P(X = x)
+$$  </p>
+<p>Let's revisit our dice example. The sample space is&mdash;</p>
+<p>$$
+\Omega = \{(i,j,k): i,j,k \in {1,2,3,4,5,6}\}
+$$</p>
+<p>And $X((i,j,k)) = \Sigma_{m\in\{i,j,k\}} 1_{\{6\}}(m)$, where $1_{\{6\}}(m)$ is&mdash;    </p>
+<p>$$
+1_{\{6\}}(m) = 
+\begin{cases} 
+1 &amp; \text{if } m = 6, \newline
+0 &amp; \text{if } m \neq 6
+\end{cases}
+$$</p>
+<p>Here the PMF tells us probabilities like&mdash; $ P(X=1) $, i.e only one 6 is rolled, in three tries. Now for simple stuff like this dice roll, even highschool math will suffice, but just to put it out there, $X$ follows a <strong>binomial distribution</strong> (Will be covered ahead). So the PMF looks something like&mdash; </p>
+<p>$$
+P(X=k) = \binom{3}{k}\cdot\left(\frac{1}{6}\right)^k\cdot\left(\frac{5}{6}\right)^{3-k}  \text{ where }   k \in \{0,1,2,3\} 
+$$</p>
+<p>Here $k = 1$ gives&mdash;</p>
+<p>$$
+P(X=1) = \binom{3}{1}\cdot\left(\frac{1}{6}\right)^1\cdot\left(\frac{5}{6}\right)^{2} = \frac{75}{216} \approx 0.347
+$$  </p>
+<h3 id="probability-density-function-pdf">Probability Density Function (PDF)</h3>
+<p>For a <strong>continuous random variable</strong>, which takes values in a continuum (like the coordinates of a chord's midpoint in the Bertrand paradox), we can't assign probabilities to specific values because $ P(X = x) = 0 $. So what, do we do? Is it just not possible? Of course not! We take an interval of values, like $ P(a \leq X \leq b) $. This should give us the probability that $ X $ lies in the interval $ [a , b] $, which usually won't be zero (To serve as an abstraction, one can think of this as taking a <strong>small section</strong> of a line, rather than a <strong>point</strong> on a line. The point will have no length on the line, which makes defining probabilities for it quite difficult, but the small section has some finite length, however small it may be).   </p>
+<p>How do we do this though? Simple. We define another function, called the <strong>probability density function (PDF)</strong> ( $ f(x) $ ). We want this function to be some kind of a "density map" of sorts.    </p>
+<p>So obviously to find the probability of a specific part we'd do&mdash;  </p>
+<p>$$
+P(a \leq X \leq b) = \frac{\int_{a}^{b} f(x)dx}{\int_{-\infty}^{\infty} f(x)dx}
+$$</p>
+<p>But that does not look pretty, especially since $ f(x) $ is not <strong>normalized</strong>. So we conviniently define $ f(x) $ in such a way that&mdash;    </p>
+<p>$$
+\int_{-\infty}^{\infty} f(x)dx = 1
+$$</p>
+<p>So now we get&mdash;</p>
+<p>$$
+P(a \leq X \leq b) = \int_{a}^{b} f(x)dx
+$$</p>
+<p>Also it must be <strong>non-negative</strong> for all $x$. i.e $f(x)\geq 0 \forall x$ (try to justify this claim, it's pretty intuitive, but the proof is still quite long and excluded for brevity).    </p>
+<p>Let's do some examples because abstract definitions like this make no sense.    </p>
+<h4 id="example-1-uniform-distribution-on-an-interval-1d">Example 1: Uniform Distribution on an Interval (1D)</h4>
+<p><strong>Scenario</strong>: Suppose you're waiting for a bus that arrives randomly between 0 and 10 minutes from now. Let $X$ be the waiting time in minutes, uniformly distributed over $[0, 10]$.</p>
+<p><strong>PDF</strong>: Since $X$ is equally likely to take any value in $[0, 10]$, the PDF is constant over that interval. The total area under the PDF must be 1:</p>
+<p>$$
+f(x) = \frac{1}{10}, \quad 0 \leq x \leq 10
+$$</p>
+<p>(Outside $[0, 10]$, $f(x) = 0$.) Check: $\int_0^{10} \frac{1}{10} \, dx = \frac{10}{10} = 1$.</p>
+<p><strong>Probability</strong>: What's the probability you wait between 2 and 5 minutes ($P(2 \leq X \leq 5)$)?</p>
+<p>$$
+P(2 \leq X \leq 5) = \int_2^5 \frac{1}{10} \, dx = \frac{5 - 2}{10} = \frac{3}{10} = 0.3
+$$</p>
+<p><strong>Intuition</strong>: The PDF is a flat line at height $\frac{1}{10}$. The interval $[2, 5]$ has length 3, so the area is $3 \cdot \frac{1}{10} = 0.3$.</p>
+<p>It looks something like&mdash;</p>
+<p><br></p>
+<p><img src="/static/images/mathforquant/math-for-quant-part-1-9.svg" style="height: 300px !important" class="invertible"></p>
+<p><br></p>
 <p>[TODO]</p></div>
 </article>
 
