@@ -112,7 +112,16 @@
 </li>
 </ul>
 </li>
-<li><a href="#the-binomial-distribution">The Binomial distribution</a></li>
+<li><a href="#the-binomial-distribution">The Binomial distribution</a><ul>
+<li><a href="#mean-expected-value">Mean (Expected Value)</a></li>
+<li><a href="#variance">Variance</a></li>
+</ul>
+</li>
+<li><a href="#the-poisson-distribution">The Poisson distribution</a><ul>
+<li><a href="#mean-expected-value-variance">Mean (Expected Value) &amp; Variance</a></li>
+</ul>
+</li>
+<li><a href="#the-gaussian-normal-distribution">The Gaussian (Normal) distribution</a></li>
 </ul>
 </li>
 </ul>
@@ -125,7 +134,7 @@
     <div><h1 id="work-in-progress">WORK IN PROGRESS</h1>
 <h1 id="introduction">Introduction</h1>
 <p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as Binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
-<p>This is by no means a proper text, or learning resource. This is simply what <strong>I would've wanted to read</strong>, when I was getting started with these topics. Here are the resources I used to learn these topics (still learning, but more less understood the basics).</p>
+<p>This is by no means a proper text, or learning resource. This is simply what <strong>I would've wanted to read</strong>, when I was getting started with these topics. Here are the resources I used to learn these topics (still learning, but more or less understood the basics).</p>
 <h2 id="resources">Resources</h2>
 <ol>
 <li><strong>MIT OCW 18.S096</strong>: <a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP63ctJIEC1UnZ0btsphnnoHR">youtube link</a>, <a href="https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-with-applications-in-finance-fall-2013/">website link</a>. It's pretty good, but required a lot of previous undergrad knowledge so the learning curve was quite steep. It did however introduce me to the right topics to learn, and I learnt them all individually from different resources.</li>
@@ -139,7 +148,6 @@
 <p><strong>Set Notation:</strong> Comfort with basic set notation (e.g., describing points in a plane or intervals).    </p>
 <p><strong>Geometric Intuition:</strong> Ability to visualize geometric shapes like circles and chords. </p>
 <p><strong>Curiosity:</strong> An interest in exploring advanced probability concepts, such as sigma algebras and probability spaces, introduced in an accessible way.  </p>
-<p><strong>Optional:</strong> Familiarity with calculus or logical reasoning can enhance understanding but isn't required.  </p>
 <p>No prior knowledge of measure theory or advanced probability is needed&mdash;we'll build from intuitive ideas to formal concepts together!</p>
 <h2 id="the-paradox">The Paradox</h2>
 <p>Let's start with a question that seems pretty simple, but is deceptively paradoxical with the math taught in high school.   </p>
@@ -239,7 +247,7 @@ $$</p>
 <h3 id="the-contradiction">The Contradiction</h3>
 <p>So, we have <strong>Three answers</strong>. This is clearly a contradiction. It means somewhere along the way, our approach with <strong>highschool math</strong> was <strong>flawed</strong>. This problem is called the <strong>Bertrand Paradox</strong>. To correct this we would need an even deeper understanding of probability theory, beyond the typical highschool math.  <br />
 In reality it is the question that may be misunderstood, the right interpretation is crucial to finding the solution to this paradox. We must realise that <strong>the choice of our random chord can impact the probability measure</strong>. There are <strong>different kinds of random</strong>.  </p>
-<p>Unfortuanately, we need the proper "advanced probability theory" to properly discuss the resolution, which is what we'll be exploring in this article. I might write a follow-up post for the resolution as this post is already going to get pretty long. If you really want to know the in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
+<p>Unfortunately, we need the proper "advanced probability theory" to properly discuss the resolution, which is what we'll be exploring in this article. I might write a follow-up post for the resolution as this post is already going to get pretty long. If you really want to know the in-depth reason you can check out the <a href="https://en.wikipedia.org/wiki/Bertrand_paradox_(probability)">Wikipedia Page</a> <br />
 (HINT: the answer, for uniform distributions, is $ \frac{1}{2} $)</p>
 <h1 id="terms-and-definitions">Terms and Definitions</h1>
 <p>Understanding the terms and notation is the most crucial part to understanding probability. </p>
@@ -508,12 +516,216 @@ $$</p>
 <p>So we get a RV, $X$, and&mdash;
 $$
 P(X=k) = \binom{n}{k}\cdot(p)^k\cdot(1-p)^{(n-k)}
-$$</p>
-<p>Here is the graph ($n=10, p=0.5$)&mdash;
+$$
+&mdash;Is the PMF. Here, $\binom{n}{k}$ counts the ways to choose $k$ successes out of $n$ trials, $p^k$ is the probability of $k$ successes, and $(1 - p)^{n - k}$ covers the failures.
+Here is the graph ($n=10, p=0.5$)&mdash;
 <br></p>
 <iframe src="https://www.desmos.com/calculator/uwq5nondpt?embed" width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
 <p><br></p>
-<p>The green lines are the floored values of $X$, i.e Integers, where as the red curve is the extension of this binomial distribution. Can you point out what's wrong with it? yeah. The red graph may cause confusion, as the binomial distribution is <strong>discrete</strong> in nature, so it shouldn't have a continuous graph.    </p>
+<p>The green lines are the floored values of $X$, i.e Integers, where as the red curve is the extension of this binomial distribution. Can you point out what's wrong with it? yeah. The red graph may cause confusion, as the binomial distribution is <strong>discrete</strong> in nature, so it shouldn't have a continuous graph. So the real binomial distribution is the <strong>green lines only</strong>, or more accurately, only the points corresponding to integral values of $X$.   </p>
+<p>By the way, if $X$ <strong>follows a Binomial distribution</strong>, we say $ X \sim \text{Binomial}(n, p) $, in math language. Now the fun part&mdash;</p>
+<h3 id="mean-expected-value">Mean (Expected Value)</h3>
+<p>We want the expected value, $E[X]$, which is like the average number of successes we'd expect over many, many trials. The probability of getting exactly $k$ successes is given by the binomial probability mass function (PMF):</p>
+<p>$$
+P(X = k) = \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>To find $E[X]$, we weigh each possible number of successes $k$ by its probability:</p>
+<p>$$
+E[X] = \sum_{k=0}^n k \cdot \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>Notice that when $k = 0$, the term is $0 \cdot P(X = 0) = 0$, so it contributes nothing. Let's skip it and start from $k = 1$:</p>
+<p>$$
+E[X] = \sum_{k=1}^n k \cdot \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>Now, that $k \cdot \binom{n}{k}$ looks a bit tricky. Let's play with it. There's a neat identity, taught in highschool, that can be used here:</p>
+<p>$$k \cdot \binom{n}{k} = n \cdot \binom{n-1}{k-1}$$</p>
+<p>Let's actually use it:</p>
+<p>$$
+E[X] = \sum_{k=1}^n \left[ n \cdot \binom{n-1}{k-1} \right] \cdot p^k \cdot (1 - p)^{n - k} = n \sum_{k=1}^n \binom{n-1}{k-1} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>To make this sum friendlier, let's shift the index. Set $j = k - 1$. When $k = 1$, $j = 0$; when $k = n$, $j = n-1$. Also, adjust the exponents: $p^k = p^{j+1} = p \cdot p^j$ and $(1 - p)^{n - k} = (1 - p)^{(n-1) - j}$. So the sum becomes:</p>
+<p>$$
+E[X] = n \sum_{j=0}^{n-1} \binom{n-1}{j} \cdot (p \cdot p^j) \cdot (1 - p)^{(n-1) - j} = n p \sum_{j=0}^{n-1} \binom{n-1}{j} \cdot p^j \cdot (1 - p)^{(n-1) - j}
+$$</p>
+<p>That sum looks familiar&mdash;it's the total probability of a binomial random variable with $n-1$ trials and probability $p$, which sums to 1 (since it's the sum of all probabilities for a $\text{Binomial}(n-1, p)$ distribution). So:</p>
+<p>$$
+\sum_{j=0}^{n-1} \binom{n-1}{j} \cdot p^j \cdot (1 - p)^{(n-1) - j} = 1
+$$</p>
+<p>Thus:</p>
+<p>$$
+E[X] = n p \cdot 1 = n p
+$$</p>
+<p>$$
+\boxed{E[X] = n p}
+$$</p>
+<p>That looks like something we'd expect, right? If you flip a coin $n$ times with success probability $p$, you expect $n p$ successes on average. Like, if you flip a fair coin ($p = 0.5$) 10 times, you'd expect about 5 heads.</p>
+<h3 id="variance">Variance</h3>
+<p>Now for the variance, $\text{Var}(X) = E[X^2] - (E[X])^2$, which tells us how spread out our number of successes is. Calculating $E[X^2]$ directly is a bit messy, so let's be clever and compute $E[X(X-1)]$ first, which is like looking at pairs of successes. Then we'll relate it to $E[X^2]$. Start with:</p>
+<p>$$
+E[X(X-1)] = \sum_{k=0}^n k (k-1) \cdot \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>When $k = 0$ or $k = 1$, $k(k-1) = 0$, so those terms vanish. Start at $k = 2$:</p>
+<p>$$
+E[X(X-1)] = \sum_{k=2}^n k (k-1) \cdot \binom{n}{k} \cdot p^k \cdot (1 - p)^{n - k}
+$$</p>
+<p>Another cool identity: $k (k-1) \cdot \binom{n}{k} = n (n-1) \cdot \binom{n-2}{k-2}$. (Just kidding, its the same thing applied twice)
+$$
+\begin{aligned}
+E[X(X-1)] =&amp; \sum_{k=2}^n \left[ n (n-1) \cdot \binom{n-2}{k-2} \right] \cdot p^k \cdot (1 - p)^{n - k} \newline  <br />
+=&amp; n (n-1) \sum_{k=2}^n \binom{n-2}{k-2} \cdot p^k \cdot (1 - p)^{n - k}
+\end{aligned}
+$$</p>
+<p>Reindex with $j = k - 2$. When $k = 2$, $j = 0$; when $k = n$, $j = n-2$. Exponents adjust: $p^k = p^{j+2} = p^2 \cdot p^j$, and $(1 - p)^{n - k} = (1 - p)^{(n-2) - j}$. So:</p>
+<p>$$
+E[X(X-1)] = n (n-1) p^2 \sum_{j=0}^{n-2} \binom{n-2}{j} \cdot p^j \cdot (1 - p)^{(n-2) - j}
+$$</p>
+<p>That sum is the total probability for a $\text{Binomial}(n-2, p)$, which equals 1:</p>
+<p>$$
+E[X(X-1)] = n (n-1) p^2 \cdot 1 = n (n-1) p^2
+$$</p>
+<p>Now, relate $E[X(X-1)]$ to $E[X^2]$:</p>
+<p>$$
+E[X(X-1)] = E[X^2 - X] = E[X^2] - E[X]
+$$</p>
+<p>So:</p>
+<p>$$
+E[X^2] = E[X(X-1)] + E[X] = n (n-1) p^2 + n p
+$$</p>
+<p>Now compute the variance:</p>
+<p>$$
+\text{Var}(X) = E[X^2] - (E[X])^2 = \left[ n (n-1) p^2 + n p \right] - (n p)^2
+$$</p>
+<p>Simplify:</p>
+<p>$$
+= n (n-1) p^2 + n p - n^2 p^2 = n^2 p^2 - n p^2 + n p - n^2 p^2 = n p - n p^2 = n p (1 - p)
+$$</p>
+<p>$$
+\boxed{\text{Var}(X) = n p (1 - p)}
+$$</p>
+<p>Interesting! The variance $n p (1 - p)$ is highest when $p = 0.5$, meaning the outcome is most uncertain when success and failure are equally likely. For $p$ close to 0 or 1, the variance shrinks, as the outcome is more predictable.</p>
+<p>So, our final answers are:</p>
+<p>$$
+\begin{aligned}
+E[X] &amp;= \boxed{n p} \newline
+\text{Var}(X) &amp;= \boxed{n p (1 - p)}
+\end{aligned}
+$$</p>
+<h2 id="the-poisson-distribution">The Poisson distribution</h2>
+<p>Imagine we're running a website, and we're interested in the number of visitors arriving in a given hour, and possibly predict average traffic and future probabilities of extreme traffic with it. (for e.g how likely 10k visitors are, etc)  <br />
+How do we model this, with the math we've learnt? How about we make every second a RV ($X$)? We'd have two possibilities:   </p>
+<ol>
+<li>A user visits the site (success)</li>
+<li>No one visits the site (failure) </li>
+</ol>
+<p>Looks familiar? That's because $X$ follows a <strong>binomial distribution</strong>! But clearly anyone can see the limitations here&mdash;  </p>
+<ol>
+<li>What if two users visit in 1 second.</li>
+<li>Computationally infeasible. (we're evaluating the binomial formula. every. single. second. i.e 3600 times an hour, or even higher for finer precision)</li>
+<li>$P(\text{success})$ is tiny.</li>
+</ol>
+<p>So instead, how about we calculate the <strong>average rate</strong> of visitors (the mean), say $\lambda$, and try to do something with that&mdash;   <br />
+But what exactly? We mainly want to model the probability of getting $k$ (5 or 10 or 20) visitors an hour, simply from the fact that we know that on average there are $\lambda$ visitors an hour. Let's start with the binomial version&mdash; </p>
+<p>$$
+P_{\text{binomial}}(X=k) = \binom{n}{k}\cdot(p)^{k}\cdot(1-p)^{n-k}
+$$  </p>
+<p>But now our no. of trials $n \to \infty$ , and our probability of success $p \to 0$. With limits, that'd look something like&mdash; </p>
+<p>$$
+P_{\text{poisson}}(X=k) = \lim_{n \to \infty ;\text{  } p \to 0} \binom{n}{k}\cdot(p)^{k}\cdot(1-p)^{n-k}
+$$  </p>
+<p>Now even writing it out looks, funky, so we must find a way to reduce this to <strong>one variable</strong>. Recall that the mean of a binomial was $np$. But we set the average rate of visitors to $\lambda$, so&mdash;</p>
+<p>$$
+\begin{aligned}
+np &amp;= \lambda \newline
+p &amp;= \frac{\lambda}{n}
+\end{aligned}
+$$</p>
+<p>Now let's put this back in that limit, so&mdash;</p>
+<p>$$
+P_{\text{poisson}}(X=k) = \lim_{n \to \infty} \binom{n}{k}\cdot\left(\frac{\lambda}{n}\right)^{k}\cdot\left(1-\frac{\lambda}{n}\right)^{n-k}
+$$  </p>
+<p>Looks a bit easier now... Oh, let's expand the combination to it's factorial notation&mdash;</p>
+<p>$$
+P_{\text{poisson}}(X=k) = \lim_{n \to \infty} \left(\frac{n!}{k!(n-k)!} \right) \cdot \left(\frac{\lambda}{n}\right)^{k} \cdot \left(1-\frac{\lambda}{n}\right)^{n-k}
+$$  </p>
+<p>So we have three terms we have to deal with&mdash;</p>
+<p>$$
+\begin{aligned}
+\lim_{n \to \infty} &amp;\left(\frac{n!}{k!(n-k)!} \right) \newline
+\lim_{n \to \infty} &amp;\left(\frac{\lambda}{n}\right)^{k} \newline
+\lim_{n \to \infty} &amp;\left(1-\frac{\lambda}{n}\right)^{n-k}
+\end{aligned}
+$$</p>
+<p>Expand the first one&mdash;</p>
+<p>$$
+\lim_{n \to \infty} \left(\frac{n(n-1)(n-2) \dots (n-k+1)\cdot(n-k)(n-k-1)\dots}{k!(n-k)(n-k-1)\dots} \right) 
+$$</p>
+<p>Notice how everything after the dot gets cancelled with the denominator? But also notice, that $n \to \infty$, so $n \approx (n-1) \approx (n-k+1)$. Yes, there is a proper mathematical way to do it, but let's just keep it intuitive and move on. So now our expression is&mdash;</p>
+<p>$$
+\lim_{n \to \infty} \left(\frac{n^k}{k!} \right) 
+$$  </p>
+<p>Do you see it? Let's bring back the second part&mdash;</p>
+<p>$$
+\lim_{n \to \infty} \left(\frac{n^k}{k!} \right)\cdot \left(\frac{\lambda}{n}\right)^{k}
+$$</p>
+<p>It gets cancelled! So together we're only left with normal variables for the first and second part, i.e &mdash;
+$$
+\lim_{n \to \infty} \left(\frac{\lambda^k}{k!} \right)
+$$</p>
+<p>For the last part, we have to get a little creative (although it's a simple trick taught in JEE prep. and stuff). Let $L$ be the limit for the 3rd part.  </p>
+<p>$$
+L = \lim_{n \to \infty} \left(1-\frac{\lambda}{n}\right)^{n-k}
+$$</p>
+<p>Taking <strong>natural log</strong> on both sides we get&mdash;</p>
+<p>$$
+\ln(L) = \lim_{n \to \infty}  (n-k)\ln\left(1-\frac{\lambda}{n}\right)
+$$</p>
+<p>Of course, there are a few nuances to this step, but let's not bother. Rewriting it to get $0/0$ form&mdash;</p>
+<p>$$
+\ln(L) = \lim_{n \to \infty}  \frac{\ln\left(1-\frac{\lambda}{n}\right)}{\frac{1}{(n-k)}}
+$$</p>
+<p>What do we do next? L'Hopital of course, because we're lazy&mdash;</p>
+<p>$$
+\ln(L) = \lim_{n \to \infty}  \frac{\frac{1}{1-\frac{\lambda}{n}}\cdot\frac{\lambda}{n^2}}{\frac{-1}{(n-k)^2}}
+$$</p>
+<p>Hm&mdash; $(n-k)^2 \approx n^2$ so let's just cancel them, and put $\lambda / n = 0$. And with that we've got rid of the limit&mdash;</p>
+<p>$$
+\ln(L) = -\lambda
+$$</p>
+<p>So&mdash;
+$$
+L = e^{-\lambda}
+$$</p>
+<p>Put it all back together&mdash;
+$$
+\boxed{P_{\text{poisson}}(X=k) = \frac{\lambda^k \cdot e^{-\lambda}}{k!}}
+$$</p>
+<p>Where, $X \sim \text{Poisson}(\lambda) $</p>
+<p>And here is the graph($\lambda = 2$) &mdash;</p>
+<p><br>
+<br></p>
+<iframe src="https://www.desmos.com/calculator/tirmhififj?embed"width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
+<p><br>
+<br></p>
+<p>Of course the red graph is wrong, and the green one is the true graph (floored). Notice something peculiar? Getting $\lambda - 1$ has the same probability as getting $ \lambda $ visitors (when $\lambda$ is an integer, which it always is in our case).</p>
+<h3 id="mean-expected-value-variance">Mean (Expected Value) &amp; Variance</h3>
+<p>To save time, I'll just say it (Feel free to derive it on your own, it's not that hard). The mean and variance are&mdash;</p>
+<p>$$
+\begin{aligned}
+E[X] &amp;= \lambda \newline
+\text{Var}(X) &amp;= \lambda
+\end{aligned}
+$$</p>
+<p>The mean is understandable because that's what we assumed, but <strong>why does the variance depend on the mean?</strong>  <br />
+What does our expected value, have to do with spread? Think about it.</p>
+<h2 id="the-gaussian-normal-distribution">The Gaussian (Normal) distribution</h2>
+<p>For starters, without discussing anything about the Gaussian, let's just look at a graph&mdash;
+<br>
+<br></p>
+<iframe src="https://www.desmos.com/calculator/f4ew65j7pk?embed" width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
+<p><br>
+<br>    </p>
+<p>This is $ X \sim \text{Binomial}(100, 0.5)$. See something? probably not.   </p>
+<p>But basically the idea is, what if we flip a coin a lot of times? what do we get? is it the same choppy graph&mdash; or do we get something more beautiful? </p>
 <p>[TODO]</p></div>
 </article>
 
