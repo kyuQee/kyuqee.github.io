@@ -263,7 +263,7 @@ we have $ \Omega = [0,1] $, now if we say that we want an event ($ E $) where th
 How many such subsets do you think there are? infinite. It could be $ [0.2, 0.7] $, $ [0.3, 0.8] $, and so on.  
 
 Now whats $ P(E)_{[0.2 , 0.7]} $? 
-Common sense would say its **0.5** since it covers exactly half of the sample space. But this is where intuition breaks down, for example let's try the **vitali set**&mdash;
+Common sense would say its **0.5** (which is correct) since it covers exactly half of the sample space. But this is where intuition breaks down, for example let's try the **vitali set**&mdash;
 
 (NOTE: In hindsight, the exploration coming up wasn't necessary, you may skip it if you like.)
 
@@ -301,7 +301,7 @@ This shows we *can't* assign a probability to $ V $ without breaking our probabi
 A sigma algebra $ \mathcal{F} $ is our curated list of "good" subsets-events we can assign probabilities to consistently. It follows three rules:
 
 1. **The whole space is included**: $ \Omega \in \mathcal{F} $. We need to say "something happens" with probability 1.
-2. **Closed under complements**: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega$ - A$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is *not* in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.
+2. **Closed under complements**: If $ A \in \mathcal{F} $, then $ \Omega \setminus A \in \mathcal{F} $ ($\Omega - A$). If "the number is in $ [0.2, 0.7] $" is an event, "the number is *not* in $ [0.2, 0.7] $" (i.e., $ [0, 0.2) \cup (0.7, 1] $) is too.
 3. **Closed under countable unions**: If $ A_1, A_2, \dots \in \mathcal{F} $, then $ \bigcup_{i=1}^\infty A_i \in \mathcal{F} $. This lets us combine events like $ [0.1, 0.2] \cup [0.3, 0.4] $.
 
 For $ \Omega = [0, 1] $, a sigma algebra includes nice subsets like intervals, their unions, and complements, but leaves out non-measurable sets like the Vitali set.

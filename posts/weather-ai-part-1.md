@@ -165,7 +165,7 @@ If you didn't notice it yet, this was a really bad idea, here is why:
 
 A few other problems exist, but those are the major problems that I might have to tackle in the future. Now, on to the fun part.    
 
-I did some searching and came across this library called `cartopy` ([link](https://scitools.org.uk/cartopy/docs/latest/), [github](https://github.com/SciTools/cartopy)), that seems to integrate seemlessly with `matplotlib`, and displays maps.
+I did some searching and came across this library called `cartopy` ([link](https://scitools.org.uk/cartopy/docs/latest/), [github](https://github.com/SciTools/cartopy)), that seems to integrate seamlessly with `matplotlib`, and displays maps.
 
 Here are some plots:
 
