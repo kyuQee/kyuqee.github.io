@@ -428,7 +428,7 @@ Also note, here the $ X $ maps from $ \Omega $ to a **Borel Set**, in this case 
 
 
 
-### Continous Random Variables
+### Continuous Random Variables
 
 More or less similar to the discrete type, except&mdash;
 
@@ -876,18 +876,182 @@ What does our expected value, have to do with spread? Think about it.
 
 ## The Gaussian (Normal) distribution
 
-For starters, without discussing anything about the Gaussian, let's just look at a graph&mdash;
+Take a look at this mark distribution for JEE:
+
+<img src="/static/images/mathforquant/math-for-quant-part-1-11.png" style="height: 300px !important" class="invertible">
+
 <br>
+Or this marathon finish-time distribution&mdash;
+
+<a href="https://www.researchgate.net/figure/Histogram-showing-the-finishing-times-of-all-40-year-old-runners-The-curve-represents-a_fig6_277089242"><img src="https://www.researchgate.net/profile/Niklas-Lehto/publication/277089242/figure/fig6/AS:269869983727616@1441353426784/Histogram-showing-the-finishing-times-of-all-40-year-old-runners-The-curve-represents-a.png" alt="Histogram showing the finishing times of all 40-year-old runners. The curve represents a fit of a normal distribution to the measured distribution."/></a>
+
 <br>
-<iframe src="https://www.desmos.com/calculator/f4ew65j7pk?embed" width="100%"  height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
+Or stock prices (random walk) over a long time&mdash;
+<a href="https://stats.stackexchange.com/questions/159650/why-does-the-variance-of-the-random-walk-increase"><img src="/static/images/mathforquant/math-for-quant-part-1-12.png"/></a>
+
 <br>
-<br>    
 
-This is $ X \sim \text{Binomial}(100, 0.5)$. See something? probably not.   
+Did you spot it? exactly all of them look kind of "bell-shaped". That's called a normal/gaussian distribution&mdash;    
+But what exactly is the question it is trying to answer? It tries to answer this question:   
 
-But basically the idea is, what if we flip a coin a lot of times? what do we get? is it the same choppy graph&mdash; or do we get something more beautiful? 
+> What's the likelihood that a continuous random variable, shaped by many small, independent random effects, falls within a specific range?
+
+This applies to scenarios like test scores, where individual strengths and weaknesses average out, or stock prices, where daily fluctuations accumulate. Unlike the binomial (discrete trials) or Poisson (rare events), the Gaussian handles **continuous** data with a characteristic bell shape, which turns out to be pretty useful in real-world applications, beyond just recreational mathematics.
+
+### Deriving the Gaussian from the Binomial
+
+(NOTE: Heavy math incoming, it scares me too. It's better to derive it by yourself, which also makes it easier to understand. When starting out, it's better to just memorize the formula and learn to apply it before getting into this derivation, as it involves a lot of complicated approximations)
 
 
+The binomial distribution models the number of successes in $n$ trials, each with success probability $p$. Suppose we're flipping a fair coin ($p = 0.5$) many times, say $n = 1000$, and we want the probability of getting $k$ heads. The PMF is:
+
+$$
+P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}
+$$
+
+For large $n$, computing $\binom{n}{k}$ directly is a nightmare. Plus, the distribution starts to look smooth, almost like a continuous curve (remember the green lines in the binomial graph?). Let's explore what happens when $n \to \infty$.    
+
+(NOTE: Unlike the poisson distribution, here $p$ does not tend to 0)
+
+First, let's "center" the distribution. The mean of a binomial is $E[X] = n p$, and the variance is $\text{Var}(X) = n p (1 - p)$. For $p = 0.5$, the mean is $n/2$, and the standard deviation is $\sqrt{n \cdot 0.5 \cdot 0.5} = \sqrt{n/4} = \sqrt{n}/2$. Let's **standardize** the random variable $X$ to see its behavior:
+
+$$
+Z = \frac{X - n p}{\sqrt{n p (1 - p)}}
+$$
+
+Wait, what exactly did we do? why "standardize" it?     
+Remember how we normalized continuous RVs? exactly. We'd prefer a more standardized way to represent the same distribution, which would make it easier to compare to other such distributions. So we ask it: "**How far is $ X $ from its average, relative to its typical spread?**".  
+
+Here, $Z$ measures how many standard deviations $X$ is from the mean, which answers the first question.    
+
+Now, We want the probability density of $Z$ as $n$ grows large. To do this, let's approximate $P(X = k)$ for large $n$ using [**Stirling's approximation**](https://en.wikipedia.org/wiki/Stirling%27s_approximation), which simplifies factorials:
+
+$$
+n! \approx \sqrt{2 \pi n} \left( \frac{n}{e} \right)^n
+$$
+
+For the binomial coefficient:
+
+$$
+\binom{n}{k} = \frac{n!}{k! (n - k)!} \approx \frac{\sqrt{2 \pi n} \left( \frac{n}{e} \right)^n}{\sqrt{2 \pi k} \left( \frac{k}{e} \right)^k \sqrt{2 \pi (n - k)} \left( \frac{n - k}{e} \right)^{n - k}}
+$$
+
+Simplify:
+
+$$
+\binom{n}{k} \approx \frac{\sqrt{2 \pi n}}{\sqrt{2 \pi k} \sqrt{2 \pi (n - k)}} \cdot \frac{\frac{n^n}{e^n}}{\frac{k^k (n - k)^{n - k}}{e^k e^{n - k}}} = \sqrt{\frac{n}{2 \pi k (n - k)}} \cdot \frac{n^n}{k^k (n - k)^{n - k}}
+$$
+
+Now, the binomial PMF is:
+
+$$
+P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k} \approx \sqrt{\frac{n}{2 \pi k (n - k)}} \cdot \frac{n^n}{k^k (n - k)^{n - k}} \cdot p^k (1 - p)^{n - k}
+$$
+
+Let's express $k$ around the mean: set $k = n p + x \sqrt{n p (1 - p)}$, so $x$ represents deviations in standard deviation units (like $Z$). Then:
+
+$$
+n - k = n - (n p + x \sqrt{n p (1 - p)}) = n (1 - p) - x \sqrt{n p (1 - p)}
+$$
+
+For large $n$, assume $k \approx n p$, so $k (n - k) \approx (n p) (n (1 - p)) = n^2 p (1 - p)$. The square root term becomes:
+
+$$
+\sqrt{\frac{n}{2 \pi k (n - k)}} \approx \sqrt{\frac{n}{2 \pi n^2 p (1 - p)}} = \frac{1}{\sqrt{2 \pi n p (1 - p)}}
+$$
+
+Now tackle the rest. The term $\frac{n^n}{k^k (n - k)^{n - k}} p^k (1 - p)^{n - k}$ needs careful handling. Take its logarithm to simplify:
+
+$$
+\ln \left( \frac{n^n p^k (1 - p)^{n - k}}{k^k (n - k)^{n - k}} \right) = n \ln n + k \ln p + (n - k) \ln (1 - p) - k \ln k - (n - k) \ln (n - k)
+$$
+
+(NOTE: After this, writing out the rest of it will simply look messy. So it's better to do it by oneself.)  
+
+Substitute $k = n p + x \sqrt{n p (1 - p)}$ and use Taylor expansions around the mean. This gets messy, so let's focus on the exponent. For large $n$, the binomial PMF approximates a density. After substituting and simplifying (using normal approximation techniques), we get:
+
+$$
+\boxed{P(X = k) \approx \frac{1}{\sqrt{2 \pi n p (1 - p)}} e^{-\frac{(k - n p)^2}{2 n p (1 - p)}}}
+$$
+
+For the standardized variable $Z$, the density of $Z \approx x$ is:
+
+$$
+f(z) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{z^2}{2}}
+$$
+
+This is the **standard normal distribution**, $Z \sim \mathcal{N}(0, 1)$, with mean 0 and variance 1. For a general normal distribution $X \sim \mathcal{N}(\mu, \sigma^2)$, where $\mu$ is the mean and $\sigma^2$ is the variance, we transform $Z = \frac{X - \mu}{\sigma}$, so the PDF of $X$ is:
+
+$$
+\boxed{f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}}
+$$
+
+Let's verify it integrates to 1:
+
+$$
+\int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} dx
+$$
+
+Substitute $u = \frac{x - \mu}{\sigma}$, so $x = \mu + \sigma u$, $dx = \sigma du$:
+
+$$
+\int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{u^2}{2}} \sigma du = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} e^{-\frac{u^2}{2}} du = 1
+$$
+
+(The integral equals $\sqrt{2 \pi}$, so it normalizes correctly.) The PDF is non-negative, satisfying all requirements.
+
+Here's the graph for $\mathcal{N}(0, 1)$:
+
+<br>
+<iframe src="https://www.desmos.com/calculator/kdgkdzq2qx?embed" width="100%" height="500" style="border: 1px solid #ccc;border-radius:5px" frameborder=0></iframe>
+<br>
+
+### Mean and Variance
+
+The mean of $X \sim \mathcal{N}(\mu, \sigma^2)$ is:
+
+$$
+E[X] = \int_{-\infty}^{\infty} x \cdot \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} dx
+$$
+
+Substitute $u = \frac{x - \mu}{\sigma}$, so $x = \mu + \sigma u$, $dx = \sigma du$:
+
+$$
+E[X] = \int_{-\infty}^{\infty} (\mu + \sigma u) \cdot \frac{1}{\sqrt{2 \pi}} e^{-\frac{u^2}{2}} du = \mu \int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi}} e^{-\frac{u^2}{2}} du + \sigma \int_{-\infty}^{\infty} u \cdot \frac{1}{\sqrt{2 \pi}} e^{-\frac{u^2}{2}} du
+$$
+
+The first integral is 1 (total probability). The second is 0 (since $u e^{-\frac{u^2}{2}}$ is odd). So:
+
+$$
+E[X] = \mu
+$$
+
+For variance, compute $E[(X - \mu)^2]$:
+
+$$
+\text{Var}(X) = \int_{-\infty}^{\infty} (x - \mu)^2 \cdot \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} dx
+$$
+
+Using $u = \frac{x - \mu}{\sigma}$:
+
+$$
+\text{Var}(X) = \int_{-\infty}^{\infty} (\sigma u)^2 \cdot \frac{1}{\sqrt{2 \pi}} e^{-\frac{u^2}{2}} du = \sigma^2 \int_{-\infty}^{\infty} u^2 \cdot \frac{1}{\sqrt{2 \pi}} e^{-\frac{u^2}{2}} du
+$$
+
+The integral is the variance of a standard normal, which is 1 (by definition or computation). Thus:
+
+$$
+\text{Var}(X) = \sigma^2
+$$
+
+So:
+
+$$
+\begin{aligned}
+E[X] &= \boxed{\mu} \newline
+\text{Var}(X) &= \boxed{\sigma^2}
+\end{aligned}
+$$
 
 
 [TODO]
