@@ -1,12 +1,11 @@
 ---
 title: "Beyond High School Probability: Unlocking Binomial, Gaussian, and More"
-date: 2025-05-17
+date: 2025-06-11
 slug: math-for-quant-part-1
 tags: [maths, blog, quant]
 ---
 
-# WORK IN PROGRESS
-
+(NOTE: This turned out to be quite a long post, it might take around an hour to read fully)
 
 
 # Introduction
@@ -738,6 +737,8 @@ Looks familiar? That's because $X$ follows a **binomial distribution**! But clea
 2. Computationally infeasible. (we're evaluating the binomial formula. every. single. second. i.e 3600 times an hour, or even higher for finer precision)
 3. $P(\text{success})$ is tiny.
 
+### Deriving the Poisson from the Binomial
+
 So instead, how about we calculate the **average rate** of visitors (the mean), say $\lambda$, and try to do something with that&mdash;     
 But what exactly? We mainly want to model the probability of getting $k$ (5 or 10 or 20) visitors an hour, simply from the fact that we know that on average there are $\lambda$ visitors an hour. Let's start with the binomial version&mdash; 
 
@@ -1054,4 +1055,49 @@ E[X] &= \boxed{\mu} \newline
 $$
 
 
-[TODO]
+
+# Conclusion
+## Recap
+
+This blog is not a formal learning resource but a personal account of my journey exploring advanced probability as a high school student, not a professional. It extends beyond high school basics into concepts essential for financial mathematics and statistics. The **Bertrand Paradox** illustrates the challenges of defining randomness, producing conflicting probabilities ($ 1/4 $, $ 1/3 $, $ 1/2 $) for a chord's length depending on the selection method, highlighting the need for a rigorous framework. This post does not resolve the paradox due to its length, but the concepts introduced provide tools to tackle it, with a follow-up post planned for the future.
+
+Key concepts covered include:    
+
+- **Sample Space ($ \Omega $)**: The set of all possible outcomes of a random experiment.
+- **Sigma Algebra ($ \mathcal{F} $)**: A collection of measurable subsets of $ \Omega $, closed under complement and countable unions, ensuring consistent probability assignments (e.g., excluding non-measurable Vitali sets).
+- **Probability Measure ($ P $)**: A function that maps events in $ \mathcal{F} $ to $[0,1]$, satisfying $ P(\Omega) = 1 $ and countable additivity.
+- **Probability Space ($ (\Omega, \mathcal{F}, P) $)**: The triple defining the sequence.
+- **Random Variables**: Functions $ X: \Omega \to \mathbb{R} $, either discrete (countable values) or continuous (continuum values), with probabilities assigned to events in $ \mathcal{F} $.  
+
+- **Probability Distributions**:  
+    1. **Binomial Distribution**: Models $ k $ successes in $ n $ trials, with PMF  
+      $$
+      \begin{aligned}
+      P(X = k) &= \binom{n}{k} p^k (1-p)^{n-k},\newline
+      \text{mean } E[X] &= np,\newline
+      \quad \text{variance } \text{Var}(X) &= np(1-p).
+      \end{aligned}
+      $$
+    2. **Poisson Distribution**: Approximates binomial for large $ n $ and small $ p $, with PMF  
+       $$
+       P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!},
+       \newline
+       \text{mean and variance both } \lambda.
+       $$
+    3. **Gaussian Distribution**: Describes continuous variables from cumulative small effects, with PDF  
+      $$
+      f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}},
+      \newline
+      \text{mean } \mu, \quad \text{variance } \sigma^2.
+      $$
+
+Drawing on resources like MIT OCW, NPTEL, and Shreve's *Stochastic Calculus*, this exploration establishes a foundation for addressing complex problems in quantitative finance, equipping readers to approach problems like those in the Bertrand Paradox with structured probabilistic concepts.
+
+## Personal Remarks
+
+I never expected this post to take so long. I encountered numerous challenges while trying to convey what I wanted to say&mdash; although this isn't my first time typing out latex code, it was still quite a hassle. There were also various other unforeseen hinderances, that slowed this down even more. Originally I intended this post to simply be a weekend thing&mdash; but it just didn't seem to end. It has been nearly a month since the due date. (Check the Github commit history, if want to know what I'm talking about: [Github commit history](https://github.com/kyuQee/kyuqee.github.io/commits/main/?since=2025-05-13&until=2025-06-11))   
+In the end I had to cut out the applications, as well as the intuitive exploration of the Gaussian, which I was very much looking forward to share. However due the length of this post, as well as the time it has taken, I simply cannot continue it any further. 
+I might post higher-level posts exploring actual quantitative trading stuff, but this series has to be put on hold for a while. 
+
+The resources I recommended however, are leagues better than this post, and worth exploring, if one has the time. I hope this post might've inspired atleast one person to dive into this world, and experience the true beauty of math, that they try to hide from us in High School.
+

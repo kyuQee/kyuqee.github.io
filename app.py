@@ -91,4 +91,4 @@ def highlight():
 
 if __name__ == '__main__':
     freezer.freeze()  # Generates static files
-    #app.run()
+    app.run()
