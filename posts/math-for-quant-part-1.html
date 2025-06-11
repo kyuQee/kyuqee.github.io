@@ -61,7 +61,7 @@
             
 <article>
     <h1>Beyond High School Probability: Unlocking Binomial, Gaussian, and More</h1>
-    <p>2025-05-17</p>
+    <p>2025-06-11</p>
     <br>
 
     
@@ -70,7 +70,6 @@
         <div class="toc">
             <div class="toc">
 <ul>
-<li><a href="#work-in-progress">WORK IN PROGRESS</a></li>
 <li><a href="#introduction">Introduction</a><ul>
 <li><a href="#resources">Resources</a></li>
 <li><a href="#prerequisites-for-reading">Prerequisites for Reading</a></li>
@@ -118,6 +117,7 @@
 </ul>
 </li>
 <li><a href="#the-poisson-distribution">The Poisson distribution</a><ul>
+<li><a href="#deriving-the-poisson-from-the-binomial">Deriving the Poisson from the Binomial</a></li>
 <li><a href="#mean-expected-value-variance">Mean (Expected Value) &amp; Variance</a></li>
 </ul>
 </li>
@@ -128,6 +128,11 @@
 </li>
 </ul>
 </li>
+<li><a href="#conclusion">Conclusion</a><ul>
+<li><a href="#recap">Recap</a></li>
+<li><a href="#personal-remarks">Personal Remarks</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -135,7 +140,7 @@
     </div>
     
     <br>
-    <div><h1 id="work-in-progress">WORK IN PROGRESS</h1>
+    <div><p>(NOTE: This turned out to be quite a long post, it might take around an hour to read fully)</p>
 <h1 id="introduction">Introduction</h1>
 <p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as Binomial, Gaussian, and Poisson, as well as concepts including random variables, sigma algebras, and probability spaces.</p>
 <p>This is by no means a proper text, or learning resource. This is simply what <strong>I would've wanted to read</strong>, when I was getting started with these topics. Here are the resources I used to learn these topics (still learning, but more or less understood the basics).</p>
@@ -627,6 +632,7 @@ How do we model this, with the math we've learnt? How about we make every second
 <li>Computationally infeasible. (we're evaluating the binomial formula. every. single. second. i.e 3600 times an hour, or even higher for finer precision)</li>
 <li>$P(\text{success})$ is tiny.</li>
 </ol>
+<h3 id="deriving-the-poisson-from-the-binomial">Deriving the Poisson from the Binomial</h3>
 <p>So instead, how about we calculate the <strong>average rate</strong> of visitors (the mean), say $\lambda$, and try to do something with that&mdash;   <br />
 But what exactly? We mainly want to model the probability of getting $k$ (5 or 10 or 20) visitors an hour, simply from the fact that we know that on average there are $\lambda$ visitors an hour. Let's start with the binomial version&mdash; </p>
 <p>$$
@@ -838,7 +844,50 @@ E[X] &amp;= \boxed{\mu} \newline
 \text{Var}(X) &amp;= \boxed{\sigma^2}
 \end{aligned}
 $$</p>
-<p>[TODO]</p></div>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="recap">Recap</h2>
+<p>This blog is not a formal learning resource but a personal account of my journey exploring advanced probability as a high school student, not a professional. It extends beyond high school basics into concepts essential for financial mathematics and statistics. The <strong>Bertrand Paradox</strong> illustrates the challenges of defining randomness, producing conflicting probabilities ($ 1/4 $, $ 1/3 $, $ 1/2 $) for a chord's length depending on the selection method, highlighting the need for a rigorous framework. This post does not resolve the paradox due to its length, but the concepts introduced provide tools to tackle it, with a follow-up post planned for the future.</p>
+<p>Key concepts covered include:    </p>
+<ul>
+<li><strong>Sample Space ($ \Omega $)</strong>: The set of all possible outcomes of a random experiment.</li>
+<li><strong>Sigma Algebra ($ \mathcal{F} $)</strong>: A collection of measurable subsets of $ \Omega $, closed under complement and countable unions, ensuring consistent probability assignments (e.g., excluding non-measurable Vitali sets).</li>
+<li><strong>Probability Measure ($ P $)</strong>: A function that maps events in $ \mathcal{F} $ to $[0,1]$, satisfying $ P(\Omega) = 1 $ and countable additivity.</li>
+<li><strong>Probability Space ($ (\Omega, \mathcal{F}, P) $)</strong>: The triple defining the sequence.</li>
+<li>
+<p><strong>Random Variables</strong>: Functions $ X: \Omega \to \mathbb{R} $, either discrete (countable values) or continuous (continuum values), with probabilities assigned to events in $ \mathcal{F} $.  </p>
+</li>
+<li>
+<p><strong>Probability Distributions</strong>:  </p>
+<ol>
+<li><strong>Binomial Distribution</strong>: Models $ k $ successes in $ n $ trials, with PMF<br />
+  $$
+  \begin{aligned}
+  P(X = k) &amp;= \binom{n}{k} p^k (1-p)^{n-k},\newline
+  \text{mean } E[X] &amp;= np,\newline
+  \quad \text{variance } \text{Var}(X) &amp;= np(1-p).
+  \end{aligned}
+  $$</li>
+<li><strong>Poisson Distribution</strong>: Approximates binomial for large $ n $ and small $ p $, with PMF<br />
+   $$
+   P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!},
+   \newline
+   \text{mean and variance both } \lambda.
+   $$</li>
+<li><strong>Gaussian Distribution</strong>: Describes continuous variables from cumulative small effects, with PDF<br />
+  $$
+  f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}},
+  \newline
+  \text{mean } \mu, \quad \text{variance } \sigma^2.
+  $$</li>
+</ol>
+</li>
+</ul>
+<p>Drawing on resources like MIT OCW, NPTEL, and Shreve's <em>Stochastic Calculus</em>, this exploration establishes a foundation for addressing complex problems in quantitative finance, equipping readers to approach problems like those in the Bertrand Paradox with structured probabilistic concepts.</p>
+<h2 id="personal-remarks">Personal Remarks</h2>
+<p>I never expected this post to take so long. I encountered numerous challenges while trying to convey what I wanted to say&mdash; although this isn't my first time typing out latex code, it was still quite a hassle. There were also various other unforeseen hinderances, that slowed this down even more. Originally I intended this post to simply be a weekend thing&mdash; but it just didn't seem to end. It has been nearly a month since the due date. (Check the Github commit history, if want to know what I'm talking about: <a href="https://github.com/kyuQee/kyuqee.github.io/commits/main/?since=2025-05-13&amp;until=2025-06-11">Github commit history</a>) <br />
+In the end I had to cut out the applications, as well as the intuitive exploration of the Gaussian, which I was very much looking forward to share. However due the length of this post, as well as the time it has taken, I simply cannot continue it any further. 
+I might post higher-level posts exploring actual quantitative trading stuff, but this series has to be put on hold for a while. </p>
+<p>The resources I recommended however, are leagues better than this post, and worth exploring, if one has the time. I hope this post might've inspired atleast one person to dive into this world, and experience the true beauty of math, that they try to hide from us in High School.</p></div>
 </article>
 
         </main>
