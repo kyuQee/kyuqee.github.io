@@ -1101,3 +1101,4 @@ I might post higher-level posts exploring actual quantitative trading stuff, but
 
 The resources I recommended however, are leagues better than this post, and worth exploring, if one has the time. I hope this post might've inspired atleast one person to dive into this world, and experience the true beauty of math, that they try to hide from us in High School.
 
+

@@ -1,31 +1,71 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<section id="highlights">
-    <h2>Highlights</h2>
-    <div class="story-circles">
-        {% for h in highlights %}
-        <a href="{{ url_for('highlight', slug=h.slug) }}" class="story-circle">
-            <div class="circle-border">
-                <div class="circle-content">
-                    {% if h.metadata.image %}
-                    <img src="{{ h.metadata.image }}" alt="{{ h.metadata.title }}">
-                    {% else %}
-                    <span>{{ h.metadata.title[0] }}</span>
-                    {% endif %}
+<div class="scientific-container">
+    <section id="highlights" class="scientific-section">
+        <h2>Highlights</h2>
+        <div class="story-circles">
+            {% for h in highlights %}
+            <a href="/highlights/{{ h.slug }}.html" class="story-circle" data-tooltip="{{ h.metadata.title }}">
+                <div class="circle-border">
+                    <div class="circle-content">
+                        {% if h.metadata.image %}
+                        <img src="{{ h.metadata.image }}" alt="{{ h.metadata.title }}">
+                        {% else %}
+                        <span>{{ h.metadata.title[0] }}</span>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            <span class="circle-label">{{ h.metadata.title }}</span>
-        </a>
-        {% endfor %}
-    </div>
-</section>
-<section id="latest-posts">
-    <h2>Latest Posts</h2>
-    <ul>
-        {% for post in posts %}
-        <li><a href="{{ url_for('post', slug=post.slug) }}">{{ post.metadata.title }}</a> - {{ post.metadata.date }}</li>
-        {% endfor %}
-    </ul>
-</section>
+                <span class="circle-label">{{ h.metadata.title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="latest-posts" class="scientific-section">
+        <h2>Latest Posts</h2>
+        <div class="filter-container">
+            <label for="tag-filter">Filter by Tag:</label>
+            <select id="tag-filter">
+                <option value="all">All Tags</option>
+                {% for tag in all_tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="posts-list">
+            {% for post in posts %}
+            <article class="post-preview" data-tags="{{ post.metadata.tags | join(',') }}">
+                <h3><a class="post-preview-title" href="/posts/{{ post.slug }}.html">{{ post.metadata.title }}</a></h3>
+                <p class="post-meta">{{ post.metadata.date }} | Tags: 
+                    {% for tag in post.metadata.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="post-snippet">{{ post.snippet | safe }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filter = document.getElementById('tag-filter');
+    const posts = document.querySelectorAll('.post-preview');
+
+    filter.addEventListener('change', function() {
+        const selectedTag = this.value;
+        posts.forEach(post => {
+            const tags = post.getAttribute('data-tags').split(',');
+            if (selectedTag === 'all' || tags.includes(selectedTag)) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
