@@ -59,50 +59,163 @@
         </nav>
         <main>
             
-<section id="highlights">
-    <h2>Highlights</h2>
-    <div class="story-circles">
-        
-        <a href="/highlights/math-for-quant.html" class="story-circle">
-            <div class="circle-border">
-                <div class="circle-content">
-                    
-                    <span>M</span>
-                    
+<div class="scientific-container">
+    <section id="highlights" class="scientific-section">
+        <h2>Highlights</h2>
+        <div class="story-circles">
+            
+            <a href="/highlights/weather-ai.html" class="story-circle" data-tooltip="Weather Forecasting">
+                <div class="circle-border">
+                    <div class="circle-content">
+                        
+                        <span>W</span>
+                        
+                    </div>
                 </div>
-            </div>
-            <span class="circle-label">Math For Quant</span>
-        </a>
-        
-        <a href="/highlights/weather-ai.html" class="story-circle">
-            <div class="circle-border">
-                <div class="circle-content">
-                    
-                    <span>W</span>
-                    
+                <span class="circle-label">Weather Forecasting</span>
+            </a>
+            
+            <a href="/highlights/math-for-quant.html" class="story-circle" data-tooltip="Math For Quant">
+                <div class="circle-border">
+                    <div class="circle-content">
+                        
+                        <span>M</span>
+                        
+                    </div>
                 </div>
-            </div>
-            <span class="circle-label">Weather Forecasting</span>
-        </a>
-        
-    </div>
-</section>
-<section id="latest-posts">
-    <h2>Latest Posts</h2>
-    <ul>
-        
-        <li><a href="/posts/math-for-quant-part-1.html">Beyond High School Probability: Unlocking Binomial, Gaussian, and More</a> - 2025-06-11</li>
-        
-        <li><a href="/posts/predicting-student-dropout.html">Predicting Student Dropout Rates</a> - 2025-06-04</li>
-        
-        <li><a href="/posts/weather-ai-part-2.html">Forecasting Weather (Part 2): Fighting the Data</a> - 2025-04-24</li>
-        
-        <li><a href="/posts/weather-ai-part-1.html">Forecasting Weather (Part 1): Ideas &amp; Looking At The Data</a> - 2025-04-10</li>
-        
-        <li><a href="/posts/hello-world.html">Hello World</a> - 2025-04-01</li>
-        
-    </ul>
-</section>
+                <span class="circle-label">Math For Quant</span>
+            </a>
+            
+        </div>
+    </section>
+
+    <section id="latest-posts" class="scientific-section">
+        <h2>Latest Posts</h2>
+        <div class="filter-container">
+            <label for="tag-filter">Filter by Tag:</label>
+            <select id="tag-filter">
+                <option value="all">All Tags</option>
+                
+                <option value="AI">AI</option>
+                
+                <option value="blog">blog</option>
+                
+                <option value="maths">maths</option>
+                
+                <option value="python">python</option>
+                
+                <option value="quant">quant</option>
+                
+                <option value="weather">weather</option>
+                
+            </select>
+        </div>
+        <div id="posts-list">
+            
+            <article class="post-preview" data-tags="maths,blog,quant">
+                <h3><a class="post-preview-title" href="/posts/math-for-quant-part-1.html">Beyond High School Probability: Unlocking Binomial, Gaussian, and More</a></h3>
+                <p class="post-meta">2025-06-11 | Tags: 
+                    
+                    <span class="tag">maths</span>
+                    , 
+                    
+                    <span class="tag">blog</span>
+                    , 
+                    
+                    <span class="tag">quant</span>
+                    
+                    
+                </p>
+                <p class="post-snippet"><p>High school curricula typically introduce basic probability concepts; however, probability theory applied in financial mathematics and statistics requires significantly advanced techniques. To enhance my understanding and proficiency, I will undertake an in-depth exploration of probability theory, encompassing distributions such as Binomial, Gaussian, and Poisson, as well as concepts including random...</p></p>
+            </article>
+            
+            <article class="post-preview" data-tags="maths,blog,AI">
+                <h3><a class="post-preview-title" href="/posts/predicting-student-dropout.html">Predicting Student Dropout Rates</a></h3>
+                <p class="post-meta">2025-06-04 | Tags: 
+                    
+                    <span class="tag">maths</span>
+                    , 
+                    
+                    <span class="tag">blog</span>
+                    , 
+                    
+                    <span class="tag">AI</span>
+                    
+                    
+                </p>
+                <p class="post-snippet"></p>
+            </article>
+            
+            <article class="post-preview" data-tags="python,blog,weather">
+                <h3><a class="post-preview-title" href="/posts/weather-ai-part-2.html">Forecasting Weather (Part 2): Fighting the Data</a></h3>
+                <p class="post-meta">2025-04-24 | Tags: 
+                    
+                    <span class="tag">python</span>
+                    , 
+                    
+                    <span class="tag">blog</span>
+                    , 
+                    
+                    <span class="tag">weather</span>
+                    
+                    
+                </p>
+                <p class="post-snippet"><p>Last time was a disaster&mdash;I realized I had naively thrown together some code without really knowing what I was doing. We were also missing the key variables, i.e., <strong>total precipitation (tp)</strong> and <strong>total cloud cover (tcc)</strong>. As I dug into the data, I hit a ton of errors and weird...</p></p>
+            </article>
+            
+            <article class="post-preview" data-tags="python,blog,weather">
+                <h3><a class="post-preview-title" href="/posts/weather-ai-part-1.html">Forecasting Weather (Part 1): Ideas &amp; Looking At The Data</a></h3>
+                <p class="post-meta">2025-04-10 | Tags: 
+                    
+                    <span class="tag">python</span>
+                    , 
+                    
+                    <span class="tag">blog</span>
+                    , 
+                    
+                    <span class="tag">weather</span>
+                    
+                    
+                </p>
+                <p class="post-snippet"><p>Ever wonder why the weather app says there's heavy rain today, while you're sitting under the burning sun? Me too. Apparently it's not as easy as one might imagine, what we have today is borderline magic. But still curiosity got the better of me, so I decided to start this...</p></p>
+            </article>
+            
+            <article class="post-preview" data-tags="python,blog">
+                <h3><a class="post-preview-title" href="/posts/hello-world.html">Hello World</a></h3>
+                <p class="post-meta">2025-04-01 | Tags: 
+                    
+                    <span class="tag">python</span>
+                    , 
+                    
+                    <span class="tag">blog</span>
+                    
+                    
+                </p>
+                <p class="post-snippet"></p>
+            </article>
+            
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filter = document.getElementById('tag-filter');
+    const posts = document.querySelectorAll('.post-preview');
+
+    filter.addEventListener('change', function() {
+        const selectedTag = this.value;
+        posts.forEach(post => {
+            const tags = post.getAttribute('data-tags').split(',');
+            if (selectedTag === 'all' || tags.includes(selectedTag)) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
 
         </main>
     </div>
